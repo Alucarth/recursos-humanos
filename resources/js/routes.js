@@ -1,6 +1,7 @@
 import Home from './views/Home';
 import Nav from './layout/Nav';
 import Toolbar from './layout/Toolbar';
+import Login from './views/auth/Login';
 export const routes= [
     {
         path: '/',
@@ -12,7 +13,13 @@ export const routes= [
         },
         meta: {
             requiresAuth: true
-        }
+        },
 
+
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
     },
 ];

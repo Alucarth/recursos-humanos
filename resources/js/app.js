@@ -15,7 +15,29 @@ import {storage} from './store_modules/storage';
 import {autentication} from './store_modules/autentication';
 window.Vue = require('vue');
 window.moment = require('moment');
-Vue.use(Vuetify);
+
+
+Vue.use(Vuetify, {
+    theme: {
+        light: {
+            background: '#cccccc',
+            primary: '#3f51b5',
+            secondary: '#b0bec5',
+            accent: '#8c9eff',
+            error: '#b71c1c'
+        },
+        dark: {
+        background: '#555555',
+        primary: '#3f51b5',
+        secondary: '#b0bec5',
+        accent: '#8c9eff',
+        error: '#b71c1c'
+      }
+    }
+  })
+
+
+
 Vue.use(VueRouter);
 Vue.use(Vuex)
 
