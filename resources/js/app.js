@@ -6,8 +6,33 @@
 
 require('./bootstrap');
 
+import Vuetify from 'vuetify'
+import VueRouter from 'vue-router'
+import Vuex from 'vuex'
+import App from './layout/App';
+import {routes} from './routes';
+import {storage} from './store_modules/storage';
+import {autentication} from './store_modules/autentication';
 window.Vue = require('vue');
+window.moment = require('moment');
+Vue.use(Vuetify);
+Vue.use(VueRouter);
+Vue.use(Vuex)
 
+Vue.prototype.$http = axios;
+
+
+const store = new Vuex.Store({
+    modules:{
+        template: storage,
+        auth: autentication,
+    }
+});
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -29,4 +54,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    components: { App },
+    router,
+    store,
 });
