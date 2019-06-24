@@ -2323,12 +2323,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      username: "",
+      usr_usuario: "",
       password: ""
     };
   },
@@ -2337,10 +2335,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log('enviando datos auth');
-      var username = this.username;
+      var usr_usuario = this.usr_usuario;
       var password = this.password;
       this.$store.dispatch('auth/login', {
-        username: username,
+        usr_usuario: usr_usuario,
         password: password
       }).then(function () {
         console.log("autenticado");
@@ -38027,7 +38025,7 @@ var render = function() {
                 [
                   _c(
                     "v-toolbar",
-                    { attrs: { light: "", color: "primary" } },
+                    { attrs: { dark: "", color: "red" } },
                     [_c("v-toolbar-title", [_vm._v("Recursos Humanos")])],
                     1
                   ),
@@ -38042,11 +38040,11 @@ var render = function() {
                           type: "text"
                         },
                         model: {
-                          value: _vm.username,
+                          value: _vm.usr_usuario,
                           callback: function($$v) {
-                            _vm.username = $$v
+                            _vm.usr_usuario = $$v
                           },
-                          expression: "username"
+                          expression: "usr_usuario"
                         }
                       }),
                       _vm._v(" "),
