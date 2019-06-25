@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChildrensTable extends Migration
+class CreateUnitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateChildrensTable extends Migration
      */
     public function up()
     {
-        Schema::create('childrens', function (Blueprint $table) {
+        Schema::create('unities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('managament_id')->unsigned();
+            $table->string('name'); //nombre de la unidad  que pertene a la gerencia
+            $table->foreign('management_id')->references('id')->on('managements');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateChildrensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('childrens');
+        Schema::dropIfExists('unities');
     }
 }

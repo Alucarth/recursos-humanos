@@ -15,6 +15,7 @@ class CreateContractModalitiesTable extends Migration
     {
         Schema::create('contract_modalities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->timestamps();
         });
     }

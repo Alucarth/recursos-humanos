@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAfpsTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateAfpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('afps', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');//nombre  del cargo
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateAfpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('afps');
+        Schema::dropIfExists('positions');
     }
 }
