@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnitiesTable extends Migration
+class CreateKinshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateUnitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('unities', function (Blueprint $table) {
+        Schema::create('kinships', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('managament_id')->unsigned();
-            $table->string('name'); //nombre de la unidad  que pertene a la gerencia
-            $table->foreign('managament_id')->references('id')->on('managements');
+            $table->string('name'); //tipo de parentesco  hijo hija Tio Abuelo
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateUnitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unities');
+        Schema::dropIfExists('kinships');
     }
 }

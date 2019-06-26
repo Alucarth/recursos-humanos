@@ -15,12 +15,16 @@ class CreateFamiliesTable extends Migration
     {
         Schema::create('families', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('employee_id')->unsigned(); // id del empeleado
+            $table->bigInteger('kinship_id')->unsigned();
             $table->string('first_name'); //primer nombre
             $table->string('second_name'); //segundo nombre
             $table->string('last_name'); //apellido paterno
             $table->string('mother_last_name'); //apellido materno
             $table->string('surname_husband')->nullable(); //apellido casada
             $table->boolean('disability')->default(false); // discapacidad
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('kinship_id')->references('id')->on('kinships');
             $table->timestamps();
         });
     }
