@@ -20,32 +20,35 @@ class CreateEmployeesTable extends Migration
             $table->bigInteger('country_id')->unsigned(); //identificación del ci
             $table->bigInteger('contract_type_id')->unsigned(); //tipo de contrato
             $table->bigInteger('contract_modality_id')->unsigned(); //tipo de contrato
-            $table->bigInteger('area_id')->unsigned();
+            $table->bigInteger('management_id')->unsigned()->nullable();
+            $table->bigInteger('unit_id')->unsigned()->nullable();
+            $table->bigInteger('position_id')->unsigned()->nullable();
+            $table->bigInteger('area_id')->unsigned()->nullable();
             $table->bigInteger('healh_box_id')->unsigned();
             $table->string('first_name'); //primer nombre
-            $table->string('second_name'); //segundo nombre
+            $table->string('second_name')->nullable(); //segundo nombre
             $table->string('last_name'); //apellido paterno
-            $table->string('mother_last_name'); //apellido materno
+            $table->string('mother_last_name')->nullable(); //apellido materno
             $table->string('surname_husband')->nullable(); //apellido casada
-            $table->date('birth_date'); //fecha de nacimiento
+            $table->date('birth_date')->nullable(); //fecha de nacimiento
             $table->integer('identity_card'); //carnet de identidad
-            $table->enum('gender', ['M', 'F']); // genero
+            $table->enum('gender', ['M', 'F'])->nullable(); // genero
             $table->boolean('disability')->default(false); // discapacidad
             $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable(); //estado civil
             $table->string('tutor')->nullable(); // en caso de tener discapacidad
-            $table->date('entry_date');
-            $table->date('retirement_date');
-            $table->string('reason');
+            $table->date('entry_date')->nullable();
+            $table->date('retirement_date')->nullable();
+            $table->string('reason')->nullable();
             $table->boolean('retired')->default(false);//jubilado
             //contribution_id
-            $table->string('cua_nua');
-            $table->string('profession');
-            $table->string('address');
-            $table->integer('phone');
-            $table->string('cellphone');
+            $table->string('cua_nua')->nullable();
+            $table->string('profession')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('cellphone')->nullable();
             $table->boolean('curriculum')->default(false);
             $table->string('path_curriculum')->nullable();
-            $table->decimal('salary',13,12);
+            $table->decimal('salary',13,12)->nullable();
             $table->bigInteger('biometric_code')->nullable();
 
             $table->foreign('city_identity_card_id')->references('id')->on('cities'); //identificación del ci
@@ -53,7 +56,10 @@ class CreateEmployeesTable extends Migration
             $table->foreign('country_id')->references('id')->on('countries'); //pais
             $table->foreign('contract_type_id')->references('id')->on('contract_types'); //tipo decontrato
             $table->foreign('contract_modality_id')->references('id')->on('contract_modalities'); //tipo decontrato
+            $table->foreign('management_id')->references('id')->on('managements'); //tipo decontrato
+            $table->foreign('unit_id')->references('id')->on('unities'); //tipo decontrato
             $table->foreign('area_id')->references('id')->on('areas'); //tipo decontrato
+            $table->foreign('position_id')->references('id')->on('positions'); //tipo decontrato
             $table->foreign('healh_box_id')->references('id')->on('health_boxes');
             // $table->date('birth_date');
 
