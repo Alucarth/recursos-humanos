@@ -1,0 +1,118 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class PositionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+        $positions = [
+            ["name" =>"Responsable de Normas y Calidad"],
+            ["name" =>"Responsable de Calidad y Normas"],
+            ["name" =>"Responsable de Planificacion"],
+            ["name" =>"Profesional en Planificacion"],
+            ["name" =>"Responsable de Sistemas"],
+            ["name" =>"Encargado de seguridad Informatica"],
+            ["name" =>"Encargado de Soporte Tecnico"],
+            ["name" =>"Tecnico - Soporte"],
+            ["name" =>"Encargada de Desarrollo"],
+            ["name" =>"Profesional Desarrollador"],
+            ["name" =>"Tecnico Desarrollador I"],
+            ["name" =>"Tecnico Desarrollador "],
+            ["name" =>"Tecnico Desarrollador II"],
+            ["name" =>"Asesor de Comunicación"],
+            ["name" =>"Profesional V Responsable  de Logistica e Insumos"],
+            ["name" =>"Diseñador Grafico"],
+            ["name" =>"Profesional en Comunicación"],
+            ["name" =>"Monitoreo y Redaccion"],
+            ["name" =>"Profesional Responsable Social Empresarial"],
+            ["name" =>"Responsable de Recursos Humanos"],
+            ["name" =>"Aux. Administrativo Recursos Humanos"],
+            ["name" =>"Jefa de Contrataciones"],
+            ["name" =>"Tecnico en Contrataciones"],
+            ["name" =>"Tecnico en Contrataciones IV"],
+            ["name" =>"Tecnico en Contrataciones II"],
+            ["name" =>"Tecnico en Contrataciones III"],
+            ["name" =>"Responsable de Contrataciones"],
+            ["name" =>"Tecnico en Cobranzas"],
+            ["name" =>"Responsable de Importaciones"],
+            ["name" =>"Auxiliar Archivo Central La Paz"],
+            ["name" =>"Auxiliar Ventanilla Unica"],
+            ["name" =>"Mensajeria"],
+            ["name" =>"Profesional Analista Financiera"],
+            ["name" =>"Analisis de Costo Operativo"],
+            ["name" =>"Auxiliar Asistente de Bibliotecología"],
+            ["name" =>"Responsable de Arcivo"],
+            ["name" =>"Auxiliar de Archivo"],
+            ["name" =>"Gerente de Produccion Lacteos"],
+            ["name" =>"Asistente Administrativo"],
+            ["name" =>"Jefe de Gestion de Produccion Lacteos "],
+            ["name" =>"Jefe de Produccion Lacteos"],
+            ["name" =>"Tecnico Produccion Lacteos "],
+            ["name" =>"Tecnico en Aprovsionamiento"],
+            ["name" =>"Auxiliar I en  Aprovisionamiento"],
+            ["name" =>"Jefe de Mantenimiento "],
+            ["name" =>"Auxiliar de Mantenimiento II"],
+            ["name" =>"Profesional en gestion de calidad"],
+            ["name" =>"Tecnico en Calidad"],
+            ["name" =>"Tecnico en Calidad I"],
+            ["name" =>"Tecnico SYSO y Medio Ambiente"],
+            ["name" =>"Tecnico en Control de Almacenes Producto Terminado"],
+            ["name" =>"Tecnico en Microbiologia"],
+            ["name" =>"Coordinador General"],
+            ["name" =>"Jefe de Servisios Alimenticios"],
+            ["name" =>"Abogada Coordinación General"],
+            ["name" =>"Responsable ACE Nacional"],
+            ["name" =>"Analista Financiera"],
+            ["name" =>"Encargado legal de ACE La Paz"],
+            ["name" =>"Soporte Administrativo y Logistica"],
+            ["name" =>"Encargada de Logistica"],
+            ["name" =>"Responsable de Procesos de Gestion"],
+            ["name" =>"Asesora Legal"],
+            ["name" =>"Asistente "],
+            ["name" =>"Responsable de Contratos"],
+            ["name" =>"Abogada "],
+            ["name" =>"Procurador "],
+            ["name" =>"Abogado "],
+            ["name" =>"Jefe de Auditoria Interna"],
+            ["name" =>"Supervisora de Auditoria Interna"],
+            ["name" =>"Auditor Interno"],
+            ["name" =>"Auxiliar VII "],
+            ["name" =>"Gerente de Produccion de Endulzantes y Frutas"],
+            ["name" =>"Auxiliar III - Administrativo"],
+            ["name" =>"Encargada Comercial Endulzantes"],
+            ["name" =>"Apoyo Administrativo"],
+            ["name" =>"Encargada de Seguimiento al Procesamiento de Frutas"],
+            ["name" =>"Seguimiento y Control de Produccion Primaria"],
+            ["name" =>"Responsable de Escuela Apicola y desarrollo de Productos"],
+            ["name" =>"Responsable de Sistema de Gestion"],
+            ["name" =>"Tecnico en Apoyo Apicola en Acopio y Produccion"],
+            ["name" =>"Responsable de Seguimiento y Control de Produccion Primaria"],
+            ["name" =>"Responsable de Sistema de Informacion y Control de Cartera"],
+            ["name" =>"Responsable de Seguimiento y Monitoreo"],
+            ["name" =>"Responsable de Procesamiento y Produccion"],
+            ["name" =>"Encargado de Seguimiento al Procesamiento de Endulzantes"],
+            ["name" =>"Auxiliar Administrativo I"],
+            ["name" =>"Gerente Ejecutivo"],
+            ["name" =>"Secretaria de Gerencia"],
+            ["name" =>"Auxiliar de Mensajeria"],
+            ["name" =>"Jefe de Seguridad"],
+            ["name" =>"Chofer"],
+            ["name" =>"Tecnico en recursos Humanos"],
+            ["name" =>"Auxiliar Administrativo"],
+            ["name" =>"Auxiliar de Contrataciones"],
+            ["name" =>"Abogado"],
+            ["name" =>"Auditora Interno"],
+        ];
+
+        foreach ($positions as $position) {
+            App\Position::create($position);
+        }
+    }
+}

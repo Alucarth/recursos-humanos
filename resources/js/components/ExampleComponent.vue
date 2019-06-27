@@ -18,6 +18,10 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+            let array =[];
+            array.forEach(element => {
+
+            });
         }
     }
 </script>
