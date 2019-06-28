@@ -16,22 +16,22 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('city_identity_card_id')->unsigned(); //identificación del ci
-            $table->bigInteger('document_type_id')->unsigned(); //identificación del ci
-            $table->bigInteger('country_id')->unsigned(); //identificación del ci
-            $table->bigInteger('contract_type_id')->unsigned(); //tipo de contrato
-            $table->bigInteger('contract_modality_id')->unsigned(); //tipo de contrato
+            $table->bigInteger('document_type_id')->unsigned()->nullable(); //identificación del ci
+            $table->bigInteger('country_id')->unsigned()->nullable(); //identificación del ci
+            $table->bigInteger('contract_type_id')->unsigned()->nullable(); //tipo de contrato
+            $table->bigInteger('contract_modality_id')->unsigned()->nullable(); //tipo de contrato
             $table->bigInteger('management_id')->unsigned()->nullable();
             $table->bigInteger('unit_id')->unsigned()->nullable();
             $table->bigInteger('position_id')->unsigned()->nullable();
             $table->bigInteger('area_id')->unsigned()->nullable();
-            $table->bigInteger('healh_box_id')->unsigned();
+            $table->bigInteger('healh_box_id')->unsigned()->nullable();
             $table->string('first_name'); //primer nombre
             $table->string('second_name')->nullable(); //segundo nombre
             $table->string('last_name'); //apellido paterno
             $table->string('mother_last_name')->nullable(); //apellido materno
             $table->string('surname_husband')->nullable(); //apellido casada
             $table->date('birth_date')->nullable(); //fecha de nacimiento
-            $table->integer('identity_card'); //carnet de identidad
+            $table->string('identity_card'); //carnet de identidad
             $table->enum('gender', ['M', 'F'])->nullable(); // genero
             $table->boolean('disability')->default(false); // discapacidad
             $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable(); //estado civil
