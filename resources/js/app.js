@@ -7,15 +7,22 @@
 require('./bootstrap');
 
 import Vuetify from 'vuetify'
-import VueRouter from 'vue-router'
-import Vuex from 'vuex'
-import App from './layout/App';
-import {routes} from './routes';
-import {storage} from './store_modules/storage';
-import {autentication} from './store_modules/autentication';
+// import VueRouter from 'vue-router'
 window.Vue = require('vue');
+
+import router from './router';
+import Vuex from 'vuex'
+import App from './views/App';
+import { setupComponents } from './config/setup-components';
+//import {routes} from './routes';
+// import {stoage} from './store_modules/storage';
+// import {autentication} from './store_modules/autentication';
+import swatches from 'vue-swatches';
+import "vue-swatches/dist/vue-swatches.min.css"
+Vue.component('swatches', swatches);
 window.moment = require('moment');
 
+setupComponents(Vue);
 
 Vue.use(Vuetify, {
     theme: {
@@ -38,23 +45,22 @@ Vue.use(Vuetify, {
 
 
 
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
 Vue.use(Vuex)
 
 Vue.prototype.$http = axios;
 
 
-const store = new Vuex.Store({
-    modules:{
-        template: storage,
-        auth: autentication,
-    }
-});
+// const store = new Vuex.Store({
+//     modules:{
+//         template: storage,
+//         auth: autentication,
+//     }
+// });
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: routes
-});
+// const router = new VueRouter({
+//     mode: 'history',
+// });
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -78,5 +84,9 @@ const app = new Vue({
     el: '#app',
     components: { App },
     router,
-    store,
+    data: {
+        themeColor: '#1D2939',
+        userEmail: 'admin@yopmail.com',
+        userPassword: '123456'
+    }
 });

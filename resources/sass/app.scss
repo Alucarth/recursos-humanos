@@ -15,3 +15,12 @@
 // vuetify
 @import '~vuetify/dist/vuetify.min.css';
 @import '~sweetalert2/src/sweetalert2.scss';
+
+//@import '~bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap';
+
+html,
+body {
+  font-weight: 500;
+  font-size: 15px;
+}
