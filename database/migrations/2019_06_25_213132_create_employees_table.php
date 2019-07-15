@@ -40,6 +40,7 @@ class CreateEmployeesTable extends Migration
             $table->date('retirement_date')->nullable();
             $table->string('reason')->nullable();
             $table->boolean('retired')->default(false);//jubilado
+            $table->string('employee_image_path')->nullable();
             //contribution_id
             $table->string('cua_nua')->nullable();
             $table->string('profession')->nullable();
