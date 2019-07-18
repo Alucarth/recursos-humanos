@@ -17,11 +17,12 @@ class ManagementSeeder extends Seeder
             ['name' => 'GERENCIA DE PLANIFICACION Y DESARROLLO'],
             ['name' => 'GERENCIA ADMINISTRATIVA FINANCIERA'],
             ['name' => 'GERENCIA DE PRODUCCION DE LACTEOS'],
-            ['name' => 'COORDINACIÓN GENERAl'],
+            ['name' => 'COORDINACIÓN GENERAl'],//5
             ['name' => 'AREA LEGAL'],
             ['name' => 'AUDITORIA INTERNA'],
             ['name' => 'GERENCIA DE PRODUCCION DE ENDULZANTES Y FRUTAS'],
             ['name' => 'GERENCIA EJECUTIVA'],
+            ['name' => 'GERENCIA COMERCIAL'],
         ];
         foreach ($managements as $magament) {
             # code...

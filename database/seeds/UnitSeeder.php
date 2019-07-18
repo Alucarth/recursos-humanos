@@ -25,12 +25,11 @@ class UnitSeeder extends Seeder
             ['name' => 'TESORERIA','managament_id'=>3],
             ['name' => 'CONTABILIDAD','managament_id'=>3],//10
             ['name' => 'RECURSOS HUMANOS','managament_id'=>3],
-            ['name' => 'PRESUPUESTOS','managament_id'=>3],
             ['name' => 'CONTRATACIONES','managament_id'=>3],
             ['name' => 'FINANCIERA','managament_id'=>3],
-            ['name' => 'ARCHIVO VILLA FATIMA','managament_id'=>3],//15
+            ['name' => 'ARCHIVO VILLA FATIMA','managament_id'=>3],
 
-            ['name' => 'PRODUCCION','managament_id'=>4],
+            ['name' => 'PRODUCCION','managament_id'=>4],//15
             ['name' => 'APROVISIONAMIENTO','managament_id'=>4],
             ['name' => 'MANTENIMIENTO','managament_id'=>4],
             ['name' => 'CALIDAD','managament_id'=>4],
