@@ -120,7 +120,7 @@ class EmployeeSeeder extends Seeder
             ["last_name"=>"ZEBALLOS","mother_last_name"=>"AVENDAÑO","first_name"=>"LUDMILA","second_name"=>"","ci"=>"3481658 ","ext"=>"LP","cargo"=>"RESPONSABLE DE ARCHIVO","management_id"=>3,"unit_id"=>14],
             ["last_name"=>"PECA","mother_last_name"=>"VARGAS","first_name"=>"AZUCENA","second_name"=>"XIMENA","ci"=>"4944857","ext"=>"LP","cargo"=>"AUXILIAR DE ARCHIVO","management_id"=>3,"unit_id"=>14],
 
-            ["last_name"=>"FERNÁNDEZ","mother_last_name"=>"MENESES","first_name"=>"OSCAR","second_name"=>"HUGO","ci"=>"3441600","ext"=>"LP","cargo"=>" GERENTE DE PRODUCCIÓN LÁCTEOS","management_id"=>4],
+            ["last_name"=>"FERNÁNDEZ","mother_last_name"=>"MENESES","first_name"=>"OSCAR","second_name"=>"HUGO","ci"=>"3441600","ext"=>"LP","cargo"=>"GERENTE DE PRODUCCIÓN LÁCTEOS","management_id"=>4],
             ["last_name"=>"TRONCOSO","mother_last_name"=>"ACEVEDO","first_name"=>"TIMNA","second_name"=>"ASBEL","ci"=>"5945187","ext"=>"LP","cargo"=>"ASISTENTE ADMINISTRATIVO","management_id"=>4],
 
             ["last_name"=>"MARTINIC","mother_last_name"=>"VÁSQUEZ","first_name"=>"GUSTAVO","second_name"=>"EDUARDO","ci"=>"3416692","ext"=>"LP","cargo"=>"JEFE DE GESTIÓN DE PRODUCCIÓN LÁCTEOS","management_id"=>4,"unit_id"=>15],
@@ -195,7 +195,7 @@ class EmployeeSeeder extends Seeder
             ["last_name"=>"VALDES","mother_last_name"=>"DURAN","first_name"=>"MARCOS","second_name"=>"RENE","ci"=>"4914410","ext"=>"LP","cargo"=>"AUXILIAR ADMINISTRATIVO I","management_id"=>8],
 
             ["last_name"=>"FREIRE","mother_last_name"=>"BUSTOS","first_name"=>"JAVIER","second_name"=>"DANTE","ci"=>"2714446","ext"=>"LP","cargo"=>"GERENTE EJECUTIVO","management_id"=>9],
-            ["last_name"=>"TROCHE","mother_last_name"=>"MÁRQUEZ","first_name"=>"JACQUELINE","second_name"=>"DEL CARMEN","ci"=>"4275974","ext"=>"LP","cargo"=>"SRETARIA DE GERENCIA","management_id"=>9],
+            ["last_name"=>"TROCHE","mother_last_name"=>"MÁRQUEZ","first_name"=>"JACQUELINE","second_name"=>"DEL CARMEN","ci"=>"4275974","ext"=>"LP","cargo"=>"SECRETARIA DE GERENCIA","management_id"=>9],
             ["last_name"=>"CUSICANQUI","mother_last_name"=>"MARCA","first_name"=>"MARCOS","second_name"=>"","ci"=>"8413349","ext"=>"LP","cargo"=>"AUXILIAR DE MENSAJERÍA","management_id"=>9],
             ["last_name"=>"CANDIA","mother_last_name"=>"ROJAS","first_name"=>"VICENTE","second_name"=>"MARCELO","ci"=>"4774522","ext"=>"LP","cargo"=>"JEFE DE SEGURIDAD","management_id"=>9],
             ["last_name"=>"CHINO","mother_last_name"=>"QUISPE","first_name"=>"SAUL","second_name"=>"","ci"=>"4933310","ext"=>"LP","cargo"=>"CHOFER","management_id"=>9],
@@ -252,7 +252,7 @@ class EmployeeSeeder extends Seeder
 
             }else
             {
-                Log::error("no se encontro el cargo..".$item->cargo);
+                Log::error("no se encontro el cargo..".$item->cargo."_");
             }
             if(isset($item->unit_id))
             {
