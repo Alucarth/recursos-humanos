@@ -7,15 +7,17 @@
 require('./bootstrap');
 
 import Vuetify from 'vuetify'
-// import VueRouter from 'vue-router'
+import VueRouter from 'vue-router'
 window.Vue = require('vue');
 
-import router from './router';
-import Vuex from 'vuex'
+// import {routes} from './router';
+import Vuex from 'vuex';
 import App from './views/App';
 import { setupComponents } from './config/setup-components';
-//import {routes} from './routes';
-// import {stoage} from './store_modules/storage';
+
+// console.log(routes);
+import {routes} from './routes';
+import {storage} from './store_modules/storage';
 // import {autentication} from './store_modules/autentication';
 import swatches from 'vue-swatches';
 import "vue-swatches/dist/vue-swatches.min.css"
@@ -45,22 +47,25 @@ Vue.use(Vuetify, {
 
 
 
-// Vue.use(VueRouter);
+Vue.use(VueRouter);
 Vue.use(Vuex)
 
 Vue.prototype.$http = axios;
 
 
-// const store = new Vuex.Store({
-//     modules:{
-//         template: storage,
-//         auth: autentication,
-//     }
-// });
 
-// const router = new VueRouter({
-//     mode: 'history',
-// });
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
+
+const store = new Vuex.Store({
+    modules:{
+        template: storage,
+        // auth: autentication,
+        // dconfirm: confirm,
+    }
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -72,7 +77,7 @@ Vue.prototype.$http = axios;
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -84,9 +89,10 @@ const app = new Vue({
     el: '#app',
     components: { App },
     router,
+    store,
     data: {
         themeColor: '#1D2939',
-        userEmail: 'admin@yopmail.com',
+        userEmail: 'ltorrezs2008@gmail.com',
         userPassword: '123456'
     }
 });

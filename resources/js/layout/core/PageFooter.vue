@@ -1,6 +1,6 @@
 <template>
   <v-footer height="auto" dark>
-    <v-card
+    <!-- <v-card
       flat
       tile
       :color="$root.themeColor"
@@ -24,7 +24,7 @@
       <v-card-text class="white--text">
         &copy;2018 — <strong>Vuetify</strong>
       </v-card-text>
-    </v-card>
+    </v-card> -->
   </v-footer>
 </template>
 
