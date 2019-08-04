@@ -1494,7 +1494,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1825,28 +1825,6 @@ module.exports = {
   extend: extend,
   trim: trim
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer (obj) {
-  return obj != null && obj.constructor != null &&
-    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
 
 
 /***/ }),
@@ -3474,6 +3452,16 @@ __webpack_require__.r(__webpack_exports__);
         }
       }]
     };
+  },
+  computed: {
+    drawer: {
+      get: function get() {
+        return this.$store.state.template.drawer;
+      },
+      set: function set(value) {
+        this.$store.commit('template/updateDrawer', value);
+      }
+    }
   },
   methods: {
     toggleNavigationBar: function toggleNavigationBar() {
@@ -8312,6 +8300,28 @@ function toComment(sourceMap) {
 	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
 	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-buffer/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -59182,11 +59192,11 @@ var render = function() {
     {
       attrs: { fixed: "", app: "" },
       model: {
-        value: _vm.toggle,
+        value: _vm.drawer,
         callback: function($$v) {
-          _vm.toggle = $$v
+          _vm.drawer = $$v
         },
-        expression: "toggle"
+        expression: "drawer"
       }
     },
     [
@@ -59319,7 +59329,15 @@ var render = function() {
     [
       _c(
         "v-toolbar-title",
-        [_c("v-toolbar-side-icon", { on: { click: _vm.toggleNavigationBar } })],
+        [
+          _c("v-toolbar-side-icon", {
+            on: {
+              click: function($event) {
+                _vm.drawer = !_vm.drawer
+              }
+            }
+          })
+        ],
         1
       ),
       _vm._v(" "),
@@ -59715,118 +59733,6 @@ var render = function() {
                   _c("v-icon", { attrs: { medium: "" } }, [
                     _vm._v("notifications")
                   ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card",
-            { staticClass: "elevation-0" },
-            [
-              _c(
-                "v-toolbar",
-                { attrs: { card: "", dense: "", color: "transparent" } },
-                [
-                  _c("v-toolbar-title", [
-                    _c("h5", [
-                      _vm._v(
-                        "You have " +
-                          _vm._s(_vm.notifications.length) +
-                          " new notification(s)"
-                      )
-                    ])
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-text",
-                { staticClass: "pa-0" },
-                [
-                  _c(
-                    "v-list",
-                    { staticClass: "pa-0", attrs: { "two-line": "" } },
-                    [
-                      _vm._l(_vm.notifications, function(item, index) {
-                        return [
-                          _c("v-divider", { key: index }),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile",
-                            {
-                              key: item.title,
-                              attrs: { avatar: "" },
-                              on: {
-                                click: function($event) {
-                                  if (
-                                    !$event.type.indexOf("key") &&
-                                    _vm._k(
-                                      $event.keyCode,
-                                      "parent",
-                                      undefined,
-                                      $event.key,
-                                      undefined
-                                    )
-                                  ) {
-                                    return null
-                                  }
-                                  return item.onClick($event)
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "v-list-tile-avatar",
-                                { attrs: { color: item.color } },
-                                [
-                                  _c("v-icon", { attrs: { dark: "" } }, [
-                                    _vm._v(_vm._s(item.icon))
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-tile-content",
-                                [
-                                  _c("v-list-tile-sub-title", {
-                                    domProps: { innerHTML: _vm._s(item.title) }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-tile-action",
-                                { staticClass: "caption" },
-                                [
-                                  _vm._v(
-                                    "\n            " +
-                                      _vm._s(item.actionAt) +
-                                      "\n          "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ]
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c("v-divider"),
-                  _vm._v(" "),
-                  false
-                    ? undefined
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("v-divider")
                 ],
                 1
               )

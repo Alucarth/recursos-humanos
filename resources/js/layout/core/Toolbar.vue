@@ -4,7 +4,7 @@
     app
     :color="$root.themeColor">
     <v-toolbar-title>
-      <v-toolbar-side-icon @click="toggleNavigationBar"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="drawer=!drawer"></v-toolbar-side-icon>
     </v-toolbar-title>
     <v-text-field
       flat
@@ -155,7 +155,7 @@
         </v-badge>
       </v-btn>
 
-      <v-card class="elevation-0">
+      <!-- <v-card class="elevation-0">
         <v-toolbar card dense color="transparent">
           <v-toolbar-title><h5>You have {{ notifications.length }} new notification(s)</h5></v-toolbar-title>
         </v-toolbar>
@@ -180,7 +180,7 @@
           <v-btn block flat v-if="false">See all notifications</v-btn>
           <v-divider></v-divider>
         </v-card-text>
-      </v-card>
+      </v-card> -->
     </v-menu>
 
     <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
@@ -296,6 +296,16 @@ export default {
         }
       ]
     }
+  },
+  computed:{
+    drawer:{
+          get(){
+            return this.$store.state.template.drawer;
+          },
+          set(value){
+            this.$store.commit('template/updateDrawer',value);
+          }
+        },
   },
 
   methods: {

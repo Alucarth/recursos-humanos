@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    v-model="toggle"
+    v-model="drawer"
     fixed app>
     <v-toolbar flat dark :color="$root.themeColor" class="toolbar">
       <router-link to="/">
