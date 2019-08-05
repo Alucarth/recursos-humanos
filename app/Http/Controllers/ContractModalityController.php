@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\ContractModality;
 class ContractModalityController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class ContractModalityController extends Controller
     public function index()
     {
         //
+        $contract_modalities = ContractModality::all();
+        return response()->json($contract_modalities);
     }
 
     /**

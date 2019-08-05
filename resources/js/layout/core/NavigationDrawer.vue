@@ -29,9 +29,23 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
-
-
-
+        <v-list-group prepend-icon="folder_shared">
+            <template v-slot:activator>
+                <v-list-tile>
+                    <v-list-tile-title>RRHH</v-list-tile-title>
+                </v-list-tile>
+            </template>
+            <v-list-tile
+              v-for="(item, i) in rrhh_items"
+              :key="i"
+              :to="item.link"
+            >
+              <v-list-tile-action>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title v-text="item.text"></v-list-tile-title>
+            </v-list-tile>
+        </v-list-group>
 
     </v-list>
   </v-navigation-drawer>
@@ -58,9 +72,18 @@ export default {
             { icon: 'person', text: 'Informacion Personal' , link: '/inventory' },
             { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
-            { icon: 'calendar_today', text: 'Mis Asistencias', link: '/employee' },
-            { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
-            { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
+            { icon: 'calendar_today', text: 'Mis Asistencias', link: '/assitense' },
+            { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/tikets' },
+            { icon: 'av_timer', text: 'Mis Horarios', link: '/hours' },
+        ],
+        rrhh_items: [
+            // { icon: 'dashboard', text: 'Inicio' , link: '/' },
+            { icon: 'people', text: 'Funcionarios' , link: '/employee' },
+            { icon: 'assignment', text: 'Solicitudes', link: '/buyout' },
+            { icon: 'local_dining', text: 'Refrigerios', link: '/food' },
+            { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
+            // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
+            // { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
         ],
 
     }),

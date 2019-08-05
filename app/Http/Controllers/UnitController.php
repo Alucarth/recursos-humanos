@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Unity;
 class UnitController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class UnitController extends Controller
     public function index()
     {
         //
+        $unities = Unity::all();
+        return response()->json($unities);
     }
 
     /**

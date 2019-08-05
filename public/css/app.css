@@ -528,7 +528,6 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 
 .swal2-popup.swal2-toast .swal2-actions {
   flex-basis: auto !important;
-  width: auto;
   height: auto;
   margin: 0 0.3125em;
 }
@@ -639,8 +638,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   }
 
   100% {
-    -webkit-transform: translateY(0) rotateZ(0deg);
-            transform: translateY(0) rotateZ(0deg);
+    -webkit-transform: translateY(0) rotateZ(0);
+            transform: translateY(0) rotateZ(0);
   }
 }
 
@@ -661,8 +660,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   }
 
   100% {
-    -webkit-transform: translateY(0) rotateZ(0deg);
-            transform: translateY(0) rotateZ(0deg);
+    -webkit-transform: translateY(0) rotateZ(0);
+            transform: translateY(0) rotateZ(0);
   }
 }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\DocumentType;
 class DocumentTypeController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class DocumentTypeController extends Controller
     public function index()
     {
         //
+        $document_types = DocumentType::all();
+        return response()->json($document_types);
     }
 
     /**

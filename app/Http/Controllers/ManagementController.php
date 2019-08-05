@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Management;
 
 class ManagementController extends Controller
 {
@@ -14,6 +15,8 @@ class ManagementController extends Controller
     public function index()
     {
         //
+        $magements = Management::all();
+        return response()->json($magements);
     }
 
     /**

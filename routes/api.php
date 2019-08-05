@@ -20,11 +20,24 @@ use Illuminate\Http\Request;
 //     Route::get('/', 'HomeController@index')->name('home');
 // });
 Route::post('login', 'AuthController@login');
-Route::group(['prefix' => 'auth','middleware' => 'jwt.auth'], function ($router) {
+Route::group([
+            'prefix' => 'auth',
+            // 'middleware' => 'jwt.auth'
+        ], function ($router) {
 
     // Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+    Route::resource('employee', 'EmployeeController');
+    Route::resource('position', 'PositionController');
+    Route::resource('city', 'CityController');
+    Route::resource('country', 'CountryController');
+    Route::resource('document_type', 'DocumentTypeController');
+    Route::resource('contract_type', 'ContractTypeController');
+    Route::resource('contract_modality', 'ContractModalityController');
+    Route::resource('management', 'ManagementController');
+    Route::resource('unity', 'UnitController');
+
 
 });

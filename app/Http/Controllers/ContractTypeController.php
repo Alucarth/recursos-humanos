@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\ContractType;
 class ContractTypeController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class ContractTypeController extends Controller
     public function index()
     {
         //
+        $contract_types = ContractType::all();
+        return response()->json($contract_types);
     }
 
     /**

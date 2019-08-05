@@ -21,10 +21,14 @@ import {storage} from './store_modules/storage';
 // import {autentication} from './store_modules/autentication';
 import swatches from 'vue-swatches';
 import "vue-swatches/dist/vue-swatches.min.css"
+// import Datatable from 'vue2-datatable-component';
+
 Vue.component('swatches', swatches);
 window.moment = require('moment');
 
 setupComponents(Vue);
+
+// Vue.use(Datatable) // done!
 
 Vue.use(Vuetify, {
     theme: {
