@@ -36,12 +36,61 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->has("id"))
+        {
+            $employee = Employee::find($request->id);
+        }else {
+            $employee = new Employee;
+        }
+
+        $employee->first_name = $request->first_name;
+        $employee->second_name = $request->second_name;
+        $employee->last_name = $request->last_name;
+        $employee->mother_last_name = $request->mother_last_name;
+        $employee->biometric_code = $request->biometric_code;
+        $employee->identity_card = $request->identity_card;
+        $employee->birth_date = $request->birth_date;
+        $employee->cellphone = $request->cellphone;
+        $employee->city_identity_card_id = $request->city_identity_card_id;
+        // $employee->contract_type_id = $request->contract_type_id;
+        // $employee->civil_status = $request->civil_status;
+        // $employee->contract_modality_id = $request->contract_modality_id;
+        // $employee->contribution_id = $request->contribution_id;
+        $employee->country_id = $request->country_id;
+        // $employee->cua_nua = $request->cua_nua;
+        // $employee->disability = $request->disability;
+        // $employee->document_type_id = $request->document_type_id;
+        // $employee->entry_date = $request->entry_date;
+        // $employee->gender = $request->gender;
+        // $employee->management_id = $request->management_id;
+        // $employee->phone = $request->phone;
+        // $employee->position_id = $request->position_id;
+        // $employee->profession = $request->profession;
+        // $employee->reason = $request->reason;
+        // $employee->salary = $request->salary;
+        // $employee->tutor = $request->tutor;
+        // $employee->unit_id = $request->unit_id;
+
         if ($request->hasFile('curriculum_file')) {
             //
-            $file = "existe el archivo";
-            return response()->json(compact('file'));
+            $employee->path_curriculum = $request->file('curriculum_file')->store('public/curriculums');
         }
+
+        // if ($request->hasFile('image_file')) {
+        //     //
+        //     $employee->employee_image_path = $request->file('image_file')->store('public/employee_images');
+        // }
+
+        $employee->save();
+
+        //
+        // return $request->all();
+        // if ($request->hasFile('curriculum_file')) {
+        //     //
+        //     $file = "existe el archivo";
+        //     return response()->json(compact('file'));
+        // }
+        return $employee;
         return $request->all();
     }
 

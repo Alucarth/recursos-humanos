@@ -38,6 +38,17 @@
                         persistent-hint>
                         </v-select>
                     </v-flex>
+                    <v-flex xs12 sm12 md3>
+                        <v-select
+                        label="Tipo de Documento"
+                        v-model="item.document_type_id"
+                        :items="document_types"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-menu
                             ref="menu_birth_date"
@@ -69,7 +80,7 @@
                     <v-flex xs12 sm12 md3>
                         <v-select
                         label="Pais"
-                        v-model="item.country"
+                        v-model="item.country_id"
                         :items="countries"
                         item-text="name"
                         item-value="id"
@@ -89,7 +100,7 @@
                      <v-flex xs12 sm12 md3>
                         <v-select
                         label="AFP"
-                        v-model="item.contribution"
+                        v-model="item.contribution_id"
                         :items="contributions"
                         item-text="afp_name"
                         item-value="id"
@@ -122,12 +133,6 @@
 
                         </v-menu>
                     </v-flex>
-                    <v-flex xs6 sm6 md6>
-                        <v-text-field label="Profesion" hint="Ingrese Profesion" v-model="item.profession"></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 sm6 md6>
-                        <v-text-field label="Direccion" hint="Ingrese Direccion" v-model="item.address"></v-text-field>
-                    </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Telefono" hint="Ingrese Telefono" v-model="item.phone"></v-text-field>
                     </v-flex>
@@ -145,10 +150,18 @@
                             @change="onFilePicked"
                         >
                     </v-flex>
+                    <v-flex xs6 sm6 md6>
+                        <v-text-field label="Profesion" hint="Ingrese Profesion" v-model="item.profession"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md6>
+                        <v-text-field label="Direccion" hint="Ingrese Direccion" v-model="item.address"></v-text-field>
+                    </v-flex>
+
+
                     <v-flex xs12 sm12 md3>
                         <v-select
                         label="Modalidad Contrato"
-                        v-model="item.contract_modality"
+                        v-model="item.contract_modality_id"
                         :items="contract_modalities"
                         item-text="name"
                         item-value="id"
@@ -156,10 +169,10 @@
                         persistent-hint>
                         </v-select>
                     </v-flex>
-                    <v-flex xs12 sm12 md4>
+                    <v-flex xs12 sm12 md3>
                         <v-select
                         label="Tipo de Contrato"
-                        v-model="item.contract_type"
+                        v-model="item.contract_type_id"
                         :items="contract_types"
                         item-text="name"
                         item-value="id"
@@ -167,10 +180,10 @@
                         persistent-hint>
                         </v-select>
                     </v-flex>
-                    <v-flex xs12 sm12 md8>
+                    <v-flex xs12 sm12 md6>
                         <v-select
                         label="Gerencia"
-                        v-model="item.management"
+                        v-model="item.management_id"
                         :items="managements"
                         item-text="name"
                         item-value="id"
@@ -181,7 +194,7 @@
                     <v-flex xs12 sm12 md6>
                         <v-select
                         label="Unidad"
-                        v-model="item.unit"
+                        v-model="item.unit_id"
                         :items="unities"
                         item-text="name"
                         item-value="id"
@@ -377,7 +390,8 @@ export default
                     // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
                     // Read image as base64 and set to imageData
                     this.imageData = e.target.result;
-                    this.item.imageData = this.imageData;
+                    this.item.image_file =input.files[0];
+                    // this.item.imageData = this.imageData;
                     // console.log(this.imageData);
                 }
                 // Start the reader job - read file as a data url (base64 format)

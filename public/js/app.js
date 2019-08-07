@@ -3800,6 +3800,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: Boolean,
@@ -3905,7 +3918,8 @@ __webpack_require__.r(__webpack_exports__);
           // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
           // Read image as base64 and set to imageData
           _this2.imageData = e.target.result;
-          _this2.item.imageData = _this2.imageData; // console.log(this.imageData);
+          _this2.item.image_file = input.files[0]; // this.item.imageData = this.imageData;
+          // console.log(this.imageData);
         }; // Start the reader job - read file as a data url (base64 format)
 
 
@@ -4258,8 +4272,38 @@ __webpack_require__.r(__webpack_exports__);
       formData.set('first_name', item.first_name);
       formData.set('second_name', item.second_name);
       formData.set('last_name', item.last_name);
-      formData.set('second_last_name', item.second_last_name);
+      formData.set('mother_last_name', item.mother_last_name);
+      formData.set('biometric_code', item.biometric_code);
+      formData.set('identity_card', item.identity_card); // formData.set('identity_card_id',item.identity_card_id);
+
+      formData.set('birth_date', item.birth_date);
+      formData.set('cellphone', item.cellphone);
+      formData.set('city_identity_card_id', item.city_identity_card_id);
+      formData.set('contract_type_id', item.contract_type_id);
+      formData.set('civil_status', item.civil_status);
+      formData.set('contract_modality_id', item.contract_modality_id);
+      formData.set('contribution_id', item.contribution_id);
+      formData.set('country_id', item.country_id);
+      formData.set('cua_nua', item.cua_nua);
+      formData.set('disability', item.disability);
+      formData.set('document_type_id', item.document_type_id);
+      formData.set('entry_date', item.entry_date);
+      formData.set('gender', item.gender);
+      formData.set('management_id', item.management_id);
+      formData.set('phone', item.phone);
+      formData.set('position_id', item.position_id);
+      formData.set('profession', item.profession);
+      formData.set('reason', item.reason);
+      formData.set('salary', item.salary);
+      formData.set('tutor', item.tutor);
+      formData.set('unit_id', item.unit_id);
+
+      if (item.id) {
+        formData.set('id', item.id);
+      }
+
       formData.append("curriculum_file", item.curriculum_file);
+      formData.append("image_file", item.image_file);
       console.log(formData);
       axios.post('/api/auth/employee', formData, {
         headers: {
@@ -60588,6 +60632,31 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
+                            { attrs: { xs12: "", sm12: "", md3: "" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  label: "Tipo de Documento",
+                                  items: _vm.document_types,
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  hint: "",
+                                  "persistent-hint": ""
+                                },
+                                model: {
+                                  value: _vm.item.document_type_id,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.item, "document_type_id", $$v)
+                                  },
+                                  expression: "item.document_type_id"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
                             { attrs: { xs6: "", sm6: "", md3: "" } },
                             [
                               _c(
@@ -60693,11 +60762,11 @@ var render = function() {
                                   hint: "Seleccione Pais"
                                 },
                                 model: {
-                                  value: _vm.item.country,
+                                  value: _vm.item.country_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "country", $$v)
+                                    _vm.$set(_vm.item, "country_id", $$v)
                                   },
-                                  expression: "item.country"
+                                  expression: "item.country_id"
                                 }
                               })
                             ],
@@ -60739,11 +60808,11 @@ var render = function() {
                                   hint: "AFP"
                                 },
                                 model: {
-                                  value: _vm.item.contribution,
+                                  value: _vm.item.contribution_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "contribution", $$v)
+                                    _vm.$set(_vm.item, "contribution_id", $$v)
                                   },
-                                  expression: "item.contribution"
+                                  expression: "item.contribution_id"
                                 }
                               })
                             ],
@@ -60838,48 +60907,6 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs6: "", sm6: "", md6: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Profesion",
-                                  hint: "Ingrese Profesion"
-                                },
-                                model: {
-                                  value: _vm.item.profession,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "profession", $$v)
-                                  },
-                                  expression: "item.profession"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs6: "", sm6: "", md6: "" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Direccion",
-                                  hint: "Ingrese Direccion"
-                                },
-                                model: {
-                                  value: _vm.item.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.item, "address", $$v)
-                                  },
-                                  expression: "item.address"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
                             { attrs: { xs6: "", sm6: "", md3: "" } },
                             [
                               _c("v-text-field", {
@@ -60954,6 +60981,48 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
+                            { attrs: { xs6: "", sm6: "", md6: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Profesion",
+                                  hint: "Ingrese Profesion"
+                                },
+                                model: {
+                                  value: _vm.item.profession,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.item, "profession", $$v)
+                                  },
+                                  expression: "item.profession"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs6: "", sm6: "", md6: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Direccion",
+                                  hint: "Ingrese Direccion"
+                                },
+                                model: {
+                                  value: _vm.item.address,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.item, "address", $$v)
+                                  },
+                                  expression: "item.address"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
                             { attrs: { xs12: "", sm12: "", md3: "" } },
                             [
                               _c("v-select", {
@@ -60966,11 +61035,15 @@ var render = function() {
                                   "persistent-hint": ""
                                 },
                                 model: {
-                                  value: _vm.item.contract_modality,
+                                  value: _vm.item.contract_modality_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "contract_modality", $$v)
+                                    _vm.$set(
+                                      _vm.item,
+                                      "contract_modality_id",
+                                      $$v
+                                    )
                                   },
-                                  expression: "item.contract_modality"
+                                  expression: "item.contract_modality_id"
                                 }
                               })
                             ],
@@ -60979,7 +61052,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs12: "", sm12: "", md4: "" } },
+                            { attrs: { xs12: "", sm12: "", md3: "" } },
                             [
                               _c("v-select", {
                                 attrs: {
@@ -60991,11 +61064,11 @@ var render = function() {
                                   "persistent-hint": ""
                                 },
                                 model: {
-                                  value: _vm.item.contract_type,
+                                  value: _vm.item.contract_type_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "contract_type", $$v)
+                                    _vm.$set(_vm.item, "contract_type_id", $$v)
                                   },
-                                  expression: "item.contract_type"
+                                  expression: "item.contract_type_id"
                                 }
                               })
                             ],
@@ -61004,7 +61077,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs12: "", sm12: "", md8: "" } },
+                            { attrs: { xs12: "", sm12: "", md6: "" } },
                             [
                               _c("v-select", {
                                 attrs: {
@@ -61016,11 +61089,11 @@ var render = function() {
                                   "persistent-hint": ""
                                 },
                                 model: {
-                                  value: _vm.item.management,
+                                  value: _vm.item.management_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "management", $$v)
+                                    _vm.$set(_vm.item, "management_id", $$v)
                                   },
-                                  expression: "item.management"
+                                  expression: "item.management_id"
                                 }
                               })
                             ],
@@ -61041,11 +61114,11 @@ var render = function() {
                                   "persistent-hint": ""
                                 },
                                 model: {
-                                  value: _vm.item.unit,
+                                  value: _vm.item.unit_id,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.item, "unit", $$v)
+                                    _vm.$set(_vm.item, "unit_id", $$v)
                                   },
-                                  expression: "item.unit"
+                                  expression: "item.unit_id"
                                 }
                               })
                             ],
