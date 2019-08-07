@@ -38,6 +38,7 @@ Route::group([
     Route::resource('contract_modality', 'ContractModalityController');
     Route::resource('management', 'ManagementController');
     Route::resource('unity', 'UnitController');
+    Route::resource('contribution', 'ContributionController');
 
 
 });

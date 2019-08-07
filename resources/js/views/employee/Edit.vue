@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="700px">
+    <v-dialog v-model="dialog" persistent max-width="800px">
             <v-card>
             <v-card-title>
                 <span class="headline">{{ title }}</span>
@@ -77,7 +77,7 @@
                         >
                         </v-select>
                     </v-flex>
-                     <v-flex xs12 sm12 md4>
+                     <v-flex xs12 sm12 md3>
                         <v-select
                         label="Genero"
                         v-model="item.gender"
@@ -85,6 +85,20 @@
                         hint="`Descripcion del tipo seleccionado`"
                         >
                         </v-select>
+                    </v-flex>
+                     <v-flex xs12 sm12 md3>
+                        <v-select
+                        label="AFP"
+                        v-model="item.contribution"
+                        :items="contributions"
+                        item-text="afp_name"
+                        item-value="id"
+                        hint="AFP"
+                        >
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Nua/Cua" hint="Ingrese Nua Cua" v-model="item.cua_nua"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-menu
@@ -108,17 +122,74 @@
 
                         </v-menu>
                     </v-flex>
-                    <v-flex xs6 sm6 md2>
-                        <v-text-field label="Salario" hint="Ingrese total ganado" v-model="item.salary"></v-text-field>
+                    <v-flex xs6 sm6 md6>
+                        <v-text-field label="Profesion" hint="Ingrese Profesion" v-model="item.profession"></v-text-field>
                     </v-flex>
-                    <v-flex xs6 sm6 md2>
-                        <v-text-field label="Bono" hint="Ingrese bono" v-model="item.bonus"></v-text-field>
+                    <v-flex xs6 sm6 md6>
+                        <v-text-field label="Direccion" hint="Ingrese Direccion" v-model="item.address"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Hora extra" hint="Ingrese pago por hora extra" v-model="item.extra_hour"></v-text-field>
+                        <v-text-field label="Telefono" hint="Ingrese Telefono" v-model="item.phone"></v-text-field>
                     </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Celular" hint="Ingrese Celular" v-model="item.cellphone"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
 
+                        <v-text-field label="Curriculum" @click='pickFile' v-model="curriculum_name" prepend-icon='attach_file'></v-text-field>
+                        <input
+                            type="file"
+                            style="display: none"
+                            ref="curriculum"
+                            accept="application/vnd.ms-excel"
+                            @change="onFilePicked"
+                        >
+                    </v-flex>
+                    <v-flex xs12 sm12 md3>
+                        <v-select
+                        label="Modalidad Contrato"
+                        v-model="item.contract_modality"
+                        :items="contract_modalities"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
                     <v-flex xs12 sm12 md4>
+                        <v-select
+                        label="Tipo de Contrato"
+                        v-model="item.contract_type"
+                        :items="contract_types"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm12 md8>
+                        <v-select
+                        label="Gerencia"
+                        v-model="item.management"
+                        :items="managements"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm12 md6>
+                        <v-select
+                        label="Unidad"
+                        v-model="item.unit"
+                        :items="unities"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm12 md6>
                         <v-select
                         label="Cargo"
                         v-model="item.position_id"
@@ -129,56 +200,83 @@
                         persistent-hint>
                         </v-select>
                     </v-flex>
-                    <!-- <v-flex xs12 sm12 md4>
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Salario" hint="Ingrese total ganado" v-model="item.salary"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-switch v-model="item.disability" :label="`Discapasidad:${item.disability?'Si':'No'}`"></v-switch>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3 v-if="item.disability">
+                        <v-text-field label="Tutor" hint="Tutor del Descapacitado" v-model="item.tutor"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
                         <v-select
-                        label="Area Oficial"
-                        v-model="item.official_area_id"
-                        :items="areas"
+                        label="Estado Civil"
+                        v-model="item.civil_status"
+                        :items="civil_statuses"
                         item-text="name"
                         item-value="id"
-                        :hint="`Descripcion del tipo seleccionado`"
-                        persistent-hint>
+                        :hint="`Selecciones estado Civil`"
+                        >
                         </v-select>
                     </v-flex>
-                    <v-flex xs12 sm12 md4>
-                        <v-select
-                        label="Area Temporal"
-                        v-model="item.temporal_area_id"
-                        :items="areas"
-                        item-text="name"
-                        item-value="id"
-                        :hint="`Descripcion del tipo seleccionado`"
-                        persistent-hint>
-                        </v-select>
-                    </v-flex> -->
-                    <v-flex xs12 sm12 md5>
-                        <v-select
-                        label="Tipo"
-                        v-model="item.employee_type_id"
-                        :items="types"
-                        item-text="name"
-                        item-value="id"
-                        :hint="`Descripcion del tipo seleccionado`"
-                        persistent-hint>
-                        </v-select>
+                    <v-flex xs6 sm6 md3>
+                        <v-menu
+                            ref="menu2"
+                            :close-on-content-click="false"
+                            :nudge-right="40"
+                            :return-value.sync="date2"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            min-width="290px"
+                        >
+                            <v-text-field
+                            slot="activator"
+                            v-model="item.retirement_date"
+                            label="Fecha de Salida"
+                            readonly
+                            ></v-text-field>
+                            <v-date-picker v-model="item.retirement_date" @input="$refs.menu2.save(date2)"></v-date-picker>
+
+                        </v-menu>
                     </v-flex>
-                    <!-- <v-flex xs12 sm12 md5>
-                        <v-select
-                        label="Tipo de Contrato"
-                        v-model="item.employee_contract_type_id"
-                        :items="contract_types"
-                        item-text="name"
-                        item-value="id"
-                        :hint="`Descripcion del tipo de contrato`"
-                        persistent-hint>
-                        </v-select>
-                    </v-flex> -->
-                    <!-- <v-flex xs12 sm12 md2>
-                        <v-checkbox
-                        :label="`Activo`"
-                        v-model="item.active"
-                        ></v-checkbox>
-                    </v-flex> -->
+                     <v-flex xs6 sm6 md6 v-if="item.retirement_date">
+                        <v-text-field label="Motivo de Retiro" hint="" v-model="item.reason"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+
+                        <v-img
+                            :src="imageData"
+                            :lazy-src="imageData"
+                            aspect-ratio="1"
+                            class="grey lighten-2"
+                            >
+                            <template v-slot:placeholder>
+                                <v-layout
+                                fill-height
+                                align-center
+                                justify-center
+                                ma-0
+                                >
+                                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                                </v-layout>
+                            </template>
+                        </v-img>
+                        <v-btn @click="pickImage" >
+                            <v-icon>file_upload</v-icon>
+                            Subir Imagen
+                        </v-btn>
+                        <input
+                            type="file"
+                            style="display: none"
+                            ref="image"
+                            accept="image/*"
+                            @change="previewImage"
+                        >
+                    </v-flex>
+
                 </v-layout>
                 </v-container>
             </v-card-text>
@@ -210,12 +308,20 @@ export default
         document_types: [],
         managements: [],
         unities: [],
+        contributions: [],
+        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'}],
+        curriculum_name:'',
+        curriculum_file:'',
+        curriculum_url:'',
         genders:['Masculino','Femenino'],
         date: new Date().toISOString().substr(0, 10),
+        date2: new Date().toISOString().substr(0, 10),
         menu: false,
         menu_birth_date:false,
         modal: false,
         menu2: false,
+        imageData: ""
+
     }),
     mounted(){
         // this.getAreas();
@@ -228,9 +334,56 @@ export default
         this.getContractModalities();
         this.getManagements();
         this.getUnities();
+        this.getContributions();
 
     },
     methods:{
+        pickFile () {
+            this.$refs.curriculum.click ()
+        },
+        pickImage(){
+             this.$refs.image.click ()
+        },
+        onFilePicked (e) {
+            const files = e.target.files
+            console.log(files);
+			if(files[0] !== undefined) {
+				this.curriculum_name = files[0].name
+				if(this.curriculum_name.lastIndexOf('.') <= 0) {
+					return
+				}
+				const fr = new FileReader ()
+				fr.readAsDataURL(files[0])
+				fr.addEventListener('load', () => {
+					this.curriculum_url = fr.result
+                    this.curriculum_file = files[0] // this is an excel file that can be sent to server...
+                    this.item.curriculum_file = this.curriculum_file;
+				})
+			} else {
+				this.curriculum_name = ''
+				this.curriculum_file = ''
+				this.curriculum_url = ''
+			}
+        },
+        previewImage(event) {
+            // Reference to the DOM input element
+            var input = event.target;
+            // Ensure that you have a file before attempting to read it
+            if (input.files && input.files[0]) {
+                // create a new FileReader to read this image and convert to base64 format
+                var reader = new FileReader();
+                // Define a callback function to run, when FileReader finishes its job
+                reader.onload = (e) => {
+                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                    // Read image as base64 and set to imageData
+                    this.imageData = e.target.result;
+                    this.item.imageData = this.imageData;
+                    // console.log(this.imageData);
+                }
+                // Start the reader job - read file as a data url (base64 format)
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
         getPositions (){
             axios.get('/api/auth/position')
             .then(response => {
@@ -253,6 +406,15 @@ export default
             axios.get('/api/auth/country')
             .then(response => {
                 this.countries = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        getContributions (){
+            axios.get('/api/auth/contribution')
+            .then(response => {
+                this.contributions = response.data;
             })
             .catch(error => {
                 console.log(error);

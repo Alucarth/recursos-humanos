@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Contribution;
 class ContributionController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class ContributionController extends Controller
     public function index()
     {
         //
+        $contributions = Contribution::all();
+        return response()->json($contributions);
     }
 
     /**

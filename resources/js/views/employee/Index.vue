@@ -188,16 +188,28 @@ export default {
             this.dialog = true
         },
         update (item) {
-            console.log(item);
-            axios.post('/api/auth/employee', item)
+            console.log(item)
+            let formData = new FormData();
+            formData.set('first_name',item.first_name);
+            formData.set('second_name',item.second_name);
+            formData.set('last_name',item.last_name);
+            formData.set('second_last_name',item.second_last_name);
+            formData.append("curriculum_file", item.curriculum_file);
+            console.log(formData);
+            axios.post('/api/auth/employee', formData,{
+                            headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                    }
+                        })
                   .then(response => {
                         this.$store.dispatch('template/showMessage',{message:'Se Actualizó la lista de productos',color:'success'});
-                        this.search();
+                        console.log(response.data);
+                        // this.search();
                     })
                     .catch(function (error) {
                         this.$store.dispatch('template/showMessage',{message:error,color:'danger'});
                     });
-            this.dialog =false;
+            // this.dialog =false;
 
         },
         destroy (item) {

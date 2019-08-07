@@ -16,4 +16,8 @@ class Employee extends Model
     {
         return $this->belongsTo('App\City','city_identity_card_id');
     }
+    public function contribution()
+    {
+        return $this->belongsTo('App\Contribution');
+    }
 }

@@ -14,7 +14,7 @@ class EmployeeController extends Controller
     public function index()
     {
         //
-        $employees = Employee::with('position','city_identity_card')->get();
+        $employees = Employee::with('position','city_identity_card','contribution')->get();
         return response()->json($employees);
     }
 
@@ -37,6 +37,12 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
+        if ($request->hasFile('curriculum_file')) {
+            //
+            $file = "existe el archivo";
+            return response()->json(compact('file'));
+        }
+        return $request->all();
     }
 
     /**
