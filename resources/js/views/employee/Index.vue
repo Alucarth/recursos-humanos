@@ -217,6 +217,7 @@ export default {
             formData.set('reason',item.reason);
             formData.set('salary',item.salary);
             formData.set('tutor',item.tutor);
+            formData.set('retirement_date',item.retirement_date);
             formData.set('unit_id',item.unit_id);
             if(item.id)
             {
@@ -232,14 +233,25 @@ export default {
                                     }
                         })
                   .then(response => {
-                        this.$store.dispatch('template/showMessage',{message:'Se Actualizó la lista de productos',color:'success'});
+                        //this.$store.dispatch('template/showMessage',{message:'Se Actualizó la lista de productos',color:'success'});
+                        iziToast.success({
+                            title: 'OK',
+                            message: 'Se Actualizaron los datos del empleado!',
+                        });
+
                         console.log(response.data);
                         // this.search();
                     })
                     .catch(function (error) {
-                        this.$store.dispatch('template/showMessage',{message:error,color:'danger'});
+                        //this.$store.dispatch('template/showMessage',{message:error,color:'danger'});
+
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'No se pudo registrar, error contactase con el ',
+                        });
+
                     });
-            // this.dialog =false;
+            this.dialog =false;
 
         },
         destroy (item) {

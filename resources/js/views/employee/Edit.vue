@@ -2,11 +2,12 @@
     <v-dialog v-model="dialog" persistent max-width="800px">
             <v-card>
             <v-card-title>
-                <span class="headline">{{ title }}</span>
+                <span class="headline">{{ title }} </span>
             </v-card-title>
 
             <v-card-text v-if="item">
                 <v-container grid-list-md>
+                    {{item.employee}}
                  <v-layout wrap>
 
                     <v-flex xs6 sm6 md3>
@@ -94,6 +95,8 @@
                         v-model="item.gender"
                         :items="genders"
                         hint="`Descripcion del tipo seleccionado`"
+                        item-text="name"
+                        item-value="id"
                         >
                         </v-select>
                     </v-flex>
@@ -261,8 +264,8 @@
                     <v-flex xs6 sm6 md3>
 
                         <v-img
-                            :src="imageData"
-                            :lazy-src="imageData"
+                            :src="item.employee_image_path?item.employee_image_path.toString().substring(7,item.employee_image_path.length):''"
+                            :lazy-src="item.employee_image_path?item.employee_image_path.toString().substring(7,item.employee_image_path.length):''"
                             aspect-ratio="1"
                             class="grey lighten-2"
                             >
@@ -326,7 +329,7 @@ export default
         curriculum_name:'',
         curriculum_file:'',
         curriculum_url:'',
-        genders:['Masculino','Femenino'],
+        genders:[{id:'M',name:'Masculino'} ,{id:'F',name:'Femenino'}],
         date: new Date().toISOString().substr(0, 10),
         date2: new Date().toISOString().substr(0, 10),
         menu: false,
@@ -389,7 +392,7 @@ export default
                 reader.onload = (e) => {
                     // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
                     // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
+                    this.item.employee_image_path ='public/'+ e.target.result;
                     this.item.image_file =input.files[0];
                     // this.item.imageData = this.imageData;
                     // console.log(this.imageData);

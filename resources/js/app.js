@@ -25,6 +25,8 @@ import "vue-swatches/dist/vue-swatches.min.css"
 
 Vue.component('swatches', swatches);
 window.moment = require('moment');
+window.VanillaToasts = require('vanillatoasts');//notificaciones
+window.iziToast = require('izitoast');//notificaciones
 
 setupComponents(Vue);
 

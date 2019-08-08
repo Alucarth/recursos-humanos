@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style>
-  .toolbar {
+  /* .toolbar {
     font-weight: bold;
     font-size: 18px;
   }
@@ -127,5 +127,5 @@ export default {
 
   .active {
     font-weight: bold;
-  }
+  } */
 </style>

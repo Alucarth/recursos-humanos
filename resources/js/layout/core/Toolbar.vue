@@ -6,12 +6,12 @@
     <v-toolbar-title>
       <v-toolbar-side-icon @click="drawer=!drawer"></v-toolbar-side-icon>
     </v-toolbar-title>
-    <v-text-field
+    <!-- <v-text-field
       flat
       solo-inverted
       append-icon="search"
       label="Search">
-    </v-text-field>
+    </v-text-field> -->
     <v-spacer></v-spacer>
     <!-- <v-rating
         v-model="rating"
