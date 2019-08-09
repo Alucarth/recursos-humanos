@@ -6,6 +6,7 @@ import Employee from './views/employee/Index';
 import Position from './views/position/Index';
 import City from './views/city/Index';
 import Country from './views/country/Index';
+import DocumentType from './views/document_type/Index';
 
 export const routes= [
     {
@@ -66,6 +67,18 @@ export const routes= [
         name: '/country',
         components: {
             default: Country,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/document_type',
+        name: '/document_type',
+        components: {
+            default: DocumentType,
             toolbar: Toolbar,
             nav: Nav
         },

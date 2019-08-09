@@ -106,6 +106,7 @@ export default {
             { icon: 'work', text: 'Cargos' , link: '/position' },
             { icon: 'location_on', text: 'Ciudades' , link: '/city' },
             { icon: 'public', text: 'Paises' , link: '/country' },
+            { icon: 'library_books', text: 'Tipos de Documento' , link: '/document_type' },
         ]
 
     }),

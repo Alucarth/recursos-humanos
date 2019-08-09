@@ -37,6 +37,17 @@ class DocumentTypeController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $document_type = DocumentType::find($request->id);
+        }else{
+
+            $document_type = new DocumentType;
+        }
+        $document_type->name = $request->name;
+        // $document_type->shortened = $request->shortened;
+        $document_type->save();
+
+        return $document_type;
     }
 
     /**
@@ -59,6 +70,8 @@ class DocumentTypeController extends Controller
     public function edit($id)
     {
         //
+        $document_type = DocumentType::find($id);
+        return response()->json(compact('document_type'));
     }
 
     /**
@@ -82,5 +95,9 @@ class DocumentTypeController extends Controller
     public function destroy($id)
     {
         //
+        $document_type = DocumentType::find($id);
+        $name = $document_type->name;
+        $document_type->delete();
+        return response()->json(compact('name'));
     }
 }
