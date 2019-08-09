@@ -29,6 +29,23 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
+        <v-list-group prepend-icon="personal_video">
+            <template v-slot:activator>
+                <v-list-tile>
+                    <v-list-tile-title>Parametricas</v-list-tile-title>
+                </v-list-tile>
+            </template>
+            <v-list-tile
+              v-for="(item, i) in parameters"
+              :key="i"
+              :to="item.link"
+            >
+              <v-list-tile-action>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title v-text="item.text"></v-list-tile-title>
+            </v-list-tile>
+        </v-list-group>
         <v-list-group prepend-icon="folder_shared">
             <template v-slot:activator>
                 <v-list-tile>
@@ -85,6 +102,11 @@ export default {
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
             // { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
         ],
+        parameters: [
+            { icon: 'work', text: 'Cargos' , link: '/position' },
+            { icon: 'location_on', text: 'Ciudades' , link: '/city' },
+            { icon: 'public', text: 'Paises' , link: '/country' },
+        ]
 
     }),
 

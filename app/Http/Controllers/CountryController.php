@@ -37,6 +37,18 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         //
+          //
+          if($request->has('id')){
+            $country = Country::find($request->id);
+        }else{
+
+            $country = new Country;
+        }
+        $country->name = $request->name;
+        // $country->shortened = $request->shortened;
+        $country->save();
+
+        return $country;
     }
 
     /**
@@ -59,6 +71,8 @@ class CountryController extends Controller
     public function edit($id)
     {
         //
+        $country = Country::find($id);
+        return response()->json(compact('country'));
     }
 
     /**
@@ -82,5 +96,9 @@ class CountryController extends Controller
     public function destroy($id)
     {
         //
+        $country = Country::find($id);
+        $name = $country->name;
+        $country->delete();
+        return response()->json(compact('name'));
     }
 }

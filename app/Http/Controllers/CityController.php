@@ -38,6 +38,17 @@ class CityController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $city = City::find($request->id);
+        }else{
+
+            $city = new City;
+        }
+        $city->name = $request->name;
+        $city->shortened = $request->shortened;
+        $city->save();
+
+        return $city;
     }
 
     /**
@@ -60,6 +71,8 @@ class CityController extends Controller
     public function edit($id)
     {
         //
+        $city = City::find($id);
+        return response()->json(compact('city'));
     }
 
     /**
@@ -83,5 +96,9 @@ class CityController extends Controller
     public function destroy($id)
     {
         //
+        $city = City::find($id);
+        $name = $city->name;
+        $city->delete();
+        return response()->json(compact('name'));
     }
 }
