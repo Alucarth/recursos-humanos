@@ -37,6 +37,17 @@ class ContractTypeController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $contract_type = ContractType::find($request->id);
+        }else{
+
+            $contract_type = new ContractType;
+        }
+        $contract_type->name = $request->name;
+        // $contract_type->shortened = $request->shortened;
+        $contract_type->save();
+
+        return $contract_type;
     }
 
     /**
@@ -59,6 +70,8 @@ class ContractTypeController extends Controller
     public function edit($id)
     {
         //
+        $contract_type = ContractType::find($id);
+        return response()->json(compact('contract_type'));
     }
 
     /**
@@ -82,5 +95,9 @@ class ContractTypeController extends Controller
     public function destroy($id)
     {
         //
+        $contract_type = ContractType::find($id);
+        $name = $contract_type->name;
+        $contract_type->delete();
+        return response()->json(compact('name'));
     }
 }

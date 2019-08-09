@@ -7,6 +7,8 @@ import Position from './views/position/Index';
 import City from './views/city/Index';
 import Country from './views/country/Index';
 import DocumentType from './views/document_type/Index';
+import ContractType from './views/contract_type/Index';
+import ContractModality from './views/contract_modality/Index';
 
 export const routes= [
     {
@@ -79,6 +81,30 @@ export const routes= [
         name: '/document_type',
         components: {
             default: DocumentType,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/contract_type',
+        name: '/contract_type',
+        components: {
+            default: ContractType,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/contract_modality',
+        name: '/contract_modality',
+        components: {
+            default: ContractModality,
             toolbar: Toolbar,
             nav: Nav
         },

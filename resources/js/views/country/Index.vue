@@ -138,7 +138,7 @@ export default {
                         });
                         this.search();
                     })
-                    .catch(function (error) {
+                    .catch( (error)=> {
 
                         iziToast.error({
                             title: 'Error',
@@ -159,7 +159,7 @@ export default {
                     message: 'Se elimino '+response.data.name,
                 });
             })
-            .catch(function (error) {
+            .catch( (error) =>{
                 iziToast.error({
                     title: 'Error',
                     message: 'Contactese con el Administrador de la Pagina: '+error,

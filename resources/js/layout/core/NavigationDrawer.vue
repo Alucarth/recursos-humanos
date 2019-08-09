@@ -107,6 +107,8 @@ export default {
             { icon: 'location_on', text: 'Ciudades' , link: '/city' },
             { icon: 'public', text: 'Paises' , link: '/country' },
             { icon: 'library_books', text: 'Tipos de Documento' , link: '/document_type' },
+            { icon: 'chrome_reader_mode', text: 'Tipos de Contrato' , link: '/contract_type' },
+            { icon: 'class', text: 'Modalidades de Contrato' , link: '/contract_modality' },
         ]
 
     }),

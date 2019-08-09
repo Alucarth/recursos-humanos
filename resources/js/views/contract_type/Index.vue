@@ -1,12 +1,12 @@
 <template>
     <v-card>
         <v-card-title>
-            <h3>Tipos de Documentos</h3>
+            <h3>Tipos de Contrato</h3>
         <v-spacer></v-spacer>
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
-             <vue-bootstrap4-table :rows="countries" :columns="columns" :config="config" >
+             <vue-bootstrap4-table :rows="contract_types" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -34,17 +34,17 @@
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
-        <edit-document :dialog="dialog" :document_type="document_type" @close="close"  @document_type="update"></edit-document>
+        <edit-contract :dialog="dialog" :contract_type="contract_type" @close="close"  @contract_type="update"></edit-contract>
 
     </v-card>
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
-import EditDocument from './Edit.vue';
+import EditContract from './Edit.vue';
 export default {
     data:()=>({
-        countries:[],
-        document_type:{},
+        contract_types:[],
+        contract_type:{},
         dialog:false,
         columns: [
             {
@@ -95,23 +95,23 @@ export default {
     },
     methods:{
         search(){
-            axios.get('/api/auth/document_type')
+            axios.get('/api/auth/contract_type')
                  .then((response)=>{
                     // this.employees = response.data;
-                    this.countries = response.data;
+                    this.contract_types = response.data;
                     // console.log(response.data);
                 });
         },
         create() {
-            this.document_type ={};
+            this.contract_type ={};
             this.dialog = true;
         },
 
         edit (item) {
 
-            axios.get(`/api/auth/document_type/${item.id}/edit`)
+            axios.get(`/api/auth/contract_type/${item.id}/edit`)
             .then(response => {
-                this.document_type = response.data.document_type
+                this.contract_type = response.data.contract_type
             })
             .catch(error => {
                 console.log(error);
@@ -121,7 +121,7 @@ export default {
         },
         update (item) {
             console.log(item);
-            axios.post('/api/auth/document_type', item)
+            axios.post('/api/auth/contract_type', item)
                   .then(response => {
                         iziToast.success({
                             title: 'Registro Satisfactorio',
@@ -129,7 +129,7 @@ export default {
                         });
                         this.search();
                     })
-                    .catch(function (error) {
+                    .catch( (error) => {
 
                         iziToast.error({
                             title: 'Error',
@@ -141,7 +141,7 @@ export default {
         },
         destroy (item) {
 
-            axios.delete(`/api/auth/document_type/${item.id}`)
+            axios.delete(`/api/auth/contract_type/${item.id}`)
             .then((response)=>{
 
                 this.search();
@@ -150,7 +150,7 @@ export default {
                     message: 'Se elimino '+response.data.name,
                 });
             })
-            .catch((error)=> {
+            .catch( (error)=> {
                 iziToast.error({
                     title: 'Error',
                     message: 'Contactese con el Administrador de la Pagina: '+error,
@@ -164,7 +164,7 @@ export default {
     },
     components: {
         VueBootstrap4Table,
-        EditDocument
+        EditContract
     }
 }
 </script>

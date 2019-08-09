@@ -37,6 +37,17 @@ class ContractModalityController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $contract_modality = ContractModality::find($request->id);
+        }else{
+
+            $contract_modality = new ContractModality;
+        }
+        $contract_modality->name = $request->name;
+        // $contract_modality->shortened = $request->shortened;
+        $contract_modality->save();
+
+        return $contract_modality;
     }
 
     /**
@@ -59,6 +70,8 @@ class ContractModalityController extends Controller
     public function edit($id)
     {
         //
+        $contract_modality = ContractModality::find($id);
+        return response()->json(compact('contract_modality'));
     }
 
     /**
@@ -82,5 +95,9 @@ class ContractModalityController extends Controller
     public function destroy($id)
     {
         //
+        $contract_modality = ContractModality::find($id);
+        $name = $contract_modality->name;
+        $contract_modality->delete();
+        return response()->json(compact('name'));
     }
 }
