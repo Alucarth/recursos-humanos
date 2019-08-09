@@ -11,9 +11,17 @@
                     <v-flex xs6 sm6 md12>
                         <v-text-field label="Nombre" hint="Ingrese Nombre" required v-model="item.name"></v-text-field>
                     </v-flex>
-                    <!-- <v-flex xs12 sm12 md12>
-                        <v-text-field label="Nombre Corto" hint="Ingrese Nombre Corto " v-model="item.shortened"></v-text-field>
-                    </v-flex> -->
+                     <v-flex xs12 sm12 md12>
+                        <v-select
+                        label="Gerencia"
+                        v-model="item.managament_id"
+                        :items="managements"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
 
                 </v-layout>
                 </v-container>
@@ -36,8 +44,16 @@ export default
         unity: Object
 	},
     data:()=>({
-
+        managements:[]
     }),
+    mounted(){
+        axios.get('/api/auth/management')
+             .then((response)=>{
+                // this.employees = response.data;
+                this.managements = response.data;
+                // console.log(response.data);
+            });
+    },
     methods:{
         sendUnity() {
             this.$emit('unity',this.item)

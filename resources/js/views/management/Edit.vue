@@ -8,9 +8,10 @@
             <v-card-text v-if="item">
                 <v-container grid-list-md>
                  <v-layout wrap>
-                    <v-flex xs6 sm6 md12>
+                    <v-flex xs6 sm6 md6>
                         <v-text-field label="Nombre" hint="Ingrese Nombre" required v-model="item.name"></v-text-field>
                     </v-flex>
+
                     <!-- <v-flex xs12 sm12 md12>
                         <v-text-field label="Nombre Corto" hint="Ingrese Nombre Corto " v-model="item.shortened"></v-text-field>
                     </v-flex> -->
@@ -38,6 +39,7 @@ export default
     data:()=>({
 
     }),
+
     methods:{
         sendManagement() {
             this.$emit('management',this.item)

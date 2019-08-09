@@ -5950,6 +5950,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: Boolean,
@@ -6446,13 +6447,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: Boolean,
     unity: Object
   },
   data: function data() {
-    return {};
+    return {
+      managements: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/auth/management').then(function (response) {
+      // this.employees = response.data;
+      _this.managements = response.data; // console.log(response.data);
+    });
   },
   methods: {
     sendUnity: function sendUnity() {
@@ -67005,7 +67024,7 @@ var render = function() {
                         [
                           _c(
                             "v-flex",
-                            { attrs: { xs6: "", sm6: "", md12: "" } },
+                            { attrs: { xs6: "", sm6: "", md6: "" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -67519,6 +67538,31 @@ var render = function() {
                                     _vm.$set(_vm.item, "name", $$v)
                                   },
                                   expression: "item.name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "", sm12: "", md12: "" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  label: "Gerencia",
+                                  items: _vm.managements,
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  hint: "",
+                                  "persistent-hint": ""
+                                },
+                                model: {
+                                  value: _vm.item.managament_id,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.item, "managament_id", $$v)
+                                  },
+                                  expression: "item.managament_id"
                                 }
                               })
                             ],

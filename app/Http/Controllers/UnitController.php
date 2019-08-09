@@ -44,6 +44,7 @@ class UnitController extends Controller
             $unity = new Unity;
         }
         $unity->name = $request->name;
+        $unity->managament_id = $request->managament_id;
         // $unity->description = $request->description;
         $unity->save();
 
