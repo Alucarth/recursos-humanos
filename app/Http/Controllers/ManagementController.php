@@ -38,6 +38,17 @@ class ManagementController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $management = Management::find($request->id);
+        }else{
+
+            $management = new Management;
+        }
+        $management->name = $request->name;
+        // $management->description = $request->description;
+        $management->save();
+
+        return $management;
     }
 
     /**
@@ -60,6 +71,8 @@ class ManagementController extends Controller
     public function edit($id)
     {
         //
+        $management = Management::find($id);
+        return response()->json(compact('management'));
     }
 
     /**
@@ -83,5 +96,9 @@ class ManagementController extends Controller
     public function destroy($id)
     {
         //
+        $management = Management::find($id);
+        $name = $management->name;
+        $management->delete();
+        return response()->json(compact('name'));
     }
 }

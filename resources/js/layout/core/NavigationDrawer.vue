@@ -109,6 +109,9 @@ export default {
             { icon: 'library_books', text: 'Tipos de Documento' , link: '/document_type' },
             { icon: 'chrome_reader_mode', text: 'Tipos de Contrato' , link: '/contract_type' },
             { icon: 'class', text: 'Modalidades de Contrato' , link: '/contract_modality' },
+            { icon: 'account_balance', text: 'Gerencias' , link: '/management' },
+            { icon: 'account_box', text: 'Unidades' , link: '/unity' },
+            { icon: 'account_balance_wallet', text: 'Tipos de Afp' , link: '/contribution' },
         ]
 
     }),

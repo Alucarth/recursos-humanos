@@ -9,6 +9,9 @@ import Country from './views/country/Index';
 import DocumentType from './views/document_type/Index';
 import ContractType from './views/contract_type/Index';
 import ContractModality from './views/contract_modality/Index';
+import Management from './views/management/Index';
+import Unity from './views/unity/Index';
+import Contribution from './views/contribution/Index';
 
 export const routes= [
     {
@@ -105,6 +108,42 @@ export const routes= [
         name: '/contract_modality',
         components: {
             default: ContractModality,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/management',
+        name: '/management',
+        components: {
+            default: Management,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/unity',
+        name: '/unity',
+        components: {
+            default: Unity,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/contribution',
+        name: '/contribution',
+        components: {
+            default: Contribution,
             toolbar: Toolbar,
             nav: Nav
         },

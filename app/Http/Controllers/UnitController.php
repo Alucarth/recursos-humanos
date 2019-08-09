@@ -37,6 +37,17 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $unity = Unity::find($request->id);
+        }else{
+
+            $unity = new Unity;
+        }
+        $unity->name = $request->name;
+        // $unity->description = $request->description;
+        $unity->save();
+
+        return $unity;
     }
 
     /**
@@ -59,6 +70,8 @@ class UnitController extends Controller
     public function edit($id)
     {
         //
+        $unity = Unity::find($id);
+        return response()->json(compact('unity'));
     }
 
     /**
@@ -82,5 +95,9 @@ class UnitController extends Controller
     public function destroy($id)
     {
         //
+        $unity = Unity::find($id);
+        $name = $unity->name;
+        $unity->delete();
+        return response()->json(compact('name'));
     }
 }

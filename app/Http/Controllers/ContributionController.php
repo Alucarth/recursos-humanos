@@ -37,6 +37,17 @@ class ContributionController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id')){
+            $contribution = Contribution::find($request->id);
+        }else{
+
+            $contribution = new Contribution;
+        }
+        $contribution->afp_name = $request->afp_name;
+        // $contribution->description = $request->description;
+        $contribution->save();
+
+        return $contribution;
     }
 
     /**
@@ -59,6 +70,8 @@ class ContributionController extends Controller
     public function edit($id)
     {
         //
+        $contribution = Contribution::find($id);
+        return response()->json(compact('contribution'));
     }
 
     /**
@@ -82,5 +95,9 @@ class ContributionController extends Controller
     public function destroy($id)
     {
         //
+        $contribution = Contribution::find($id);
+        $name = $contribution->afp_name;
+        $contribution->delete();
+        return response()->json(compact('name'));
     }
 }
