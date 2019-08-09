@@ -5374,6 +5374,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: Boolean,
@@ -66294,20 +66305,34 @@ var render = function() {
                             "v-flex",
                             { attrs: { xs6: "", sm6: "", md3: "" } },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Curriculum",
-                                  "prepend-icon": "attach_file"
+                              _c(
+                                "v-chip",
+                                {
+                                  staticClass: "ma-2",
+                                  attrs: {
+                                    color: "teal",
+                                    "text-color": "white"
+                                  }
                                 },
-                                on: { click: _vm.pickFile },
-                                model: {
-                                  value: _vm.curriculum_name,
-                                  callback: function($$v) {
-                                    _vm.curriculum_name = $$v
-                                  },
-                                  expression: "curriculum_name"
-                                }
-                              }),
+                                [
+                                  _c(
+                                    "v-avatar",
+                                    { attrs: { left: "" } },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        { on: { click: _vm.pickFile } },
+                                        [_vm._v("file_upload")]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(
+                                    "\n                    Curriculum\n                    "
+                                  )
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c("input", {
                                 ref: "curriculum",

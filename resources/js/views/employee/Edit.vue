@@ -143,8 +143,19 @@
                         <v-text-field label="Celular" hint="Ingrese Celular" v-model="item.cellphone"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
+                         <v-chip
+                            class="ma-2"
 
-                        <v-text-field label="Curriculum" @click='pickFile' v-model="curriculum_name" prepend-icon='attach_file'></v-text-field>
+                            color="teal"
+                            text-color="white"
+
+                        >
+                        <v-avatar left>
+                            <v-icon @click="pickFile">file_upload</v-icon>
+                        </v-avatar>
+                        Curriculum
+                        </v-chip>
+                        <!-- <v-text-field label="Curriculum" @click='pickFile' v-model="curriculum_name" prepend-icon='attach_file'></v-text-field> -->
                         <input
                             type="file"
                             style="display: none"
