@@ -1,0 +1,201 @@
+<template>
+    <v-card>
+        <v-card-title>
+            <h3>Mis Boletas</h3>
+        <v-spacer></v-spacer>
+        <v-btn @click="create()" color="primary" dark class="mb-2">Nuevo</v-btn>
+        </v-card-title>
+        <v-card-text>
+             <vue-bootstrap4-table :rows="employee_requests" :columns="columns" :config="config" >
+                <template slot="sort-asc-icon">
+                    <i class="fa fa-sort-asc"></i>
+                </template>
+                <template slot="sort-desc-icon">
+                    <i class="fa fa-sort-desc"></i>
+                </template>
+                <template slot="no-sort-icon">
+                    <i class="fa fa-sort"></i>
+                </template>
+                <!-- <template slot="active" slot-scope="props">
+                   <div class="text-xs-center">
+                    <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
+                    </div>
+                </template> -->
+                <template slot="option" slot-scope="props">
+                    <!-- <v-icon  small>
+                        remove_red_eye
+                    </v-icon> -->
+                    <v-icon @click="edit(props.row)" >
+                        edit
+                    </v-icon>
+                    <v-icon @click="destroy(props.row)" >
+                        delete
+                    </v-icon>
+                </template>
+            </vue-bootstrap4-table>
+        </v-card-text>
+        <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"></edit-request>
+
+    </v-card>
+</template>
+<script>
+import VueBootstrap4Table from 'vue-bootstrap4-table';
+import EditRequest from './Edit.vue';
+export default {
+    data:()=>({
+        employee_requests:[],
+        employee_request:{},
+        employee:{},
+        dialog:false,
+        columns: [
+            {
+                label: "Codigo",
+                name: "id",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Codigo"
+                },
+                sort: true,
+            },
+            {
+                label: "Motivo",
+                name: "type",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Motivo"
+                },
+                sort: true,
+            },
+            {
+                label: "Fecha",
+                name: "date",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Fecha"
+                },
+                sort: true,
+            },
+            {
+                label: "De Hora",
+                name: "hour_in",
+                filter: {
+                    type: "simple",
+                    placeholder: "Hora"
+                },
+                sort: true,
+            },
+            {
+                label: "A Hora",
+                name: "hour_out",
+                filter: {
+                    type: "simple",
+                    placeholder: "Hora"
+                },
+                sort: true,
+            },
+
+            {
+                label: "Opciones",
+                name: "option",
+                sort: false,
+            }],
+
+        config: {
+            checkbox_rows: false,
+            rows_selectable: false,
+            pagination: true,
+            card_mode: false,
+            show_refresh_button:  false,
+            show_reset_button:  false,
+            global_search:  {
+                placeholder:  "Enter custom Search text",
+                visibility:  false,
+                case_sensitive:  false
+            },
+            per_page_options:  [5,  10,  20,  30],
+            server_mode:  false,
+        },
+
+
+    }),
+    mounted(){
+        this.search();
+    },
+    methods:{
+        search(){
+            axios.get('/api/auth/my_request')
+                 .then((response)=>{
+                    // this.employees = response.data;
+                    this.employee_requests = response.data.employee_requests;
+                    this.employee = response.data.employee;
+                    // console.log(response.data);
+                });
+        },
+        create() {
+            this.employee_request ={};
+            this.employee_request.date = new Date().toISOString().substr(0, 10);
+            this.employee_request.employee_id = this.employee.id;
+            this.dialog = true;
+        },
+
+        edit (item) {
+
+            axios.get(`/api/auth/employee_request/${item.id}/edit`)
+            .then(response => {
+                this.employee_request = response.data.employee_request
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            this.dialog = true
+        },
+        update (item) {
+            console.log(item);
+            axios.post('/api/auth/employee_request', item)
+                  .then(response => {
+                        iziToast.success({
+                            title: 'Registro Satisfactorio',
+                            message: 'Se registro '+response.data.name,
+                        });
+                        this.search();
+                    })
+                    .catch(function (error) {
+
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Contactese con el Administrador de la Pagina: '+error,
+                        });
+                    });
+            this.dialog =false;
+
+        },
+        destroy (item) {
+
+            axios.delete(`/api/auth/employee_request/${item.id}`)
+            .then((response)=>{
+
+                this.search();
+                iziToast.success({
+                    title: 'Eliminacion Correcta',
+                    message: 'Se elimino '+response.data.name,
+                });
+            })
+            .catch((error)=> {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Contactese con el Administrador de la Pagina: '+error,
+                });
+            });
+        },
+
+        close() {
+            this.dialog = false;
+        }
+    },
+    components: {
+        VueBootstrap4Table,
+        EditRequest
+    }
+}
+</script>

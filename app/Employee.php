@@ -20,4 +20,8 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Contribution');
     }
+    public function management()
+    {
+        return $this->belongsTo('App\Management');
+    }
 }

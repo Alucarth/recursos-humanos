@@ -11,11 +11,16 @@
       </router-link>
     </v-toolbar>
     <v-list>
-
+        <v-list-tile to="/">
+            <v-list-tile-action>
+                <v-icon>dashboard</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title :class="[{'active': selectedIndex === 1}, 'item-title' ]">Inicio</v-list-tile-title>
+        </v-list-tile>
        <v-list-group prepend-icon="person_pin">
             <template v-slot:activator>
                 <v-list-tile>
-                    <v-list-tile-title>Inicio</v-list-tile-title>
+                    <v-list-tile-title>Mis Datos</v-list-tile-title>
                 </v-list-tile>
             </template>
             <v-list-tile
@@ -87,10 +92,10 @@ export default {
         inicio_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
             { icon: 'person', text: 'Informacion Personal' , link: '/inventory' },
-            { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
+            // { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
             { icon: 'calendar_today', text: 'Mis Asistencias', link: '/assitense' },
-            { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/tikets' },
+            { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/my_request' },
             { icon: 'av_timer', text: 'Mis Horarios', link: '/hours' },
         ],
         rrhh_items: [

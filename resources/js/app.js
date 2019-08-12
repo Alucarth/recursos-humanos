@@ -18,7 +18,7 @@ import { setupComponents } from './config/setup-components';
 // console.log(routes);
 import {routes} from './routes';
 import {storage} from './store_modules/storage';
-// import {autentication} from './store_modules/autentication';
+import {autentication} from './store_modules/autentication';
 import swatches from 'vue-swatches';
 import "vue-swatches/dist/vue-swatches.min.css"
 // import Datatable from 'vue2-datatable-component';
@@ -68,7 +68,7 @@ const router = new VueRouter({
 const store = new Vuex.Store({
     modules:{
         template: storage,
-        // auth: autentication,
+        auth: autentication,
         // dconfirm: confirm,
     }
 });
@@ -90,6 +90,28 @@ const store = new Vuex.Store({
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.prototype.$http = axios;
+const tokenJWT = localStorage.getItem('token')
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+if (tokenJWT) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = tokenJWT
+}
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+      if (store.getters['auth/isLoggedIn']) {
+        next()
+        return
+      }
+      next('/login')
+    } else {
+      next()
+    }
+  });
 
 const app = new Vue({
     el: '#app',

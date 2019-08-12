@@ -12,6 +12,7 @@ import ContractModality from './views/contract_modality/Index';
 import Management from './views/management/Index';
 import Unity from './views/unity/Index';
 import Contribution from './views/contribution/Index';
+import MyRequest from './views/my_request/Index';
 
 export const routes= [
     {
@@ -41,7 +42,10 @@ export const routes= [
     {
         path: '/login',
         name: 'Login',
-        component: Login
+        component: Login,
+        meta: {
+            allowAnonymous: true
+        }
     },
     {
         path: '/position',
@@ -148,7 +152,19 @@ export const routes= [
             nav: Nav
         },
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/my_request',
+        name: '/my_request',
+        components: {
+            default: MyRequest,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
         }
     },
 ];

@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthController@login');
 Route::group([
             'prefix' => 'auth',
-            // 'middleware' => 'jwt.auth'
+            'middleware' => 'jwt.auth'
         ], function ($router) {
 
     // Route::post('login', 'AuthController@login');
@@ -39,6 +39,8 @@ Route::group([
     Route::resource('management', 'ManagementController');
     Route::resource('unity', 'UnitController');
     Route::resource('contribution', 'ContributionController');
+    Route::resource('employee_request', 'EmployeeRequestController');
+    Route::get('my_request', 'EmployeeRequestController@index_employee');
 
 
 });
