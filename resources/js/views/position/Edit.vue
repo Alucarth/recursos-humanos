@@ -19,7 +19,7 @@
                         </v-flex>
                         <v-flex xs12 sm12 md12 v-if="item.type_dependency">
                             <v-select label="Unidad" v-model="item.unit_id" :items="unities" item-text="name"
-                                item-value="id" v-if="item.type_dependency=='Gerencia'">
+                                item-value="id" v-if="item.type_dependency=='Gerencia'|| item.type_dependency=='Unidad' ">
                             </v-select>
                             <v-select label="Gerencia" v-model="item.managament_id" :items="managements"
                                 item-text="name" item-value="id" v-if="item.type_dependency=='Gerencia Ejecutiva'">

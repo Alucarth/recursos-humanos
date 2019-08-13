@@ -41,7 +41,6 @@ class PositionController extends Controller
         if($request->has('id')){
             $position = Position::find($request->id);
         }else{
-
             $position = new Position;
         }
         $position->name = $request->name;
