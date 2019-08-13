@@ -46,6 +46,18 @@ class PositionController extends Controller
         }
         $position->name = $request->name;
         // $position->description = $request->description;
+        $position->type_dependency = $request->type_dependency;
+        if($request->has('unit_id')){
+            $position->unit_id = $request->unit_id;
+        }else{
+            $position->unit_id = null;
+        }
+        if($request->has('managament_id')){
+            $position->managament_id = $request->managament_id;
+        }else
+        {
+            $position->managament_id = null;
+        }
         $position->save();
 
         return $position;
