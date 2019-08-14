@@ -16,15 +16,18 @@
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
                 </template>
-                <!-- <template slot="active" slot-scope="props">
+                <template slot="approves" slot-scope="props">
                    <div class="text-xs-center">
-                    <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" :style="'width: '+porcentajeApprove(props.row.approves)+'%'" :aria-valuenow="porcentajeApprove(props.row.approves)" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                </template> -->
+                    <!-- <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip> -->
+                    </div>
+                </template>
                 <template slot="option" slot-scope="props">
-                    <!-- <v-icon  small>
+                    <v-icon  @click="show(props.row)">
                         remove_red_eye
-                    </v-icon> -->
+                    </v-icon>
                     <v-icon @click="edit(props.row)" >
                         edit
                     </v-icon>
@@ -35,18 +38,21 @@
             </vue-bootstrap4-table>
         </v-card-text>
         <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"></edit-request>
+        <show-request :dialog_show="dialog_show" :employee_request="employee_request" @close_show="close_show"  @employee_request_show="update_show"></show-request>
 
     </v-card>
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 import EditRequest from './Edit.vue';
+import ShowRequest from './Show.vue';
 export default {
     data:()=>({
         employee_requests:[],
         employee_request:{},
         employee:{},
         dialog:false,
+        dialog_show:false,
         columns: [
             {
                 label: "Codigo",
@@ -58,11 +64,11 @@ export default {
                 sort: true,
             },
             {
-                label: "Motivo",
-                name: "type",
+                label: "Tipo de Solicitud",
+                name: "request_type.name",
                 filter: {
                     type: "simple",
-                    placeholder: "Ingrese Motivo"
+                    placeholder: "Ingrese Tipo de Solicitud"
                 },
                 sort: true,
             },
@@ -92,6 +98,11 @@ export default {
                     placeholder: "Hora"
                 },
                 sort: true,
+            },
+            {
+                label: "Aprobacion",
+                name: "approves",
+
             },
 
             {
@@ -137,7 +148,16 @@ export default {
             this.employee_request.employee_id = this.employee.id;
             this.dialog = true;
         },
-
+        show(item){
+            axios.get(`/api/auth/employee_request/${item.id}`)
+            .then(response => {
+                this.employee_request = response.data.employee_request
+            })
+            .catch(error => {
+                console.log(error);
+            });
+            this.dialog_show = true
+        },
         edit (item) {
 
             axios.get(`/api/auth/employee_request/${item.id}/edit`)
@@ -170,6 +190,26 @@ export default {
             this.dialog =false;
 
         },
+        update_show (item) {
+            console.log(item);
+            // axios.post('/api/auth/employee_request', item)
+            //       .then(response => {
+            //             iziToast.success({
+            //                 title: 'Registro Satisfactorio',
+            //                 message: 'Se registro '+response.data.name,
+            //             });
+            //             this.search();
+            //         })
+            //         .catch(function (error) {
+
+            //             iziToast.error({
+            //                 title: 'Error',
+            //                 message: 'Contactese con el Administrador de la Pagina: '+error,
+            //             });
+            //         });
+            this.dialog =false;
+
+        },
         destroy (item) {
 
             axios.delete(`/api/auth/employee_request/${item.id}`)
@@ -188,14 +228,28 @@ export default {
                 });
             });
         },
-
+        porcentajeApprove(approves){
+            console.log(approves);
+            let porcent = 100/approves.length;
+            let total_porcent=0;
+            approves.forEach(approve => {
+                if(approve.state=='Aprobado'){
+                    total_porcent +=porcent;
+                }
+            });
+            return total_porcent;
+        },
         close() {
             this.dialog = false;
+        },
+        close_show() {
+            this.dialog_show = false;
         }
     },
     components: {
         VueBootstrap4Table,
-        EditRequest
+        EditRequest,
+        ShowRequest
     }
 }
 </script>

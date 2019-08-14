@@ -1,14 +1,14 @@
 <template>
-<v-dialog v-model="dialog" max-width="700px">
+<v-dialog v-model="dialog" max-width="700px" persistent>
             <v-card>
-            <v-card-title>
-                <span class="headline">{{ title }}</span>
+            <v-card-title class="headline" >
+                <span >{{ title }}</span>
             </v-card-title>
 
             <v-card-text v-if="item">
-                <v-container grid-list-md>
+
                  <v-layout wrap>
-                    <v-flex xs12 sm6 md3>
+                    <v-flex xs12 sm6 md6>
                         <v-menu
                             ref="menu"
                             v-model="menu"
@@ -36,12 +36,20 @@
                         </v-menu>
                     </v-flex>
 
-                    <v-flex xs6 sm6 md3>
-                        <v-select
-                        v-model="item.type"
-                        :items="types"
-                        label="Motivo"
-                        ></v-select>
+                    <v-flex xs6 sm6 md6>
+                        <v-combobox
+                        v-model="item.request_type"
+                        :items="request_types"
+                        label="Tipo de Solicitud"
+                        item-text="name"
+                        ></v-combobox>
+                        <!-- <v-select
+                        v-model="item.request_type"
+                        :items="request_types"
+                        label="Tipo de Solicitud"
+                        item-text="name"
+                        item-id="id"
+                        ></v-select> -->
                     </v-flex>
 
                     <v-flex xs11 sm3>
@@ -104,11 +112,53 @@
                             ></v-time-picker>
                         </v-menu>
                     </v-flex>
-                    <v-flex xs6 sm6 md6 v-if="item.type =='Comisión'">
+                    <v-flex xs6 sm6 md6 >
                         <v-text-field label="Lugar" hint="Ingrese Lugar" required v-model="item.destiny_place"></v-text-field>
                     </v-flex>
-                    <v-flex xs6 sm6 md6 v-if="item.type =='Comisión'">
-                        <v-text-field label="Justificación" hint="Ingrese Justificación" required v-model="item.reason"></v-text-field>
+                    <v-flex xs6 sm6 md12 v-if="item.request_type" >
+                        <v-text-field label="Motivo" hint="Ingrese Motivo" required v-model="item.reason" v-if="item.request_type.name != 'Permiso sin Goce de Haberes'"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12 v-if="item.request_type">
+                        <!-- {{item.request_type}} -->
+                        <div v-if="item.request_type.name=='Permiso por Asueto'" >
+                            <v-text-field :label="item.request_type.label1" v-if="item.request_type.label1" v-model="item.value1" ></v-text-field>
+                        </div>
+                        <div v-if="item.request_type.name=='Permiso por Tolerancia'">
+                            <label for="">Tolerancia:</label>
+                        </div>
+                        <div v-if="item.request_type.name=='Permiso con Goce de Haberes'">
+                            <label for="">Compensación:</label>
+                        </div>
+                         <div v-if="item.request_type.name=='Permiso sin Goce de Haberes'">
+                            <label for="">Motivo:</label>
+                        </div>
+                            <v-switch
+                            v-model="item.value1"
+                            :label="`${item.request_type.label1}`"
+                            v-if="item.request_type.label1 && item.request_type.name !='Permiso por Asueto'"
+                            ></v-switch>
+                            <v-switch
+                            v-model="item.value2"
+                            :label="`${item.request_type.label2}`"
+                            v-if="item.request_type.label2"
+                            ></v-switch>
+                            <v-switch
+                            v-model="item.value3"
+                            :label="`${item.request_type.label3}`"
+                            v-if="item.request_type.label3"
+                            ></v-switch>
+                            <v-switch
+                            v-model="item.value4"
+                            :label="`${item.request_type.label4}`"
+                            v-if="item.request_type.label4"
+                            ></v-switch>
+                            <v-switch
+                            v-model="item.value5"
+                            :label="`${item.request_type.label5}`"
+                            v-if="item.request_type.label5"
+                            ></v-switch>
+
+
                     </v-flex>
                     <!-- {{JSON.stringify(item)}} -->
                     <!-- <v-flex xs12 sm12 md12>
@@ -116,7 +166,7 @@
                     </v-flex> -->
 
                 </v-layout>
-                </v-container>
+
             </v-card-text>
 
             <v-card-actions>
@@ -138,18 +188,31 @@ export default
     data:()=>({
         date: new Date().toISOString().substr(0, 10),
         menu: false,
-        types: ['Personal','Comisión'],
+        request_types: [],
         time: null,
         menu2: false,
         time2: null,
         menu3:false,
     }),
+    mounted(){
+        // console.log(this.$root.themeColor);
+        this.getRequestTypes();
+    },
     methods:{
         sendRequest() {
             this.$emit('employee_request',this.item)
         },
         sendClose() {
             this.$emit('close',false)
+        },
+        getRequestTypes (){
+            axios.get('/api/auth/request_type')
+            .then(response => {
+                this.request_types = response.data.request_types;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
     },
     computed:{

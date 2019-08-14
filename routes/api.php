@@ -41,6 +41,7 @@ Route::group([
     Route::resource('contribution', 'ContributionController');
     Route::resource('employee_request', 'EmployeeRequestController');
     Route::get('my_request', 'EmployeeRequestController@index_employee');
+    Route::resource('request_type', 'RequestTypeController');
 
 
 });

@@ -17,7 +17,11 @@ class CreateApprovesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('employee_request_id')->unsigned();
             $table->foreign('employee_request_id')->references('id')->on('employee_requests'); //empleado solicitante
-            $table->enum('state', ['Aprobado', 'Rechazado']); //stado
+
+            $table->bigInteger('position_id')->unsigned();
+            $table->foreign('position_id')->references('id')->on('positions'); //cargo destinado a aprovacion
+
+            $table->enum('state', ['Pendiente','Aprobado', 'Rechazado']); //estado
             $table->date('date');
             $table->timestamps();
         });

@@ -7,6 +7,10 @@ use App\Employee;
 use App\EmployeeRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Approve;
+use App\Position;
+use App\Management;
+use App\Unity;
 class EmployeeRequestController extends Controller
 {
     /**
@@ -18,9 +22,10 @@ class EmployeeRequestController extends Controller
     {
         //
     }
-    public function index_employee(){
+    public function index_employee()
+    {
         $employee = Auth::user()->employee;
-        $employee_requests = EmployeeRequest::where('employee_id',$employee->id)->get();
+        $employee_requests = EmployeeRequest::with('request_type','approves')->where('employee_id',$employee->id)->get();
         return response()->json(compact('employee','employee_requests'));
     }
 
@@ -43,6 +48,7 @@ class EmployeeRequestController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request->all();
         if($request->has('id'))
         {
             $employee_request = EmployeeRequest::find($request->id);
@@ -54,11 +60,73 @@ class EmployeeRequestController extends Controller
         $employee_request->hour_in = $request->hour_in;
         $employee_request->hour_out = $request->hour_out;
         $employee_request->reason = $request->reason;
-        $employee_request->type = $request->type;
+        $employee_request->request_type_id = $request->request_type['id'];
         $employee_request->destiny_place = $request->destiny_place;
-        $employee_request->employee_id = $request->employee_id;
+        $employee_request->employee_id = Auth::user()->employee->id;//$request->employee_id;
+        $employee_request->employee_approve_id = $request->employee_id; // quien tiene la boleta
+
+        if($request->has("value1"))
+        {
+            $employee_request->value1 = $request->value1;
+        }
+        if($request->has("value2"))
+        {
+            $employee_request->value2 = $request->value2;
+        }
+        if($request->has("value3"))
+        {
+            $employee_request->value3 = $request->value3;
+        }
+        if($request->has("value4"))
+        {
+            $employee_request->value4 = $request->value4;
+        }
+        if($request->has("value5"))
+        {
+            $employee_request->value5 = $request->value5;
+        }
         $employee_request->save();
+        //hasta aqui lo de la boleta
+        $approves = Approve::where('employee_request_id',$employee_request->id)->get();
+        if(!$approves->count()>0)
+        {
+            $position = Position::find(Auth::user()->employee->position->id);
+            if($position->type_dependency == 'Unidad')
+            {
+               $first_position  = Position::where('type_dependency','Gerencia')->where('unit_id',$position->unit_id)->first();
+               $approve = new Approve;
+               $approve->employee_request_id = $employee_request->id;
+               $approve->position_id = $first_position->id;
+               $approve->state = 'Pendiente';
+               $approve->date = Carbon::now();
+               $approve->save();
+
+               $second_postion =  Position::where('type_dependency','Gerencia Ejecutiva')->where('managament_id',$position->unity->management->id)->first();
+               $approve = new Approve;
+               $approve->employee_request_id = $employee_request->id;
+               $approve->position_id = $second_postion->id;
+               $approve->state = 'Pendiente';
+               $approve->date = Carbon::now();
+               $approve->save();
+
+               $rrhh_position = Position::where('name','Responsable de Recursos Humanos')->first();
+               $approve = new Approve;
+               $approve->employee_request_id = $employee_request->id;
+               $approve->position_id = $rrhh_position->id;
+               $approve->state = 'Pendiente';
+               $approve->date = Carbon::now();
+               $approve->save();
+
+            }
+        }
+        //
+
+
+
         $name = $employee_request->date;
+
+
+
         return response()->json(compact('name'));
 
     }
@@ -72,6 +140,8 @@ class EmployeeRequestController extends Controller
     public function show($id)
     {
         //
+        $employee_request = EmployeeRequest::with('approves')->find($id);
+        return response()->json(compact('employee_request'));
     }
 
     /**
@@ -83,7 +153,7 @@ class EmployeeRequestController extends Controller
     public function edit($id)
     {
         //
-        $employee_request = EmployeeRequest::find($id);
+        $employee_request = EmployeeRequest::with('request_type')->find($id);
         return response()->json(compact('employee_request'));
     }
 
