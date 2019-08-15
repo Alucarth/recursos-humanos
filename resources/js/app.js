@@ -27,7 +27,7 @@ Vue.component('swatches', swatches);
 window.moment = require('moment');
 window.VanillaToasts = require('vanillatoasts');//notificaciones
 window.iziToast = require('izitoast');//notificaciones
-
+window.Swal = require('sweetalert2'); //alerts
 setupComponents(Vue);
 
 // Vue.use(Datatable) // done!

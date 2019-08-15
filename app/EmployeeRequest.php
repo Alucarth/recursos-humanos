@@ -13,6 +13,6 @@ class EmployeeRequest extends Model
     }
 
     public function approves(){
-        return $this->hasMany('App\Approve')->with('position');
+        return $this->hasMany('App\Approve')->with('position')->orderBy('id');
     }
 }

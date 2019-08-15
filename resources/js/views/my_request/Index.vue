@@ -17,23 +17,49 @@
                     <i class="fa fa-sort"></i>
                 </template>
                 <template slot="approves" slot-scope="props">
-                   <div class="text-xs-center">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" :style="'width: '+porcentajeApprove(props.row.approves)+'%'" :aria-valuenow="porcentajeApprove(props.row.approves)" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <v-progress-linear color="green" height="18"
+                        :value="Math.ceil(porcentajeApprove(props.row.approves))">
+                        <h6>{{ Math.ceil(porcentajeApprove(props.row.approves)) }}%</h6>
+                    </v-progress-linear>
+
+                   <!-- <div class="text-xs-center"> -->
+
+                    <!-- <div class="progress">
+
+                        <div class="progress-bar" role="progressbar" :style="'width: '+porcentajeApprove(props.row.approves)+'%'" :aria-valuenow="porcentajeApprove(props.row.approves)" aria-valuemin="0" aria-valuemax="100">{{Math.round( * 10) / 10}} %</div>
+                    </div> -->
                     <!-- <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip> -->
-                    </div>
+                    <!-- </div> -->
                 </template>
                 <template slot="option" slot-scope="props">
-                    <v-icon  @click="show(props.row)">
-                        remove_red_eye
-                    </v-icon>
-                    <v-icon @click="edit(props.row)" >
+                    <v-btn-toggle>
+                        <v-btn  @click="show(props.row)">
+                            <v-icon >
+                                remove_red_eye
+                            </v-icon>
+                        </v-btn>
+                        <v-btn @click="edit(props.row)">
+                            <v-icon  >
+                                edit
+                            </v-icon>
+                        </v-btn>
+                        <v-btn @click="destroy(props.row)">
+                            <v-icon  >
+                                delete
+                            </v-icon>
+                        </v-btn>
+                        <v-btn @click="sendRequest(props.row)">
+                                <v-icon>send</v-icon>
+                        </v-btn>
+                    </v-btn-toggle>
+
+
+                    <!-- <v-icon @click="edit(props.row)" >
                         edit
                     </v-icon>
                     <v-icon @click="destroy(props.row)" >
                         delete
-                    </v-icon>
+                    </v-icon> -->
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
@@ -53,6 +79,8 @@ export default {
         employee:{},
         dialog:false,
         dialog_show:false,
+        // knowledge:25,
+        toggle_exclusive: undefined,
         columns: [
             {
                 label: "Codigo",
@@ -244,6 +272,32 @@ export default {
         },
         close_show() {
             this.dialog_show = false;
+        },
+        sendRequest(item)
+        {
+            Swal.fire({
+            title: 'Enviar Solicitud ?',
+            text: "Enviar solicitud de permiso",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.value) {
+
+                iziToast.success({
+                    title: 'Solicitud Enviada',
+                    message: '',
+                });
+                // Swal.fire(
+                // 'Deleted!',
+                // 'Your file has been deleted.',
+                // 'success'
+                // )
+            }
+            })
         }
     },
     components: {

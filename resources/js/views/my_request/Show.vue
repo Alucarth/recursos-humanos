@@ -96,7 +96,7 @@ export default
 			return this.dialog_show
         },
         title(){
-            let title='Estado de boleta'
+            let title='Estado de Aprobacion de la boleta'
             // if(this.item.id) {
 
             //     title = 'Editar Boleta'
