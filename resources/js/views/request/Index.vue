@@ -18,7 +18,8 @@
                 </template>
                 <template slot="approves" slot-scope="props">
                     <v-progress-linear color="green" height="18"
-                        :value="Math.ceil(porcentajeApprove(props.row.approves))">
+                        :value="Math.ceil(porcentajeApprove(props.row.approves))"
+                    >
                         <h6>{{ Math.ceil(porcentajeApprove(props.row.approves)) }}%</h6>
                     </v-progress-linear>
 
@@ -44,8 +45,11 @@
                             </v-icon>
                         </v-btn>
 
-                        <v-btn @click="sendRequest(props.row)" >
+                        <v-btn @click="sendRequest(props.row)"  >
                                 <v-icon>send</v-icon>
+                        </v-btn>
+                        <v-btn  v-if="porcentajeApprove(props.row.approves) > 99">
+                                <v-icon>print</v-icon>
                         </v-btn>
                     </v-btn-toggle>
 
@@ -201,20 +205,21 @@ export default {
             console.log(item);
             axios.post('/api/auth/approve_request', item)
                   .then(response => {
+
                         iziToast.success({
                             title: 'Solicitud procesada como '+item.approve_state,
                             message: '',
                         });
                         this.search();
                     })
-                    .catch(function (error) {
+                    .catch( (error)=> {
 
                         iziToast.error({
                             title: 'Error',
                             message: 'Contactese con el Administrador de la Pagina: '+error,
                         });
                     });
-            // this.dialog =false;
+            this.dialog =false;
 
         },
         update_show (item) {
@@ -256,7 +261,7 @@ export default {
             });
         },
         porcentajeApprove(approves){
-            console.log(approves);
+            // console.log(approves);
             let porcent = 100/approves.length;
             let total_porcent=0;
             approves.forEach(approve => {

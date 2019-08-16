@@ -185,7 +185,24 @@ class EmployeeRequestController extends Controller
 
     public function approve(Request $request)
     {
-        return $request->all();
+        $employee = Employee::where('id',Auth::user()->employee->id)->first();
+        // return $employee->p;
+        $approve = Approve::where('employee_request_id',$request->id)->where('position_id',$employee->position->id)->first();
+        if($approve)
+        {
+            $approve->state = $request->approve_state;
+            $approve->save();
+
+            $status = 'success';
+            $message = 'Solicitud Enviada';
+            return response()->json(compact('status','message'));
+        }else
+        {
+            $status = 'error';
+            $message = 'No se puso enviar la solicitud';
+            return response()->json(compact('status','message'));
+        }
+        // return $request->all();
         // $employee = EmployeeRequest::find();
     }
     /**

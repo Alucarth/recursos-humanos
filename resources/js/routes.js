@@ -14,6 +14,7 @@ import Unity from './views/unity/Index';
 import Contribution from './views/contribution/Index';
 import MyRequest from './views/my_request/Index';
 import EmployeeRequest from './views/request/Index';
+import EmployeeInfo from './views/employee/Show';
 
 export const routes= [
     {
@@ -173,6 +174,18 @@ export const routes= [
         name: '/employee_request',
         components: {
             default: EmployeeRequest,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/employee_info',
+        name: '/employee_info',
+        components: {
+            default: EmployeeInfo,
             toolbar: Toolbar,
             nav: Nav
         },

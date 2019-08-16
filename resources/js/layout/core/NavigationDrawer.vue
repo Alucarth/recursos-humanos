@@ -108,7 +108,7 @@ export default {
         ],
         inicio_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
-            { icon: 'person', text: 'Informacion Personal' , link: '/inventory' },
+            { icon: 'person', text: 'Informacion Personal' , link: '/employee_info' },
             // { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
             { icon: 'calendar_today', text: 'Mis Asistencias', link: '/assitense' },

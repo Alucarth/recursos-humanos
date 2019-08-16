@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use Auth;
 class EmployeeController extends Controller
 {
     /**
@@ -18,6 +19,11 @@ class EmployeeController extends Controller
         return response()->json($employees);
     }
 
+    public function info()
+    {
+        $employee = Employee::with('position','management')->find(Auth::user()->employee->id);
+        return response()->json(compact('employee'));
+    }
     /**
      * Show the form for creating a new resource.
      *
