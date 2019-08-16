@@ -13,6 +13,7 @@ import Management from './views/management/Index';
 import Unity from './views/unity/Index';
 import Contribution from './views/contribution/Index';
 import MyRequest from './views/my_request/Index';
+import EmployeeRequest from './views/request/Index';
 
 export const routes= [
     {
@@ -160,6 +161,18 @@ export const routes= [
         name: '/my_request',
         components: {
             default: MyRequest,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/employee_request',
+        name: '/employee_request',
+        components: {
+            default: EmployeeRequest,
             toolbar: Toolbar,
             nav: Nav
         },

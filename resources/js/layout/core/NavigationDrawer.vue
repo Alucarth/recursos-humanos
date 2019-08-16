@@ -68,6 +68,23 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
+        <v-list-group prepend-icon="mail">
+            <template v-slot:activator>
+                <v-list-tile>
+                    <v-list-tile-title>Solicitudes de Permiso</v-list-tile-title>
+                </v-list-tile>
+            </template>
+            <v-list-tile
+              v-for="(item, i) in employee_requests"
+              :key="i"
+              :to="item.link"
+            >
+              <v-list-tile-action>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title v-text="item.text"></v-list-tile-title>
+            </v-list-tile>
+        </v-list-group>
 
     </v-list>
   </v-navigation-drawer>
@@ -117,6 +134,10 @@ export default {
             { icon: 'account_balance', text: 'Gerencias' , link: '/management' },
             { icon: 'account_box', text: 'Unidades' , link: '/unity' },
             { icon: 'account_balance_wallet', text: 'Tipos de Afp' , link: '/contribution' },
+        ],
+        employee_requests:[
+            { icon: 'inbox', text: 'Recibidos' , link: '/employee_request' },
+            { icon: 'send', text: 'Enviados' , link: '/employee_request_send' },
         ]
 
     }),

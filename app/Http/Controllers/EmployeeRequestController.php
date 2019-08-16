@@ -22,6 +22,9 @@ class EmployeeRequestController extends Controller
     public function index()
     {
         //
+        $employee = Auth::user()->employee;
+        $employee_requests = EmployeeRequest::with('request_type','approves')->where('employee_approve_id',$employee->id)->where('employee_id','!=',$employee->id)->orderBy('id','Desc')->get();
+        return response()->json(compact('employee','employee_requests'));
     }
     public function index_employee()
     {
@@ -154,7 +157,7 @@ class EmployeeRequestController extends Controller
     public function edit($id)
     {
         //
-        $employee_request = EmployeeRequest::with('request_type')->find($id);
+        $employee_request = EmployeeRequest::with('request_type','employee')->find($id);
         return response()->json(compact('employee_request'));
     }
 
@@ -182,6 +185,7 @@ class EmployeeRequestController extends Controller
 
     public function approve(Request $request)
     {
+        return $request->all();
         // $employee = EmployeeRequest::find();
     }
     /**

@@ -171,9 +171,10 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="sendClose()">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click="sendClose()">Cerrar</v-btn>
 
-                <v-btn color="blue darken-1" flat @click="sendRequest()">Guardar</v-btn>
+                <v-btn color="red darken-1" flat @click="sendRequest('Rechazado')">Rechazar</v-btn>
+                <v-btn color="green darken-1" flat @click="sendRequest('Aprobado')">Aprobar</v-btn>
             </v-card-actions>
             </v-card>
         </v-dialog>
@@ -199,7 +200,8 @@ export default
         this.getRequestTypes();
     },
     methods:{
-        sendRequest() {
+        sendRequest(approve_state) {
+            this.item.approve_state = approve_state
             this.$emit('employee_request',this.item)
         },
         sendClose() {
@@ -225,9 +227,9 @@ export default
         },
         title(){
             let title='Crear Boleta'
-            if(this.item.id) {
+            if(this.item.employee) {
 
-                title = 'Editar Boleta'
+                title = this.item.employee.first_name +' '+this.item.employee.second_name+' '+this.item.employee.last_name+ ' '+ this.item.employee.mother_last_name;
             }
             return title
         },

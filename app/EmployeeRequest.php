@@ -12,7 +12,13 @@ class EmployeeRequest extends Model
         return $this->belongsTo('App\RequestType');
     }
 
-    public function approves(){
+    public function approves()
+    {
         return $this->hasMany('App\Approve')->with('position')->orderBy('id');
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee','employee_id');
     }
 }

@@ -3,7 +3,7 @@
         <v-card-title>
             <h3>Solicitudes de Permiso</h3>
         <v-spacer></v-spacer>
-        <v-btn @click="create()" color="primary" dark class="mb-2">Nuevo</v-btn>
+        <!-- <v-btn @click="create()" color="primary" dark class="mb-2">Nuevo</v-btn> -->
         </v-card-title>
         <v-card-text>
              <vue-bootstrap4-table :rows="employee_requests" :columns="columns" :config="config" >
@@ -38,17 +38,13 @@
                                 remove_red_eye
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="edit(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id" >
+                        <v-btn @click="edit(props.row)" >
                             <v-icon  >
-                                edit
+                                thumbs_up_down
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="destroy(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
-                            <v-icon  >
-                                delete
-                            </v-icon>
-                        </v-btn>
-                        <v-btn @click="sendRequest(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
+
+                        <v-btn @click="sendRequest(props.row)" >
                                 <v-icon>send</v-icon>
                         </v-btn>
                     </v-btn-toggle>
@@ -139,7 +135,8 @@ export default {
                 sort: false,
             }],
 
-        config: {
+        config:
+        {
             checkbox_rows: false,
             rows_selectable: false,
             pagination: true,
@@ -162,7 +159,7 @@ export default {
     },
     methods:{
         search(){
-            axios.get('/api/auth/my_request')
+            axios.get('/api/auth/employee_request')
                  .then((response)=>{
                     // this.employees = response.data;
                     this.employee_requests = response.data.employee_requests;
@@ -191,20 +188,22 @@ export default {
             axios.get(`/api/auth/employee_request/${item.id}/edit`)
             .then(response => {
                 this.employee_request = response.data.employee_request
+                console.log(this.employee_request);
+                 this.dialog = true
             })
             .catch(error => {
                 console.log(error);
             });
 
-            this.dialog = true
+
         },
         update (item) {
             console.log(item);
-            axios.post('/api/auth/employee_request', item)
+            axios.post('/api/auth/approve_request', item)
                   .then(response => {
                         iziToast.success({
-                            title: 'Registro Satisfactorio',
-                            message: 'Se registro '+response.data.name,
+                            title: 'Solicitud procesada como '+item.approve_state,
+                            message: '',
                         });
                         this.search();
                     })
@@ -215,7 +214,7 @@ export default {
                             message: 'Contactese con el Administrador de la Pagina: '+error,
                         });
                     });
-            this.dialog =false;
+            // this.dialog =false;
 
         },
         update_show (item) {

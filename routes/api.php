@@ -43,6 +43,7 @@ Route::group([
     Route::get('my_request', 'EmployeeRequestController@index_employee');
     Route::get('send_request/{employee_request_id}', 'EmployeeRequestController@send');
     Route::resource('request_type', 'RequestTypeController');
+    Route::post('approve_request','EmployeeRequestController@approve');
 
 
 });
