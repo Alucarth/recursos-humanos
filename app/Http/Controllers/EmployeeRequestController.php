@@ -11,6 +11,7 @@ use App\Approve;
 use App\Position;
 use App\Management;
 use App\Unity;
+
 class EmployeeRequestController extends Controller
 {
     /**
@@ -25,7 +26,7 @@ class EmployeeRequestController extends Controller
     public function index_employee()
     {
         $employee = Auth::user()->employee;
-        $employee_requests = EmployeeRequest::with('request_type','approves')->where('employee_id',$employee->id)->get();
+        $employee_requests = EmployeeRequest::with('request_type','approves')->where('employee_id',$employee->id)->orderBy('id','Desc')->get();
         return response()->json(compact('employee','employee_requests'));
     }
 
@@ -157,6 +158,32 @@ class EmployeeRequestController extends Controller
         return response()->json(compact('employee_request'));
     }
 
+    public function send($employee_request_id)
+    {
+        $employee_request = EmployeeRequest::find($employee_request_id);
+        $approve = Approve::where('employee_request_id',$employee_request->id)->where('state','Pendiente')->first();
+        $employee = Employee::where('position_id',$approve->position_id)->first();
+        if($employee)
+        {
+            $employee_request->employee_approve_id = $employee->id;
+            $employee_request->save();
+            $status = 'success';
+            $message = 'Solicitud Enviada';
+            return response()->json(compact('status','message'));
+        }else
+        {
+            $status = 'error';
+            $message = 'No se puso enviar la solicitud';
+            return response()->json(compact('status','message'));
+        }
+
+        return $employee_request;
+    }
+
+    public function approve(Request $request)
+    {
+        // $employee = EmployeeRequest::find();
+    }
     /**
      * Update the specified resource in storage.
      *

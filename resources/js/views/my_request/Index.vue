@@ -38,17 +38,17 @@
                                 remove_red_eye
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="edit(props.row)">
+                        <v-btn @click="edit(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id" >
                             <v-icon  >
                                 edit
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="destroy(props.row)">
+                        <v-btn @click="destroy(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
                             <v-icon  >
                                 delete
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="sendRequest(props.row)">
+                        <v-btn @click="sendRequest(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
                                 <v-icon>send</v-icon>
                         </v-btn>
                     </v-btn-toggle>
@@ -287,10 +287,34 @@ export default {
             }).then((result) => {
             if (result.value) {
 
-                iziToast.success({
-                    title: 'Solicitud Enviada',
-                    message: '',
-                });
+            axios.get(`/api/auth/send_request/${item.id}`)
+                .then(response => {
+                    // this.employee_request = response.data.employee_request
+                    if(response.data.status =='success'){
+
+                        iziToast.success({
+                            title: response.data.message,
+                            message: '',
+                        });
+
+                    }else{
+                        iziToast.error({
+                            title: response.data.message,
+                            message: '',
+                        });
+                    }
+
+                    this.search();
+                })
+                .catch(error => {
+                    // console.log(error);
+                    iziToast.error({
+                            title: 'Error',
+                            message: error,
+                        });
+            });
+
+
                 // Swal.fire(
                 // 'Deleted!',
                 // 'Your file has been deleted.',
