@@ -32,6 +32,10 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 6. Idiomas
             </v-tab>
+            <v-tab href="#tab-7">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                7. Paquetes
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
