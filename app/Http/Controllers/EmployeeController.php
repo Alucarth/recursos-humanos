@@ -21,7 +21,7 @@ class EmployeeController extends Controller
 
     public function info()
     {
-        $employee = Employee::with('position','management','families')->find(Auth::user()->employee->id);
+        $employee = Employee::with('position','management','families','academic_trainings','courses')->find(Auth::user()->employee->id);
         return response()->json(compact('employee'));
     }
     /**

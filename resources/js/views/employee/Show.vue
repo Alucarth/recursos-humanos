@@ -20,6 +20,14 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 3. Datos Referenciales
             </v-tab>
+            <v-tab href="#tab-4">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                4. Formacion Academica
+            </v-tab>
+            <v-tab href="#tab-5">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                5. Cursos y/o Seminarios
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
@@ -108,6 +116,87 @@
 
 
             </v-tab-item>
+
+            <v-tab-item
+                value="tab-4"
+            >
+                <academic-edit :dialog="dialog_academic" :academic="academic" @close="close_academic"  @academic="update_academic"  ></academic-edit>
+                <v-card flat>
+                <v-card-title> Formacion Academica
+                    <v-btn icon @click="create_academic()"> <v-icon>add</v-icon> </v-btn>
+                </v-card-title>
+                <v-card-text>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Formacion Academica</td>
+                            <td>Documentos</td>
+                            <td>Estado</td>
+                            <td>Insitucion</td>
+                            <td>Grado</td>
+                            <td>Titulo</td>
+                            <td>Fecha de Emision</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(academic,index) in employee.academic_trainings" :key="index" >
+
+                            <td>{{academic.name}}</td>
+                            <td>{{academic.document}}</td>
+                            <td>{{academic.state}}</td>
+                            <td>{{academic.instituion}}</td>
+                            <td>{{academic.grade}}</td>
+                            <td>{{academic.has_title?'Si':'No'}}</td>
+                            <td>{{academic.date}}</td>
+                            <td> <v-btn icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                </v-card-text>
+                </v-card>
+            </v-tab-item>
+            <v-tab-item
+                value="tab-5"
+            >
+                <course-edit :dialog="dialog_course" :course="course" @close="close_course"  @course="update_course"  ></course-edit>
+                <v-card flat>
+                <v-card-title> Cursos y Seminarios
+                    <v-btn icon @click="create_course()"> <v-icon>add</v-icon> </v-btn>
+                </v-card-title>
+                <v-card-text>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Gesion</td>
+                            <td>Insitucion</td>
+                            <td>Nombre</td>
+                            <td>Duracion</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(course,index) in employee.courses" :key="index" >
+
+                            <td>{{course.date}}</td>
+                            <td>{{course.name}}</td>
+                            <td>{{course.instituion}}</td>
+                            <td>{{course.hours}}</td>
+                            <td> <v-btn icon  @click="delete_course(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs>
 
         <div class="text-xs-center mt-3">
@@ -122,6 +211,8 @@
 import PersonalData from './PersonalData.vue';
 import FamilyEdit from './FamilyEdit.vue';
 import ReferenceEdit from './ReferenceEdit.vue';
+import AcademicEdit from './AcademicEdit.vue';
+import CourseEdit from './CourseEdit.vue';
 export default
 {
 
@@ -137,7 +228,11 @@ export default
         dialog_pd:false, //dialog personal data
         dialog_parentesco:false,
         dialog_reference:false,
-        family:{}
+        dialog_academic:false,
+        dialog_course:false,
+        family:{},
+        academic:{},
+        course:{}
     }),
     mounted()
     {
@@ -208,7 +303,44 @@ export default
         edit_reference()
         {
             this.dialog_reference = true;
-        }
+        },
+        create_academic()
+        {
+            this.academic = {};
+            this.dialog_academic = true;
+        },
+        update_academic(item){
+            console.log(item);
+            this.employee.academic_trainings.push(item);
+            this.dialog_academic = false;
+            //adicionar
+        },
+        close_academic(){
+            this.dialog_academic = false;
+        },
+        delete_academic(index)
+        {
+            this.employee.academic_trainings.splice(index, 1)
+        },
+        create_course()
+        {
+            this.course = {};
+            this.dialog_course = true;
+        },
+        update_course(item){
+            console.log(item);
+            this.employee.courses.push(item);
+            this.dialog_course = false;
+            //adicionar
+        },
+        close_course(){
+            this.dialog_course = false;
+        },
+        delete_course(index)
+        {
+            this.employee.courses.splice(index, 1)
+        },
+
     },
     computed:{
         full_name(){
@@ -223,7 +355,9 @@ export default
     components: {
         PersonalData,
         FamilyEdit,
-        ReferenceEdit
+        ReferenceEdit,
+        AcademicEdit,
+        CourseEdit
     }
 }
 </script>

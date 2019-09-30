@@ -28,4 +28,12 @@ class Employee extends Model
     {
         return $this->hasMany('App\Family');
     }
+    public function academic_trainings()
+    {
+        return $this->hasMany('App\AcademicTraining');
+    }
+    public function courses()
+    {
+        return $this->hasMany('App\Course');
+    }
 }

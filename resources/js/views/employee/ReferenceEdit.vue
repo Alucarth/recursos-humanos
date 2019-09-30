@@ -10,18 +10,7 @@
                     {{item.employee}}
                  <v-layout wrap>
 
-                    <!-- <v-flex xs6 sm6 md3>
-                        <v-text-field label="Primer Nombre" hint="Ingrese Primer Nombre" required v-model="item.first_name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 sm6 md3>
-                        <v-text-field label="Segundo Nombre" hint="Ingrese Seugndo Nombre" required v-model="item.second_name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 sm6 md3>
-                        <v-text-field label="Apellido Paterno" hint="Ingrese Apellido Paterno" v-model="item.last_name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 sm6 md3>
-                        <v-text-field label="Apellido Materno" hint="Ingrese Apellido Materno" v-model="item.mother_last_name"></v-text-field>
-                    </v-flex> -->
+
 
                      <v-flex xs12 sm12 md3>
                         <v-select
