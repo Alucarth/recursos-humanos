@@ -13,8 +13,11 @@ class KinshipSeeder extends Seeder
     {
         //
         $kinships = [
-            ["name"=> "Hijo"],
-            ["name"=> "Hija"],
+            ["name"=> "Hijo(a)"],
+            ["name"=> "Esposo(a)"],
+            ["name"=> "Conyugue"],
+            ["name"=> "Madre"],
+            ["name"=> "Padre"],
         ];
         foreach($kinships as $kinship){
 

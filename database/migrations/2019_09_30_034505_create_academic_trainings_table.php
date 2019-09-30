@@ -15,6 +15,8 @@ class CreateAcademicTrainingsTable extends Migration
     {
         Schema::create('academic_trainings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees'); //empleado solicitante
             $table->string('name');
             $table->string('document')->nullable();
             $table->string('state')->nullable();
