@@ -36,4 +36,8 @@ class Employee extends Model
     {
         return $this->hasMany('App\Course');
     }
+    public function languages()
+    {
+        return $this->hasMany('App\Language');
+    }
 }

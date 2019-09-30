@@ -28,6 +28,10 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 5. Cursos y/o Seminarios
             </v-tab>
+            <v-tab href="#tab-6">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                6. Idiomas
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
@@ -197,6 +201,41 @@
                 </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item
+                value="tab-6"
+            >
+                <language-edit :dialog="dialog_language" :language="language" @close="close_language"  @language="update_language"  ></language-edit>
+                <v-card flat>
+                <v-card-title> Idimas
+                    <v-btn icon @click="create_language()"> <v-icon>add</v-icon> </v-btn>
+                </v-card-title>
+                <v-card-text>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Gesion</td>
+                            <td>Insitucion</td>
+                            <td>Idioma</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(language,index) in employee.languages" :key="index" >
+
+                            <td>{{language.date}}</td>
+                            <td>{{language.instituion}}</td>
+                            <td>{{language.name}}</td>
+                            <td> <v-btn icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs>
 
         <div class="text-xs-center mt-3">
@@ -213,6 +252,7 @@ import FamilyEdit from './FamilyEdit.vue';
 import ReferenceEdit from './ReferenceEdit.vue';
 import AcademicEdit from './AcademicEdit.vue';
 import CourseEdit from './CourseEdit.vue';
+import LanguageEdit from './LanguageEdit.vue';
 export default
 {
 
@@ -230,9 +270,11 @@ export default
         dialog_reference:false,
         dialog_academic:false,
         dialog_course:false,
+        dialog_language:false,
         family:{},
         academic:{},
-        course:{}
+        course:{},
+        language:{}
     }),
     mounted()
     {
@@ -340,6 +382,24 @@ export default
         {
             this.employee.courses.splice(index, 1)
         },
+        create_language()
+        {
+            this.language = {};
+            this.dialog_language = true;
+        },
+        update_language(item){
+            console.log(item);
+            this.employee.languages.push(item);
+            this.dialog_language = false;
+            //adicionar
+        },
+        close_language(){
+            this.dialog_language = false;
+        },
+        delete_language(index)
+        {
+            this.employee.languages.splice(index, 1)
+        },
 
     },
     computed:{
@@ -357,7 +417,9 @@ export default
         FamilyEdit,
         ReferenceEdit,
         AcademicEdit,
-        CourseEdit
+        CourseEdit,
+        LanguageEdit,
+
     }
 }
 </script>
