@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 // Route::group(['prefix' => 'api','middleware' => 'jwt.auth'], function ($router) {
 //     Route::get('/', 'HomeController@index')->name('home');
 // });
+Route::get('ficha_personal','ReportController@ficha_personal');
+
 Route::post('login', 'AuthController@login');
 Route::group([
             'prefix' => 'auth',

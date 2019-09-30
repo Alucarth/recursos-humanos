@@ -20,6 +20,10 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 3. Datos Referenciales
             </v-tab>
+            <v-tab href="#tab-3">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                6. FICHA PERSONAL 
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
