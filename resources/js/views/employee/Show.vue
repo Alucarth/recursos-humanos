@@ -91,29 +91,22 @@
             <v-tab-item
                 value="tab-3"
             >
+                <reference-edit :dialog="dialog_reference" :employee="employee" @close="close_reference"  @employee="update_reference"></reference-edit>
                 <v-card flat>
-                    <v-card-title> Datos Referenciales <v-btn icon> <v-icon>edit</v-icon> </v-btn></v-card-title>
+                    <v-card-title> Datos Referenciales <v-btn icon @click="edit_reference()">  <v-icon>edit</v-icon> </v-btn></v-card-title>
                     <v-card-text>
-                        <label for="">AFP:</label> Prevision <br>
-                        <label for="">Nro NUA/CUA</label> 00123456<br>
+                        <label for="">AFP:</label> {{employee.contribution?employee.contribution.name:''}} <br>
+                        <label for="">NUA/CUA:</label> {{employee.cua_nua}}<br>
+                        <label for="">Banco:</label> {{employee.bank}} <br>
+                        <label for="">Nro Cuenta:</label> {{employee.account_number}}<br>
+                        <label for="">Seguro a Corto Plazo:</label> {{employee.health_box?employee.health_box.name:''}}<br>
+                        <label for="">Matricula:</label> {{employee.registration_number_medical}}<br>
+                        <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
+                        <label for="">Doctor/Medico:</label> {{employee.doctor_name}} <br>
                     </v-card-text>
                 </v-card>
-                <v-card flat>
-                    <v-card-title> Cuenta(s) Bancaria(s) <v-btn icon> <v-icon>edit</v-icon> </v-btn></v-card-title>
-                    <v-card-text>
-                        <label for="">AFP:</label> Prevision <br>
-                        <label for="">Nro NUA/CUA</label> 00123456<br>
-                    </v-card-text>
-                </v-card>
-                <v-card flat>
-                    <v-card-title> Seguro Medico <v-btn icon> <v-icon>edit</v-icon> </v-btn></v-card-title>
-                    <v-card-text>
-                        <label for="">Seguro a Corto Plazo:</label> Caja de Caminos <br>
-                        <label for="">Nro Matricula</label> 256<br>
-                        <label for="">Tipo Sangre</label> ORH +<br>
-                        <!-- <label for="">Doctor/Medico</label> ORH +<br> -->
-                    </v-card-text>
-                </v-card>
+
+
             </v-tab-item>
         </v-tabs>
 
@@ -128,6 +121,7 @@
 <script>
 import PersonalData from './PersonalData.vue';
 import FamilyEdit from './FamilyEdit.vue';
+import ReferenceEdit from './ReferenceEdit.vue';
 export default
 {
 
@@ -142,6 +136,7 @@ export default
         ],
         dialog_pd:false, //dialog personal data
         dialog_parentesco:false,
+        dialog_reference:false,
         family:{}
     }),
     mounted()
@@ -201,9 +196,19 @@ export default
             // console.log(item);
             this.employee.families.push(item);
             this.dialog_parentesco = false;
+        },
+        close_reference(){
+            this.dialog_reference = false;
+        },
+        update_reference(item)
+        {
+            console.log(item);
+            this.dialog_reference = false;
+        },
+        edit_reference()
+        {
+            this.dialog_reference = true;
         }
-
-
     },
     computed:{
         full_name(){
@@ -217,7 +222,8 @@ export default
     },
     components: {
         PersonalData,
-        FamilyEdit
+        FamilyEdit,
+        ReferenceEdit
     }
 }
 </script>
