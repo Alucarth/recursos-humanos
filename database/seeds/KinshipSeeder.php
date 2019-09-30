@@ -18,6 +18,7 @@ class KinshipSeeder extends Seeder
             ["name"=> "Conyugue"],
             ["name"=> "Madre"],
             ["name"=> "Padre"],
+            ["name"=> "Otro"],
         ];
         foreach($kinships as $kinship){
 

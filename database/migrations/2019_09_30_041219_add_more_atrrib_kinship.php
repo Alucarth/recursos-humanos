@@ -15,11 +15,13 @@ class AddMoreAtrribKinship extends Migration
     {
         //
         Schema::table('families', function (Blueprint $table) {
-         
+
             $table->boolean('is_reference')->default(false); //apellido casada
-            $table->string('phone')->nullable(); 
-            $table->string('cellphone')->nullable();    
-            
+            $table->string('phone')->nullable();
+            $table->string('cellphone')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->date('age')->nullable();
+
         });
     }
 

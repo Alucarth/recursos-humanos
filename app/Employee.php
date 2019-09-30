@@ -24,4 +24,8 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Management');
     }
+    public function families()
+    {
+        return $this->hasMany('App\Family');
+    }
 }

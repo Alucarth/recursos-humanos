@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Kinship;
 
 class KinshipController extends Controller
 {
@@ -14,6 +15,8 @@ class KinshipController extends Controller
     public function index()
     {
         //
+        $kinships = Kinship::all();
+        return response()->json(compact('kinships'));
     }
 
     /**
