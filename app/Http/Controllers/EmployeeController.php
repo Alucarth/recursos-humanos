@@ -189,6 +189,10 @@ class EmployeeController extends Controller
         //guardando families
         Log::info('iterando ');
         //adicionar logica de borrado para cuando se tenga que hacer modificaciones a esto XD
+        $families = Family::where('employee_id',$employee->id)->get();
+        foreach($families as $family){
+            $family->delete();
+        }
 
         foreach($request->families as $a_family)
         {
@@ -210,6 +214,12 @@ class EmployeeController extends Controller
             Log::info($item->first_name);
         }
 
+          //adicionar logica de borrado para cuando se tenga que hacer modificaciones a esto XD
+          $academics = AcademicTraining::where('employee_id',$employee->id)->get();
+          foreach($academics as $academic){
+              $academic->delete();
+          }
+
         //registrando formacion academica
         foreach($request->academic_trainings as $a_academic)
         {
@@ -227,6 +237,11 @@ class EmployeeController extends Controller
             // Log::info($item->first_name);
         }
 
+        $courses = Course::where('employee_id',$employee->id)->get();
+        foreach($courses as $course){
+            $course->delete();
+        }
+
         foreach($request->courses as $a_course)
         {
             $item = (object) $a_course;
@@ -240,6 +255,12 @@ class EmployeeController extends Controller
             // Log::info($item->first_name);
         }
 
+        $languages = Language::where('employee_id',$employee->id)->get();
+        foreach($languages as $language){
+            $language->delete();
+        }
+
+
         foreach($request->languages as $a_language)
         {
             $item = (object) $a_language;
@@ -250,6 +271,11 @@ class EmployeeController extends Controller
             $language->date = $item->date;
             $language->save();
             // Log::info($item->first_name);
+        }
+
+        $packages = Package::where('employee_id',$employee->id)->get();
+        foreach($packages as $package){
+            $package->delete();
         }
 
         foreach($request->packages as $a_package)
