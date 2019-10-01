@@ -26,7 +26,7 @@
                 </th>
                 <th class="w-20 no-padding  align-center">
                     @if($type_report == 'FICHA TECNICA')
-                        <img src="{{ public_path('images/foto_demo.jpg') }}" style="width: 148px;">
+                        <img src="{{ public_path('images/sin_foto.jpg') }}" style="width: 148px;">
                     @else
                     <table class="table-code align-top no-padding no-margins">
                         <tbody>
