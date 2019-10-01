@@ -44,4 +44,12 @@ class Employee extends Model
     {
         return $this->hasMany('App\Package');
     }
+    public function health_box()
+    {
+        return $this->belongsTo('App\HealthBox','healh_box_id');
+    }
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
 }

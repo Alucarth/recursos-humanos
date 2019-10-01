@@ -13,19 +13,21 @@
         <table class="w-100 ">
             <tr>
                 <th class="w-15 text-left no-padding no-margins align-middle" >
-                    <img src="{{ public_path('img/logo_small.png') }}" style=" width: 148px;">
+                    <img src="{{ public_path('images/logopeqe.png') }}" style=" width: 148px;">
                 </th>
                 <th class="w-50 align-center text-center">
                     <span class="font-semibold uppercase leading-tight " >
                         {{ $institution ?? 'EMPRESA BOLIVIANA DE ALIMENTOS Y DERIVADOS' }} <br>
 
-                        {{ $storage ?? 'GERENCIA DE PLANIFICACIÓN Y DESARROLLO' }} <br>
+                        {{ $area ?? 'GERENCIA DE PLANIFICACIÓN Y DESARROLLO' }} <br>
                         {{-- {{ $direction ?? '  DE BENEFICIOS ECONÓMICOS' }} <br>
                         {{ $unit ?? 'UNIDAD DE OTORGACIÓN DE FONDO DE RETIRO POLICIAL, CUOTA MORTUORIA Y AUXILIO MORTUORIO' }} --}}
                     </span>
                 </th>
                 <th class="w-20 no-padding  align-center">
-
+                    @if($type_report == 'FICHA TECNICA')
+                        <img src="{{ public_path('images/foto_demo.jpg') }}" style="width: 148px;">
+                    @else
                     <table class="table-code align-top no-padding no-margins">
                         <tbody>
                             <tr>
@@ -44,6 +46,7 @@
                             @endif
                         </tbody>
                     </table>
+                    @endif          
 
                 </th>
             </tr>
