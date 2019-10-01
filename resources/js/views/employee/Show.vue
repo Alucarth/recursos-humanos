@@ -20,11 +20,22 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 3. Datos Referenciales
             </v-tab>
-            <v-tab href="#tab-3">
+            <v-tab href="#tab-4">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                6. FICHA PERSONAL 
+                4. Formacion Academica
             </v-tab>
-
+            <v-tab href="#tab-5">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                5. Cursos y/o Seminarios
+            </v-tab>
+            <v-tab href="#tab-6">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                6. Idiomas
+            </v-tab>
+            <v-tab href="#tab-7">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                7. Paquetes
+            </v-tab>
             <v-tab-item
                 value="tab-1"
             >

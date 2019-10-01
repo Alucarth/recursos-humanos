@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\HealthBox;
 class HealthBoxController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class HealthBoxController extends Controller
     public function index()
     {
         //
+        $health_boxes = HealthBox::all();
+        return response()->json(compact('health_boxes'));
     }
 
     /**
