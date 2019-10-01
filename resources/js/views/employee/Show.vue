@@ -134,6 +134,7 @@
 
         <div class="text-xs-center mt-3">
         <v-btn @click="next">Siguiente</v-btn>
+        <v-btn @click="save_employee()"> Registrar </v-btn>
         </div>
     </v-card>
 
@@ -216,8 +217,98 @@ export default
             // console.log(item);
             this.employee.families.push(item);
             this.dialog_parentesco = false;
+        },
+        close_reference(){
+            this.dialog_reference = false;
+        },
+        update_reference(item)
+        {
+            console.log(item);
+            this.dialog_reference = false;
+        },
+        edit_reference()
+        {
+            this.dialog_reference = true;
+        },
+        create_academic()
+        {
+            this.academic = {};
+            this.dialog_academic = true;
+        },
+        update_academic(item){
+            console.log(item);
+            this.employee.academic_trainings.push(item);
+            this.dialog_academic = false;
+            //adicionar
+        },
+        close_academic(){
+            this.dialog_academic = false;
+        },
+        delete_academic(index)
+        {
+            this.employee.academic_trainings.splice(index, 1)
+        },
+        create_course()
+        {
+            this.course = {};
+            this.dialog_course = true;
+        },
+        update_course(item){
+            console.log(item);
+            this.employee.courses.push(item);
+            this.dialog_course = false;
+            //adicionar
+        },
+        close_course(){
+            this.dialog_course = false;
+        },
+        delete_course(index)
+        {
+            this.employee.courses.splice(index, 1)
+        },
+        create_language()
+        {
+            this.language = {};
+            this.dialog_language = true;
+        },
+        update_language(item){
+            console.log(item);
+            this.employee.languages.push(item);
+            this.dialog_language = false;
+            //adicionar
+        },
+        close_language(){
+            this.dialog_language = false;
+        },
+        delete_language(index)
+        {
+            this.employee.languages.splice(index, 1)
+        },
+        create_package()
+        {
+            this.paquete = {};
+            this.dialog_package = true;
+        },
+        update_package(item){
+            console.log(item);
+            this.employee.packages.push(item);
+            this.dialog_package = false;
+            //adicionar
+        },
+        close_package(){
+            this.dialog_package = false;
+        },
+        delete_package(index)
+        {
+            this.employee.packages.splice(index, 1)
+        },
+        save_employee()
+        {
+            axios.post('/api/auth/employee',this.employee)
+                 .then(response=>{
+                     console.log(response.data);
+                 });
         }
-
 
     },
     computed:{
