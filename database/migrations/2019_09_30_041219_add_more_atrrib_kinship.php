@@ -20,7 +20,7 @@ class AddMoreAtrribKinship extends Migration
             $table->string('phone')->nullable();
             $table->string('cellphone')->nullable();
             $table->date('birth_date')->nullable();
-            $table->date('age')->nullable();
+            $table->string('age')->nullable();
 
         });
     }

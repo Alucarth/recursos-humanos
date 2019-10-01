@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\AcademicTraining;
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Family;
+use App\Course;
+use App\Language;
+use App\Package;
 use Auth;
+use Log;
 class EmployeeController extends Controller
 {
     /**
@@ -174,14 +180,90 @@ class EmployeeController extends Controller
         $employee->cua_nua = $request->cua_nua;
         $employee->bank = $request->bank;
         $employee->account_number = $request->account_number;
-        $employee->health_box_id = $request->health_box_id;
+        $employee->healh_box_id = $request->healh_box_id;
         $employee->registration_number_medical = $request->registration_number_medical;
         $employee->blood_type = $request->blood_type;
         $employee->doctor_name = $request->doctor_name;
 
-
-
         $employee->save();
+        //guardando families
+        Log::info('iterando ');
+        //adicionar logica de borrado para cuando se tenga que hacer modificaciones a esto XD
+
+        foreach($request->families as $a_family)
+        {
+            $item = (object) $a_family;
+            $family = new Family;
+            $family->employee_id = $employee->id;
+            $family->first_name = $item->first_name;
+            $family->second_name = $item->second_name;
+            $family->last_name = $item->last_name;
+            $family->mother_last_name = $item->mother_last_name;
+            $family->kinship_id = $item->kinship_id;
+            $family->age = $item->age;
+            $family->birth_date = $item->birth_date;
+            $family->phone = $item->phone;
+            $family->cellphone = $item->cellphone;
+            $family->is_reference = $item->is_reference;
+            $family->save();
+
+            Log::info($item->first_name);
+        }
+
+        //registrando formacion academica
+        foreach($request->academic_trainings as $a_academic)
+        {
+            $item = (object) $a_academic;
+            $academic = new AcademicTraining;
+            $academic->employee_id = $employee->id;
+            $academic->name = $item->name;
+            $academic->document = $item->document;
+            $academic->state = $item->state;
+            $academic->instituion = $item->instituion;
+            $academic->grade = $item->grade;
+            $academic->has_title = $item->has_title;
+            $academic->date = $item->date;
+            $academic->save();
+            // Log::info($item->first_name);
+        }
+
+        foreach($request->courses as $a_course)
+        {
+            $item = (object) $a_course;
+            $course = new Course;
+            $course->employee_id = $employee->id;
+            $course->name = $item->name;
+            $course->institution = $item->institution;
+            $course->hours = $item->hours;
+            $course->date = $item->date;
+            $course->save();
+            // Log::info($item->first_name);
+        }
+
+        foreach($request->languages as $a_language)
+        {
+            $item = (object) $a_language;
+            $language = new Language;
+            $language->employee_id = $employee->id;
+            $language->name = $item->name;
+            $language->institution = $item->institution;
+            $language->date = $item->date;
+            $language->save();
+            // Log::info($item->first_name);
+        }
+
+        foreach($request->packages as $a_package)
+        {
+            $item = (object) $a_package;
+            $package = new Package;
+            $package->employee_id = $employee->id;
+            $package->name = $item->name;
+            $package->institution = $item->institution;
+            $package->date = $item->date;
+            $package->save();
+            // Log::info($item->first_name);
+        }
+
         return $request->all();
     }
 }

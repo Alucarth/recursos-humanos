@@ -36,9 +36,10 @@
                     <v-flex xs12 sm12 md3>
                         <v-select
                         label="Caja de Seguro"
-                        v-model="item.health_box"
+                        v-model="item.healh_box_id"
                         :items="health_boxes"
                         item-text="name"
+                        item-value="id"
                         hint=""
                         persistent-hint>
                         </v-select>

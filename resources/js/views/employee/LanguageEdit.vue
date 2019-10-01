@@ -12,7 +12,7 @@
 
 
                     <v-flex xs6 sm6 md4>
-                        <v-text-field label="Insitucion" hint="Ingrese Institucion" v-model="item.instituion"></v-text-field>
+                        <v-text-field label="Insitucion" hint="Ingrese Institucion" v-model="item.institution"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md4>
                         <v-text-field label="Idioma" hint="Ingrese Idioma" v-model="item.name"></v-text-field>

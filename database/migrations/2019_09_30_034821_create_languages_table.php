@@ -18,8 +18,8 @@ class CreateLanguagesTable extends Migration
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees'); //empleado solicitante
             $table->date('date');
-            $table->date('institution');
-            $table->date('name');
+            $table->string('institution');
+            $table->string('name');
             $table->timestamps();
         });
     }
