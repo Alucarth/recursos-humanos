@@ -79,7 +79,7 @@
                     </v-flex>
                      <v-flex xs12 sm12 md3>
                         <v-select
-                        label="Genero"
+                        label="Género"
                         v-model="item.gender"
                         :items="genders"
                         hint="Seleccione Genero"
@@ -104,13 +104,13 @@
                     </v-flex> -->
 
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Telefono" hint="Ingrese Telefono" v-model="item.phone"></v-text-field>
+                        <v-text-field label="Teléfono" hint="Ingrese Teléfono" v-model="item.phone"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Celular" hint="Ingrese Celular" v-model="item.cellphone"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Celular Corporativo" hint="Ingrese Telefono" v-model="item.corporate_cell"></v-text-field>
+                        <v-text-field label="Celular Corporativo" hint="Ingrese Celular Corporativo" v-model="item.corporate_cell"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Email" hint="Ingrese Email" v-model="item.personal_email"></v-text-field>
@@ -123,7 +123,7 @@
                         <v-text-field label="Profesion" hint="Ingrese Profesion" v-model="item.profession"></v-text-field>
                     </v-flex> -->
                     <v-flex xs6 sm6 md6>
-                        <v-text-field label="Direccion" hint="Ingrese Direccion" v-model="item.address"></v-text-field>
+                        <v-text-field label="Dirección" hint="Ingrese Dirección" v-model="item.address"></v-text-field>
                     </v-flex>
 
 <!--

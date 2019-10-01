@@ -45,13 +45,13 @@
                         </v-select>
                     </v-flex>
                      <v-flex xs6 sm6 md3>
-                        <v-text-field label="Nro Matricula" hint="Ingrese Matricula" v-model="item.registration_number_medical"></v-text-field>
+                        <v-text-field label="Nro Matrícula" hint="Ingrese Matrícula" v-model="item.registration_number_medical"></v-text-field>
                     </v-flex>
                      <v-flex xs6 sm6 md3>
                         <v-text-field label="Tipo de Sangre" hint="Ingrese Tipo de Sangre" v-model="item.blood_type"></v-text-field>
                     </v-flex>
                      <v-flex xs6 sm6 md3>
-                        <v-text-field label="Medico" hint="Ingrese Medico" v-model="item.doctor_name"></v-text-field>
+                        <v-text-field label="Médico" hint="Ingrese Médico" v-model="item.doctor_name"></v-text-field>
                     </v-flex>
 
 

@@ -44,17 +44,17 @@
                     <v-card-title> Datos Personales <v-btn v-if="employee.user_edit"  @click="edit_pd()" icon>  <v-icon>edit</v-icon> </v-btn> </v-card-title>
                     <v-card-text>
                         <label for="">Nombres:</label> {{ full_name }} <br>
-                        <label for="">Cedula de Identidad:</label> {{ employee.identity_card }}<br>
+                        <label for="">Cédula de Identidad:</label> {{ employee.identity_card }}<br>
                         <label for="">Fecha de Nacimiento:</label> {{ employee.birth_date }}<br>
                         <label for="">Nacionalidad:{{employee.country_id }}</label> <br>
 
                         <!-- <label for="">Nacionalidad:{{employee.country?employee.contry.name:''}}</label> <br> -->
                         <label for="">Estado Civil: {{employee.civil_status}}</label> <br>
                         <label for="">Libreta Militar: {{employee.has_military_card?'Si':'No'}}</label> <br>
-                        <label for="">Genero:{{employee.gender }}</label> <br>
+                        <label for="">Género:{{employee.gender }}</label> <br>
                         <label for="">Certificado de discapacidad: {{ employee.disability?'Si':'No'}}</label> <br>
-                        <label for="">Direccion: {{employee.address}}</label> <br>
-                        <label for="">Telefono: {{employee.phone}} </label> <br>
+                        <label for="">Dirección: {{employee.address}}</label> <br>
+                        <label for="">Teléfono: {{employee.phone}} </label> <br>
                         <label for="">Email Personal: {{employee.personal_email}}</label> <br>
                         <label for="">Celular: {{employee.cellphone}}</label> <br>
                         <label for="">Celular Institucional: {{employee.corporate_cell}}</label> <br>
@@ -83,7 +83,7 @@
                             <td>Parentesco</td>
                             <td>Edad</td>
                             <td>Fecha de Nacimiento</td>
-                            <td>Telefono</td>
+                            <td>Teléfono</td>
                             <td>Celular</td>
                             <td>Referencia de Emergencia</td>
                             <td></td>
@@ -131,9 +131,9 @@
                         <label for="">Banco:</label> {{employee.bank}} <br>
                         <label for="">Nro Cuenta:</label> {{employee.account_number}}<br>
                         <label for="">Seguro a Corto Plazo:</label> {{employee.healh_box_id}}<br>
-                        <label for="">Matricula:</label> {{employee.registration_number_medical}}<br>
+                        <label for="">Matrícula:</label> {{employee.registration_number_medical}}<br>
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
-                        <label for="">Doctor/Medico:</label> {{employee.doctor_name}} <br>
+                        <label for="">Doctor/Médico:</label> {{employee.doctor_name}} <br>
                     </v-card-text>
                 </v-card>
 
@@ -145,7 +145,7 @@
             >
                 <academic-edit :dialog="dialog_academic" :academic="academic" @close="close_academic"  @academic="update_academic"  ></academic-edit>
                 <v-card flat>
-                <v-card-title> Formacion Academica
+                <v-card-title> Formación Académica
                     <v-btn v-if="employee.user_edit" icon @click="create_academic()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
@@ -154,13 +154,13 @@
                 <table class="table">
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
-                            <td>Formacion Academica</td>
+                            <td>Formación Académica</td>
                             <td>Documentos</td>
                             <td>Estado</td>
-                            <td>Insitucion</td>
+                            <td>Insitución</td>
                             <td>Grado</td>
-                            <td>Titulo</td>
-                            <td>Fecha de Emision</td>
+                            <td>Título</td>
+                            <td>Fecha de Emisión</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -197,10 +197,10 @@
                 <table class="table">
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
-                            <td>Gestion</td>
-                            <td>Insitucion</td>
+                            <td>Gestión</td>
+                            <td>Insitución</td>
                             <td>Nombre</td>
-                            <td>Duracion</td>
+                            <td>Duración</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -234,8 +234,8 @@
                 <table class="table">
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
-                            <td>Gestion</td>
-                            <td>Insitucion</td>
+                            <td>Gestión</td>
+                            <td>Insitución</td>
                             <td>Idioma</td>
                             <td></td>
                         </tr>
@@ -244,7 +244,7 @@
                         <tr v-for="(language,index) in employee.languages" :key="index" >
 
                             <td>{{language.date}}</td>
-                            <td>{{language.institution}}</td>
+                            <td>{{language.institutión}}</td>
                             <td>{{language.name}}</td>
                             <td> <v-btn v-if="employee.user_edit" icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
@@ -269,8 +269,8 @@
                 <table class="table">
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
-                            <td>Gestion</td>
-                            <td>Insitucion</td>
+                            <td>Gestión</td>
+                            <td>Insitución</td>
                             <td>Paquetes</td>
                             <td></td>
                         </tr>

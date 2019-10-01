@@ -11,7 +11,7 @@
                  <v-layout wrap>
 
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Formacion Academica" hint="Ingrese Formacion Academica" required v-model="item.name"></v-text-field>
+                        <v-text-field label="Formación Académica" hint="Ingrese Formación Académica" required v-model="item.name"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Documento" hint="Ingrese Documento" required v-model="item.document"></v-text-field>
@@ -20,13 +20,13 @@
                         <v-text-field label="Estado" hint="Ingrese Estado" v-model="item.state"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Insitucion" hint="Ingrese Institucion" v-model="item.instituion"></v-text-field>
+                        <v-text-field label="Insitución" hint="Ingrese Institución" v-model="item.instituion"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Grado" hint="Ingrese Grado" v-model="item.grade"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
-                        <v-switch v-model="item.has_title" :label="`Cuenta con Titulo:${item.has_title?'Si':'No'}`"></v-switch>
+                        <v-switch v-model="item.has_title" :label="`Cuenta con Título:${item.has_title?'Si':'No'}`"></v-switch>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-menu
@@ -41,7 +41,7 @@
                             <template v-slot:activator="{ on }">
                             <v-text-field
                                 v-model="item.date"
-                                label="Fecha de Emision"
+                                label="Fecha de Emisión"
                                 prepend-icon="event"
                                 readonly
                                 v-on="on"
