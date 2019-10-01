@@ -146,4 +146,9 @@ class EmployeeController extends Controller
     {
         //
     }
+
+    public function save_employee(Request $request)
+    {
+        return $request->all();
+    }
 }

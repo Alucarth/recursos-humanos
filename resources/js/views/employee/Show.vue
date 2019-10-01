@@ -279,6 +279,7 @@
 
         <div class="text-xs-center mt-3">
         <v-btn @click="next">Siguiente</v-btn>
+        <v-btn @click="save_employee()"> Registrar </v-btn>
         </div>
     </v-card>
 
@@ -460,6 +461,13 @@ export default
         {
             this.employee.packages.splice(index, 1)
         },
+        save_employee()
+        {
+            axios.post('/api/auth/employee',this.employee)
+                 .then(response=>{
+                     console.log(response.data);
+                 });
+        }
 
     },
     computed:{
