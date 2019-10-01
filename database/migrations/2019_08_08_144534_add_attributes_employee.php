@@ -16,9 +16,9 @@ class AddAttributesEmployee extends Migration
         //
         Schema::table('employees', function (Blueprint $table) {
          //   $table->dropColumn(['salary']);
-            $table->decimal('salary')->nullable();
-            $table->bigInteger('contribution_id')->unsigned()->nullable();
-            $table->foreign('contribution_id')->references('id')->on('contributions');
+            // $table->decimal('salary')->nullable();
+            // $table->bigInteger('contribution_id')->unsigned()->nullable();
+            // $table->foreign('contribution_id')->references('id')->on('contributions');
         });
     }
 

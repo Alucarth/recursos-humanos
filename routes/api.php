@@ -40,6 +40,8 @@ Route::group([
     Route::resource('unity', 'UnitController');
     Route::resource('contribution', 'ContributionController');
     Route::resource('employee_request', 'EmployeeRequestController');
+    Route::resource('kinship', 'KinshipController');
+    Route::resource('health_box', 'HealthBoxController');
     Route::get('employee_info','EmployeeController@info');
     Route::get('my_request', 'EmployeeRequestController@index_employee');
     Route::get('send_request/{employee_request_id}', 'EmployeeRequestController@send');

@@ -24,4 +24,20 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Management');
     }
+    public function families()
+    {
+        return $this->hasMany('App\Family');
+    }
+    public function academic_trainings()
+    {
+        return $this->hasMany('App\AcademicTraining');
+    }
+    public function courses()
+    {
+        return $this->hasMany('App\Course');
+    }
+    public function languages()
+    {
+        return $this->hasMany('App\Language');
+    }
 }
