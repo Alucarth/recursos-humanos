@@ -280,7 +280,41 @@
         <div class="text-xs-center mt-3">
         <v-btn @click="next">Siguiente</v-btn>
         <v-btn @click="save_employee()"> Registrar </v-btn>
+        <v-btn @click="dialog_report=true"> Ver Reporte </v-btn>
         </div>
+        <v-dialog
+        v-model="dialog_report"
+        width="500"
+        >
+        <v-card>
+            <v-card-title
+            class="headline grey lighten-2"
+            primary-title
+            >
+            Reporte
+            </v-card-title>
+
+            <v-card-text>
+                <iframe :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:600px"></iframe>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+            <div class="flex-grow-1"></div>
+            <v-btn
+                color="primary"
+                text
+                @click="dialog_report = false"
+            >
+               Cerrar
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+
+
+
     </v-card>
 
 
@@ -313,6 +347,7 @@ export default
         dialog_course:false,
         dialog_language:false,
         dialog_package:false,
+        dialog_report:false,
         family:{},
         academic:{},
         course:{},
