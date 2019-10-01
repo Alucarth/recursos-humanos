@@ -10,31 +10,31 @@
         >
             <v-tab href="#tab-1">
                 <!-- <v-icon>people</v-icon> -->
-                1. <br> Datos Personales
+                1 <br> Datos Personales
             </v-tab>
             <v-tab href="#tab-2">
                 <!-- <v-icon>peoples</v-icon> -->
-                2. <br> Datos Parentesco
+                2 <br> Datos Parentesco
             </v-tab>
             <v-tab href="#tab-3">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                3. <br> Datos Referenciales
+                3 <br> Datos Referenciales
             </v-tab>
             <v-tab href="#tab-4">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                4. <br> Formacion Academica
+                4 <br> Formacion Academica
             </v-tab>
             <v-tab href="#tab-5">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                5. <br> Cursos y/o Seminarios
+                5 <br> Cursos y/o Seminarios
             </v-tab>
             <v-tab href="#tab-6">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                6. <br> Idiomas
+                6 <br> Idiomas
             </v-tab>
             <v-tab href="#tab-7">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                7. <br> Paquetes
+                7 <br> Paquetes
             </v-tab>
 
             <v-tab-item
@@ -213,7 +213,7 @@
             >
                 <language-edit :dialog="dialog_language" :language="language" @close="close_language"  @language="update_language"  ></language-edit>
                 <v-card flat>
-                <v-card-title> Idimas
+                <v-card-title> Idiomas
                     <v-btn v-if="employee.user_edit" icon @click="create_language()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
