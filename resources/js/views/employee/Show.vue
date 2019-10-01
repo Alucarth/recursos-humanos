@@ -4,13 +4,13 @@
 
        <v-tabs
         v-model="tab"
-        color="primary"
-        dark
-        slider-color="yellow"
+        color="#AED6F1"
+        light
+        slider-color="#212121"
         >
             <v-tab href="#tab-1">
                 <!-- <v-icon>people</v-icon> -->
-                1 <br> Datos Personales
+               1 <br> Datos Personales
             </v-tab>
             <v-tab href="#tab-2">
                 <!-- <v-icon>peoples</v-icon> -->
@@ -78,7 +78,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr style="background:#1B2938;color:#FFFFFF">
                             <td>Nombre</td>
                             <td>Parentesco</td>
                             <td>Edad</td>
@@ -91,13 +91,25 @@
                     </thead>
                     <tbody>
                         <tr v-for="(family,index) in employee.families" :key="index" >
-                            <td>{{family.first_name+' '+family.second_name+' '+family.last_name+' '+family.mother_last_name}}</td>
+                            <!-- <td>{{family.first_name || ''+' '+family.second_name+' '+family.last_name+' '+family.mother_last_name}}</td> -->
+                            <td>{{fullName(family) }}</td>
                             <td>{{ family.kinship_id }}</td>
                             <td>{{family.age}}</td>
                             <td>{{family.birth_date}}</td>
                             <td>{{family.phone}}</td>
                             <td>{{family.cellphone}}</td>
-                            <td>{{family.is_reference?'Si':'No'}}</td>
+                            <td>
+                                <!-- {{family.is_reference?'Si':'No'}} -->
+                                 <v-chip
+                                    class="ma-2"
+                                    color="cyan"
+                                    text-color="white"
+                                    v-if='family.is_reference'
+                                >
+
+                                     {{family.is_reference?'Si':'No'}}
+                                </v-chip>
+                            </td>
                             <td> <v-btn v-if="employee.user_edit" icon  @click="delete_parentesco(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
@@ -141,7 +153,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr style="background:#1B2938;color:#FFFFFF">
                             <td>Formacion Academica</td>
                             <td>Documentos</td>
                             <td>Estado</td>
@@ -184,8 +196,8 @@
 
                 <table class="table">
                     <thead>
-                        <tr>
-                            <td>Gesion</td>
+                        <tr style="background:#1B2938;color:#FFFFFF">
+                            <td>Gestion</td>
                             <td>Insitucion</td>
                             <td>Nombre</td>
                             <td>Duracion</td>
@@ -221,8 +233,8 @@
 
                 <table class="table">
                     <thead>
-                        <tr>
-                            <td>Gesion</td>
+                        <tr style="background:#1B2938;color:#FFFFFF">
+                            <td>Gestion</td>
                             <td>Insitucion</td>
                             <td>Idioma</td>
                             <td></td>
@@ -256,8 +268,8 @@
 
                 <table class="table">
                     <thead>
-                        <tr>
-                            <td>Gesion</td>
+                        <tr style="background:#1B2938;color:#FFFFFF">
+                            <td>Gestion</td>
                             <td>Insitucion</td>
                             <td>Paquetes</td>
                             <td></td>
@@ -510,7 +522,15 @@ export default
                  .then(response=>{
                      console.log(response.data);
                  });
+        },
+        fullName(item){
+            let first_name = item.first_name || '';
+            let second_name = item.second_name || '';
+            let last_name = item.last_name || '';
+            let mother_last_name = item.mother_last_name || '';
+            return first_name + ' '+ second_name + ' '+ last_name + ' ' + mother_last_name;
         }
+
 
     },
     computed:{
