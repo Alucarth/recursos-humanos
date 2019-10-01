@@ -46,16 +46,19 @@
                         <label for="">Nombres:</label> {{ full_name }} <br>
                         <label for="">Cedula de Identidad:</label> {{ employee.identity_card }}<br>
                         <label for="">Fecha de Nacimiento:</label> {{ employee.birth_date }}<br>
-                        <label for="">Nacionalidad:</label> <br>
-                        <label for="">Estado Civil:</label> <br>
-                        <label for="">Libreta Militar:</label> <br>
-                        <label for="">Sexo:</label> <br>
-                        <label for="">Certificado de discapacidad:</label> <br>
-                        <label for="">Direccion:</label> <br>
-                        <label for="">Telefono:</label> <br>
-                        <label for="">Email Personal:</label> <br>
-                        <label for="">Celular:</label> <br>
-                        <label for="">Correo Institucional:</label> <br>
+                        <label for="">Nacionalidad:{{employee.country_id }}</label> <br>
+
+                        <!-- <label for="">Nacionalidad:{{employee.country?employee.contry.name:''}}</label> <br> -->
+                        <label for="">Estado Civil: {{employee.civil_status}}</label> <br>
+                        <label for="">Libreta Militar: {{employee.has_military_card?'Si':'No'}}</label> <br>
+                        <label for="">Genero:{{employee.gender }}</label> <br>
+                        <label for="">Certificado de discapacidad: {{ employee.disability?'Si':'No'}}</label> <br>
+                        <label for="">Direccion: {{employee.address}}</label> <br>
+                        <label for="">Telefono: {{employee.phone}} </label> <br>
+                        <label for="">Email Personal: {{employee.personal_email}}</label> <br>
+                        <label for="">Celular: {{employee.cellphone}}</label> <br>
+                        <label for="">Celular Institucional: {{employee.corporate_cell}}</label> <br>
+                        <label for="">Correo Institucional: {{employee.corporate_email}}</label> <br>
 
 
                     <personal-data :dialog="dialog_pd" :employee="employee" @close="close_pd"  @employee="update_pd"></personal-data>
@@ -89,7 +92,7 @@
                     <tbody>
                         <tr v-for="(family,index) in employee.families" :key="index" >
                             <td>{{family.first_name+' '+family.second_name+' '+family.last_name+' '+family.mother_last_name}}</td>
-                            <td>{{ family.kinship?family.kinship.name:'' }}</td>
+                            <td>{{ family.kinship_id }}</td>
                             <td>{{family.age}}</td>
                             <td>{{family.birth_date}}</td>
                             <td>{{family.phone}}</td>
@@ -111,11 +114,11 @@
                 <v-card flat>
                     <v-card-title> Datos Referenciales <v-btn icon @click="edit_reference()">  <v-icon>edit</v-icon> </v-btn></v-card-title>
                     <v-card-text>
-                        <label for="">AFP:</label> {{employee.contribution?employee.contribution.name:''}} <br>
+                        <label for="">AFP:</label> {{employee.contribution_id}} <br>
                         <label for="">NUA/CUA:</label> {{employee.cua_nua}}<br>
                         <label for="">Banco:</label> {{employee.bank}} <br>
                         <label for="">Nro Cuenta:</label> {{employee.account_number}}<br>
-                        <label for="">Seguro a Corto Plazo:</label> {{employee.health_box?employee.health_box.name:''}}<br>
+                        <label for="">Seguro a Corto Plazo:</label> {{employee.healh_box_id}}<br>
                         <label for="">Matricula:</label> {{employee.registration_number_medical}}<br>
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
                         <label for="">Doctor/Medico:</label> {{employee.doctor_name}} <br>
@@ -194,7 +197,7 @@
 
                             <td>{{course.date}}</td>
                             <td>{{course.name}}</td>
-                            <td>{{course.instituion}}</td>
+                            <td>{{course.institution}}</td>
                             <td>{{course.hours}}</td>
                             <td> <v-btn icon  @click="delete_course(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
@@ -229,7 +232,7 @@
                         <tr v-for="(language,index) in employee.languages" :key="index" >
 
                             <td>{{language.date}}</td>
-                            <td>{{language.instituion}}</td>
+                            <td>{{language.institution}}</td>
                             <td>{{language.name}}</td>
                             <td> <v-btn icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
@@ -264,7 +267,7 @@
                         <tr v-for="(paquete,index) in employee.packages" :key="index" >
 
                             <td>{{paquete.date}}</td>
-                            <td>{{paquete.instituion}}</td>
+                            <td>{{paquete.institution}}</td>
                             <td>{{paquete.name}}</td>
                             <td> <v-btn icon  @click="delete_package(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
@@ -498,7 +501,7 @@ export default
         },
         save_employee()
         {
-            axios.post('/api/auth/employee',this.employee)
+            axios.post('/api/auth/save_employee',this.employee)
                  .then(response=>{
                      console.log(response.data);
                  });

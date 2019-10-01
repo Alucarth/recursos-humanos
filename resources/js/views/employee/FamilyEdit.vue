@@ -28,7 +28,7 @@
                         v-model="item.kinship_id"
                         :items="kinships"
                         item-text="name"
-
+                        item-value="id"
                         :hint="`Selecciones Parentesco`"
                         >
                         </v-select>
