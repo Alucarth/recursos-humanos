@@ -184,7 +184,7 @@ class EmployeeController extends Controller
         $employee->registration_number_medical = $request->registration_number_medical;
         $employee->blood_type = $request->blood_type;
         $employee->doctor_name = $request->doctor_name;
-
+        $employee->user_edit = false;
         $employee->save();
         //guardando families
         Log::info('iterando ');
@@ -199,10 +199,10 @@ class EmployeeController extends Controller
             $item = (object) $a_family;
             $family = new Family;
             $family->employee_id = $employee->id;
-            $family->first_name = $item->first_name;
-            $family->second_name = $item->second_name;
-            $family->last_name = $item->last_name;
-            $family->mother_last_name = $item->mother_last_name;
+            $family->first_name = $item->first_name??'';
+            $family->second_name = $item->second_name??'';
+            $family->last_name = $item->last_name??'';
+            $family->mother_last_name = $item->mother_last_name??'';
             $family->kinship_id = $item->kinship_id;
             $family->age = $item->age;
             $family->birth_date = $item->birth_date;

@@ -41,7 +41,7 @@
                 value="tab-1"
             >
                 <v-card flat>
-                    <v-card-title> Datos Personales <v-btn @click="edit_pd()" icon>  <v-icon>edit</v-icon> </v-btn> </v-card-title>
+                    <v-card-title> Datos Personales <v-btn v-if="employee.user_edit"  @click="edit_pd()" icon>  <v-icon>edit</v-icon> </v-btn> </v-card-title>
                     <v-card-text>
                         <label for="">Nombres:</label> {{ full_name }} <br>
                         <label for="">Cedula de Identidad:</label> {{ employee.identity_card }}<br>
@@ -71,7 +71,7 @@
                 <family-edit :dialog="dialog_parentesco" :family="family" @close="close_parentesco"  @family="update_parentesco"  ></family-edit>
                 <v-card flat>
                 <v-card-title> Datos Parentesco
-                    <v-btn icon @click="create_parentesco()"> <v-icon>add</v-icon> </v-btn>
+                    <v-btn v-if="employee.user_edit" icon @click="create_parentesco()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
 
@@ -98,7 +98,7 @@
                             <td>{{family.phone}}</td>
                             <td>{{family.cellphone}}</td>
                             <td>{{family.is_reference?'Si':'No'}}</td>
-                            <td> <v-btn icon  @click="delete_parentesco(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_parentesco(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -112,7 +112,7 @@
             >
                 <reference-edit :dialog="dialog_reference" :employee="employee" @close="close_reference"  @employee="update_reference"></reference-edit>
                 <v-card flat>
-                    <v-card-title> Datos Referenciales <v-btn icon @click="edit_reference()">  <v-icon>edit</v-icon> </v-btn></v-card-title>
+                    <v-card-title> Datos Referenciales <v-btn v-if="employee.user_edit" icon @click="edit_reference()">  <v-icon>edit</v-icon> </v-btn></v-card-title>
                     <v-card-text>
                         <label for="">AFP:</label> {{employee.contribution_id}} <br>
                         <label for="">NUA/CUA:</label> {{employee.cua_nua}}<br>
@@ -134,7 +134,7 @@
                 <academic-edit :dialog="dialog_academic" :academic="academic" @close="close_academic"  @academic="update_academic"  ></academic-edit>
                 <v-card flat>
                 <v-card-title> Formacion Academica
-                    <v-btn icon @click="create_academic()"> <v-icon>add</v-icon> </v-btn>
+                    <v-btn v-if="employee.user_edit" icon @click="create_academic()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
 
@@ -162,7 +162,7 @@
                             <td>{{academic.grade}}</td>
                             <td>{{academic.has_title?'Si':'No'}}</td>
                             <td>{{academic.date}}</td>
-                            <td> <v-btn icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -177,7 +177,7 @@
                 <course-edit :dialog="dialog_course" :course="course" @close="close_course"  @course="update_course"  ></course-edit>
                 <v-card flat>
                 <v-card-title> Cursos y Seminarios
-                    <v-btn icon @click="create_course()"> <v-icon>add</v-icon> </v-btn>
+                    <v-btn v-if="employee.user_edit" icon @click="create_course()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
 
@@ -199,7 +199,7 @@
                             <td>{{course.name}}</td>
                             <td>{{course.institution}}</td>
                             <td>{{course.hours}}</td>
-                            <td> <v-btn icon  @click="delete_course(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_course(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -214,7 +214,7 @@
                 <language-edit :dialog="dialog_language" :language="language" @close="close_language"  @language="update_language"  ></language-edit>
                 <v-card flat>
                 <v-card-title> Idimas
-                    <v-btn icon @click="create_language()"> <v-icon>add</v-icon> </v-btn>
+                    <v-btn v-if="employee.user_edit" icon @click="create_language()"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
 
@@ -234,7 +234,7 @@
                             <td>{{language.date}}</td>
                             <td>{{language.institution}}</td>
                             <td>{{language.name}}</td>
-                            <td> <v-btn icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -249,7 +249,7 @@
                 <package-edit :dialog="dialog_package" :paquete="paquete" @close="close_package"  @package="update_package"  ></package-edit>
                 <v-card flat>
                 <v-card-title> Paquetes
-                    <v-btn icon @click="create_package()"> <v-icon>add</v-icon> </v-btn>
+                    <v-btn icon @click="create_package()" v-if="employee.user_edit"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
 
@@ -269,12 +269,12 @@
                             <td>{{paquete.date}}</td>
                             <td>{{paquete.institution}}</td>
                             <td>{{paquete.name}}</td>
-                            <td> <v-btn icon  @click="delete_package(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_package(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
                 </table>
 
-
+                 <v-btn v-if="employee.user_edit" @click="save_employee()"> Registrar </v-btn>
                 </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -282,8 +282,8 @@
 
         <div class="text-xs-center mt-3">
         <v-btn @click="next">Siguiente</v-btn>
-        <v-btn @click="save_employee()"> Registrar </v-btn>
-        <v-btn @click="dialog_report=true"> Ver Reporte </v-btn>
+
+        <v-btn  v-if="!employee.user_edit" @click="dialog_report=true"  >  Ver Reporte <v-icon right dark >printer</v-icon> </v-btn>
         </div>
         <v-dialog
         v-model="dialog_report"
@@ -371,8 +371,13 @@ export default
     methods:{
         next ()
         {
-            this.tab = 'tab-2';
-            console.log(this.tab)
+            let number = this.tab.toString().substr(4);
+            number++;
+            if(number>7){
+                number =1;
+            }
+            this.tab = 'tab-'+number;
+            // console.log(this.tab)
             // const tab = parseInt(this.tab)
             // this.tab = (tab < 2 ? tab + 1 : 0)
         },
