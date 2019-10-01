@@ -21,19 +21,19 @@
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">NACIONALIDAD:</td>
-        <td class="text-center text-xs uppercase">{{$employee->civil_status}}</td>
+        <td class="text-center text-xs uppercase">{{$employee->country->name}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">ESTADO CIVIL:</td>
         <td class="text-center text-xs uppercase">{{$employee->civil_status}}</td>          
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">LIBRETA DE SERVICIO MILITAR:</td>
-        <td class="text-center text-xs uppercase">{{$employee->has_military_card}}</td>
+        <td class="text-center text-xs uppercase">{{$employee->has_military_card?'SI':'NO'}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">SEXO:</td>
         <td class="text-center text-xs uppercase">{{$employee->gender}}</td>          
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">CERTIFICADO DISCAPACIDAD:</td>
-        <td class="text-center text-xs uppercase">{{$employee->id}}</td>
+        <td class="text-center text-xs uppercase">{{$employee->disability?'SI':'NO'}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">CELULAR:</td>
         <td class="text-center text-xs uppercase">{{$employee->cellphone}}</td>          
     </tr>
@@ -61,21 +61,23 @@
         <th class="text-center bg-grey-darker text-xs text-white">TELEFÓNO</th>
         <th class="text-center bg-grey-darker text-xs text-white">CELULAR</th>
     </tr>
+    @foreach($employee->families as $family)
     <tr>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
+        <th class="text-center text-xs">{{$family->first_name.' '.$family->second_name.' '.$family->last_name.' '.$family->mother_last_name}}</th>
+        <th class="text-center text-xs">{{$family->kinship->name}}</th> 
+        <th class="text-center text-xs">{{$family->age}}</th>
+        <th class="text-center text-xs">{{$family->birth_date}}</th>
+        <th class="text-center text-xs">{{$family->phone}}</th>
+        <th class="text-center text-xs">{{$family->cellphone}}</th>
     </tr>
+    @endforeach
 </table>
 <br>
 <h5>3) DATOS REFERENCIALES</h5>
 <table class="table-info align-top no-padding no-margins border">
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">AFP:</td>
-        <td class="text-center text-xs uppercase">{{$employee->contribution->name}}</td>
+        <td class="text-center text-xs uppercase">{{$employee->contribution->afp_name}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">NUA/CUA:</td>
         <td class="text-center text-xs uppercase">{{$employee->cua_nua}}</td>
     </tr>
@@ -87,15 +89,15 @@
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">SEGURO:</td>
-        <td class="text-center text-xs uppercase">-</td>
+        <td class="text-center text-xs uppercase">{{$employee->health_box->name}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">N° MATRICULA:</td>
-        <td class="text-center text-xs uppercase">-</td>
+        <td class="text-center text-xs uppercase">{{$employee->registration_number_medical}}</td>
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">TIPO SANGRE:</td>
-        <td class="text-center text-xs uppercase">-</td>
+        <td class="text-center text-xs uppercase">{{$employee->blood_type}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">MÉDICO:</td>
-        <td class="text-center text-xs uppercase">-</td>
+        <td class="text-center text-xs uppercase">{{$employee->doctor_name}}</td>
     </tr>
 </table>
 <br>
@@ -108,13 +110,15 @@
         <td class="text-center bg-grey-darker text-xs text-white">INSTITUCIÓN</td>
         <td class="text-center bg-grey-darker text-xs text-white">AÑO INICIO</td>
     </tr>
+    @foreach($employee->academic_trainings as $academic)
     <tr>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
+        <th class="text-center text-xs">{{$academic->name}}</th>
+        <th class="text-center text-xs">{{$academic->document}}</th>
+        <th class="text-center text-xs">{{$academic->state}}</th>
+        <th class="text-center text-xs">{{$academic->instituion}}</th>
+        <th class="text-center text-xs">{{$academic->date}}</th>
     </tr>
+    @endforeach
 </table>
 <br>
 <h5>5) CURSOS Y/O SEMINARIOS</h5>
@@ -125,11 +129,45 @@
         <td class="text-center bg-grey-darker text-xs text-white">NOMBRE</td>
         <td class="text-center bg-grey-darker text-xs text-white">DURACIÓN</td>
     </tr>
+    @foreach($employee->courses as $course)
     <tr>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
-        <th class="text-center text-xs">-</th>
+        <th class="text-center text-xs">{{$course->date}}</th>
+        <th class="text-center text-xs">{{$course->institution}}</th>
+        <th class="text-center text-xs">{{$course->name}}</th>
+        <th class="text-center text-xs">{{$course->hours}}</th>
     </tr>
+    @endforeach
+</table>
+<br>
+<h5>6) IDIOMAS</h5>
+<table class="table-info align-top no-padding no-margins border">
+    <tr>
+        <td class="text-center bg-grey-darker text-xs text-white">GESTIÓN</td>
+        <td class="text-center bg-grey-darker text-xs text-white">INSTITUCIÓN</td>
+        <td class="text-center bg-grey-darker text-xs text-white">IDIOMA</td>
+    </tr>
+    @foreach($employee->languages as $language)
+    <tr>
+        <th class="text-center text-xs">{{$language->date}}</th>
+        <th class="text-center text-xs">{{$language->institution}}</th>
+        <th class="text-center text-xs">{{$language->name}}</th>
+    </tr>
+    @endforeach
+</table>
+<br>
+<h5>7) PAQUETES</h5>
+<table class="table-info align-top no-padding no-margins border">
+    <tr>
+        <td class="text-center bg-grey-darker text-xs text-white">GESTIÓN</td>
+        <td class="text-center bg-grey-darker text-xs text-white">INSTITUCIÓN</td>
+        <td class="text-center bg-grey-darker text-xs text-white">IDIOMA</td>
+    </tr>
+    @foreach($employee->packages as $package)
+    <tr>
+        <th class="text-center text-xs">{{$package->date}}</th>
+        <th class="text-center text-xs">{{$package->institution}}</th>
+        <th class="text-center text-xs">{{$package->name}}</th>
+    </tr>
+    @endforeach
 </table>
 @endsection

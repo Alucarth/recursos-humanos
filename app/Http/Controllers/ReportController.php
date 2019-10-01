@@ -19,7 +19,7 @@ class ReportController extends Controller
         // // $html = '<h1>Hello world</h1>';
         // return view('layouts.print', compact('username','date','title'));
         $employee = Employee::with('families','courses','languages','packages','academic_trainings')->find($id);
-        //dd($employee);
+        return $employee;
         $view = \View::make('report.ficha_personal', compact('title','date','username','area','type_report','employee'));
         $html_content = $view->render();
         $pdf = App::make('snappy.pdf.wrapper');
