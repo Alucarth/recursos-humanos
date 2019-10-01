@@ -520,7 +520,10 @@ export default
         {
             axios.post('/api/auth/save_employee',this.employee)
                  .then(response=>{
-                     console.log(response.data);
+                    //  console.log(response.data);
+                     this.employee = response.data.employee;
+                     this.dialog_report = true;
+                     console.log(this.employee);
                  });
         },
         fullName(item){

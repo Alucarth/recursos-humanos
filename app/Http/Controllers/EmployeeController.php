@@ -289,7 +289,8 @@ class EmployeeController extends Controller
             $package->save();
             // Log::info($item->first_name);
         }
-
-        return $request->all();
+        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages')->find(Auth::user()->employee->id);
+        return response()->json(compact('employee'));
+        // return $request->all();
     }
 }
