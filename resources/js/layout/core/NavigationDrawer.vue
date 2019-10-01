@@ -37,7 +37,7 @@
         <v-list-group prepend-icon="personal_video">
             <template v-slot:activator>
                 <v-list-tile>
-                    <v-list-tile-title>Parametricas</v-list-tile-title>
+                    <v-list-tile-title>Paramétricas</v-list-tile-title>
                 </v-list-tile>
             </template>
             <v-list-tile
@@ -108,7 +108,7 @@ export default {
         ],
         inicio_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
-            { icon: 'person', text: 'Informacion Personal' , link: '/employee_info' },
+            { icon: 'person', text: 'Información Personal' , link: '/employee_info' },
             // { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
             { icon: 'calendar_today', text: 'Mis Asistencias', link: '/assitense' },

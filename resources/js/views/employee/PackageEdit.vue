@@ -12,7 +12,7 @@
 
 
                     <v-flex xs6 sm6 md4>
-                        <v-text-field label="Insitucion" hint="Ingrese Institucion" v-model="item.institution"></v-text-field>
+                        <v-text-field label="Insitución" hint="Ingrese Institución" v-model="item.institution"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md4>
                         <v-text-field label="Paquete" hint="Ingrese Paquete" v-model="item.name"></v-text-field>
@@ -31,7 +31,7 @@
                             <template v-slot:activator="{ on }">
                             <v-text-field
                                 v-model="item.date"
-                                label="Gestion"
+                                label="Gestión"
                                 prepend-icon="event"
                                 readonly
                                 v-on="on"
@@ -120,10 +120,10 @@ export default
 			return this.dialog
         },
         title(){
-            let title='Idioma'
+            let title='Paquete'
             if(this.item.id) {
 
-                title = 'Idioma'
+                title = 'Paquete'
             }
             return title
         },

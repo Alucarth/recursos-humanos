@@ -66,14 +66,14 @@
                     </v-flex>
 
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Telefono" hint="Ingrese Telefono" v-model="item.phone"></v-text-field>
+                        <v-text-field label="Teléfono" hint="Ingrese Teléfono" v-model="item.phone"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Celular" hint="Ingrese Celular" v-model="item.cellphone"></v-text-field>
                     </v-flex>
 
                     <v-flex xs6 sm6 md6>
-                        <v-text-field label="Direccion" hint="Ingrese Direccion" v-model="item.address"></v-text-field>
+                        <v-text-field label="Dirección" hint="Ingrese Dirección" v-model="item.address"></v-text-field>
                     </v-flex>
                     <!-- <v-flex xs6 sm6 md3>
                         <v-switch v-model="item.disability" :label="`Certificado de Discapacidad:${item.disability?'Si':'No'}`"></v-switch>
