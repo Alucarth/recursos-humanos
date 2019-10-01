@@ -40,4 +40,8 @@ class Employee extends Model
     {
         return $this->hasMany('App\Language');
     }
+    public function packages()
+    {
+        return $this->hasMany('App\Package');
+    }
 }

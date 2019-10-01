@@ -11,14 +11,14 @@
                  <v-layout wrap>
 
 
-                    <v-flex xs6 sm6 md3>
+                    <v-flex xs6 sm6 md4>
                         <v-text-field label="Insitucion" hint="Ingrese Institucion" v-model="item.instituion"></v-text-field>
                     </v-flex>
-                    <v-flex xs6 sm6 md3>
+                    <v-flex xs6 sm6 md4>
                         <v-text-field label="Idioma" hint="Ingrese Idioma" v-model="item.name"></v-text-field>
                     </v-flex>
 
-                    <v-flex xs6 sm6 md3>
+                    <v-flex xs6 sm6 md4>
                         <v-menu
                             ref="menu_birth_date"
                             v-model="menu_birth_date"

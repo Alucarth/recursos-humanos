@@ -240,6 +240,41 @@
                 </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item
+                value="tab-7"
+            >
+                <package-edit :dialog="dialog_package" :paquete="paquete" @close="close_package"  @package="update_package"  ></package-edit>
+                <v-card flat>
+                <v-card-title> Paquetes
+                    <v-btn icon @click="create_package()"> <v-icon>add</v-icon> </v-btn>
+                </v-card-title>
+                <v-card-text>
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Gesion</td>
+                            <td>Insitucion</td>
+                            <td>Paquetes</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(paquete,index) in employee.packages" :key="index" >
+
+                            <td>{{paquete.date}}</td>
+                            <td>{{paquete.instituion}}</td>
+                            <td>{{paquete.name}}</td>
+                            <td> <v-btn icon  @click="delete_package(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs>
 
         <div class="text-xs-center mt-3">
@@ -257,6 +292,7 @@ import ReferenceEdit from './ReferenceEdit.vue';
 import AcademicEdit from './AcademicEdit.vue';
 import CourseEdit from './CourseEdit.vue';
 import LanguageEdit from './LanguageEdit.vue';
+import PackageEdit from './PackageEdit.vue';
 export default
 {
 
@@ -275,10 +311,12 @@ export default
         dialog_academic:false,
         dialog_course:false,
         dialog_language:false,
+        dialog_package:false,
         family:{},
         academic:{},
         course:{},
-        language:{}
+        language:{},
+        paquete:{}
     }),
     mounted()
     {
@@ -404,6 +442,24 @@ export default
         {
             this.employee.languages.splice(index, 1)
         },
+        create_package()
+        {
+            this.paquete = {};
+            this.dialog_package = true;
+        },
+        update_package(item){
+            console.log(item);
+            this.employee.packages.push(item);
+            this.dialog_package = false;
+            //adicionar
+        },
+        close_package(){
+            this.dialog_package = false;
+        },
+        delete_package(index)
+        {
+            this.employee.packages.splice(index, 1)
+        },
 
     },
     computed:{
@@ -423,6 +479,7 @@ export default
         AcademicEdit,
         CourseEdit,
         LanguageEdit,
+        PackageEdit
 
     }
 }
