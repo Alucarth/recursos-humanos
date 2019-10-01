@@ -149,6 +149,39 @@ class EmployeeController extends Controller
 
     public function save_employee(Request $request)
     {
+        $employee = Employee::find($request->id);
+        $employee->first_name = $request->first_name;
+        $employee->second_name = $request->second_name;
+        $employee->last_name = $request->last_name;
+        $employee->mother_last_name = $request->mother_last_name;
+        $employee->identity_card = $request->identity_card;
+        $employee->city_identity_card_id = $request->city_identity_card_id;
+        $employee->birth_date = $request->birth_date;
+        $employee->country_id = $request->country_id;
+        $employee->civil_status = $request->civil_status;
+        $employee->gender = $request->gender;
+        $employee->has_military_card = $request->has_military_card;
+        $employee->disability = $request->disability;
+        $employee->address = $request->address;
+        $employee->phone = $request->phone;
+        $employee->cellphone = $request->cellphone;
+        $employee->corporate_cell = $request->corporate_cell;
+        $employee->corporate_email = $request->corporate_email;
+        $employee->personal_email = $request->personal_email;
+
+        //guardando datos referenciales
+        $employee->contribution_id = $request->contribution_id;
+        $employee->cua_nua = $request->cua_nua;
+        $employee->bank = $request->bank;
+        $employee->account_number = $request->account_number;
+        $employee->health_box_id = $request->health_box_id;
+        $employee->registration_number_medical = $request->registration_number_medical;
+        $employee->blood_type = $request->blood_type;
+        $employee->doctor_name = $request->doctor_name;
+
+
+
+        $employee->save();
         return $request->all();
     }
 }
