@@ -10,31 +10,31 @@
         >
             <v-tab href="#tab-1">
                 <!-- <v-icon>people</v-icon> -->
-                1. Datos Personales
+                1. <br> Datos Personales
             </v-tab>
             <v-tab href="#tab-2">
                 <!-- <v-icon>peoples</v-icon> -->
-                2. Datos Parentesco
+                2. <br> Datos Parentesco
             </v-tab>
             <v-tab href="#tab-3">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                3. Datos Referenciales
+                3. <br> Datos Referenciales
             </v-tab>
             <v-tab href="#tab-4">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                4. Formacion Academica
+                4. <br> Formacion Academica
             </v-tab>
             <v-tab href="#tab-5">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                5. Cursos y/o Seminarios
+                5. <br> Cursos y/o Seminarios
             </v-tab>
             <v-tab href="#tab-6">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                6. Idiomas
+                6. <br> Idiomas
             </v-tab>
             <v-tab href="#tab-7">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                7. Paquetes
+                7. <br> Paquetes
             </v-tab>
 
             <v-tab-item
@@ -287,18 +287,18 @@
         </div>
         <v-dialog
         v-model="dialog_report"
-        width="500"
+        width="1000"
         >
         <v-card>
-            <v-card-title
+            <!-- <v-card-title
             class="headline grey lighten-2"
             primary-title
             >
             Reporte
-            </v-card-title>
+            </v-card-title> -->
 
             <v-card-text>
-                <iframe :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:600px"></iframe>
+                <iframe :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
             </v-card-text>
 
             <v-divider></v-divider>
