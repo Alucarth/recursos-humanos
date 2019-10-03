@@ -25,6 +25,7 @@ class AddAttributeEmployee extends Migration
             $table->string('number_declaration')->nullable();; //Fecha de declaracion jurada
             $table->enum('blouses', ["S","M","L","XL","XXL","XXXL"])->nullable(); //estado civil
             $table->enum('shirt', ["S","M","L","XL","XXL","XXXL"])->nullable(); //estado civil
+            $table->enum('t_shirt', ["S","M","L","XL","XXL","XXXL"])->nullable(); //estado civil
             $table->enum('jacket', ["S","M","L","XL","XXL","XXXL"])->nullable(); //estado civil
             $table->integer('boots_number')->nullable(); //estado civil
 
