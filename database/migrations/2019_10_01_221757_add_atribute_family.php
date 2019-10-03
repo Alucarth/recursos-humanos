@@ -14,6 +14,11 @@ class AddAtributeFamily extends Migration
     public function up()
     {
         //
+        Schema::table('families', function (Blueprint $table) {
+            $table->bigInteger('healh_box_id')->unsigned()->nullable();
+            $table->foreign('healh_box_id')->references('id')->on('health_boxes');
+            $table->string('number_healt_box')->nullable();
+        });
     }
 
     /**
