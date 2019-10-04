@@ -313,7 +313,7 @@
                         <label for="">Talla de Chamarras:</label> {{employee.jacket}}<br>
                         <label for="">Nro de Bota:</label> {{employee.boots_number}}<br>
 
-                        <v-btn v-if="employee.user_edit" @click="save_employee()"> Registrar </v-btn>
+                        <v-btn color="success" v-if="employee.user_edit" @click="save_employee()"> Registrar Informacion </v-btn>
                     </v-card-text>
                 </v-card>
 
