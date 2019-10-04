@@ -38,7 +38,7 @@
             </v-tab>
             <v-tab href="#tab-8">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                7 <br> Otros
+                8 <br> Otros
             </v-tab>
 
             <v-tab-item
@@ -305,7 +305,7 @@
             >
                 <size-edit :dialog="dialog_size" :employee="employee" @close="close_size"  @employee="update_zise"></size-edit>
                 <v-card flat>
-                    <v-card-title> Espeficicacion de Tallas <v-btn v-if="employee.user_edit" icon @click="dialog_size=true">  <v-icon>edit</v-icon> </v-btn></v-card-title>
+                    <v-card-title> Espeficicación de Tallas <v-btn v-if="employee.user_edit" icon @click="dialog_size=true">  <v-icon>edit</v-icon> </v-btn></v-card-title>
                     <v-card-text>
                         <label for="" v-if="employee.gender == 'F'" >Talla de Blusas:</label> {{employee.blouses}} <br>
                         <label for="">Talla de Camisas:</label> {{employee.shirt}}<br>
@@ -313,7 +313,7 @@
                         <label for="">Talla de Chamarras:</label> {{employee.jacket}}<br>
                         <label for="">Nro de Bota:</label> {{employee.boots_number}}<br>
 
-                        <v-btn color="success" v-if="employee.user_edit" @click="save_employee()"> Registrar Informacion </v-btn>
+                        <v-btn color="success" v-if="employee.user_edit" @click="save_employee()"> Registrar Información </v-btn>
                     </v-card-text>
                 </v-card>
 
