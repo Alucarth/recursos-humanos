@@ -10,4 +10,8 @@ class Family extends Model
     {
         return $this->belongsTo('App\Kinship');
     }
+    public function health_box()
+    {
+        return $this->belongsTo('App\HealthBox','healh_box_id');
+    }
 }
