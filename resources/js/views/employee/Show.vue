@@ -340,7 +340,7 @@
             </v-card-title> -->
 
             <v-card-text>
-                <iframe :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
+                <iframe id='ireport' :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
             </v-card-text>
 
             <v-divider></v-divider>
@@ -565,6 +565,7 @@ export default
                  .then(response=>{
                     //  console.log(response.data);
                      this.employee = response.data.employee;
+                     document.getElementById('ireport').contentWindow.location.reload();
                      this.dialog_report = true;
                      console.log(this.employee);
                  });
