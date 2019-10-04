@@ -50,10 +50,70 @@
                      <v-flex xs6 sm6 md3>
                         <v-text-field label="Tipo de Sangre" hint="Ingrese Tipo de Sangre" v-model="item.blood_type"></v-text-field>
                     </v-flex>
-                     <v-flex xs6 sm6 md3>
+                    <v-flex xs6 sm6 md3>
                         <v-text-field label="Médico" hint="Ingrese Médico" v-model="item.doctor_name"></v-text-field>
                     </v-flex>
 
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Numero de Dependiente" hint="Ingrese Nro Dependiente" v-model="item.number_dependency"></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3>
+                        <v-switch v-model="item.sworn_declaration" :label="`Declaracion Juarada:${item.sworn_declaration?'Si':'No'}`"></v-switch>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-menu
+                        ref="menu1"
+                        v-model="menu1"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.date_sworn_declaration"
+                            label="Fecha de Declaracion"
+                            hint="Ingrese fecha"
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.date_sworn_declaration" no-title @input="menu1 = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-menu
+                        ref="menu2"
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.date_reception"
+                            label="Fecha de Recepcion"
+                            hint="Recepcion en Recursos humanos"
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.date_reception" no-title @input="menu2 = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Nro de Declaracion" hint="Ingrese Nro Declaracion" v-model="item.number_declaration"></v-text-field>
+                    </v-flex>
 
 
                 </v-layout>
@@ -92,6 +152,7 @@ export default
         imageData: "",
         health_boxes:[],
         contributions: [],
+        menu1:false,
 
     }),
     mounted(){

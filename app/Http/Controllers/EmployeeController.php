@@ -167,6 +167,7 @@ class EmployeeController extends Controller
         $employee->civil_status = $request->civil_status;
         $employee->gender = $request->gender;
         $employee->has_military_card = $request->has_military_card;
+        $employee->military_serial_number = $request->military_serial_number;
         $employee->disability = $request->disability;
         $employee->address = $request->address;
         $employee->phone = $request->phone;
@@ -174,6 +175,7 @@ class EmployeeController extends Controller
         $employee->corporate_cell = $request->corporate_cell;
         $employee->corporate_email = $request->corporate_email;
         $employee->personal_email = $request->personal_email;
+
 
         //guardando datos referenciales
         $employee->contribution_id = $request->contribution_id;
@@ -184,6 +186,18 @@ class EmployeeController extends Controller
         $employee->registration_number_medical = $request->registration_number_medical;
         $employee->blood_type = $request->blood_type;
         $employee->doctor_name = $request->doctor_name;
+        $employee->number_dependency = $request->number_dependency;
+        $employee->sworn_declaration = $request->sworn_declaration;
+        $employee->date_sworn_declaration = $request->date_sworn_declaration;
+        $employee->date_reception = $request->date_reception;
+        $employee->number_declaration = $request->number_declaration;
+        //tallas
+        $employee->blouses = $request->blouses;
+        $employee->shirt = $request->shirt;
+        $employee->t_shirt = $request->t_shirt;
+        $employee->jacket = $request->jacket;
+        $employee->boots_number = $request->boots_number;
+
         $employee->user_edit = false;
         $employee->save();
         //guardando families
@@ -209,6 +223,8 @@ class EmployeeController extends Controller
             $family->phone = $item->phone;
             $family->cellphone = $item->cellphone;
             $family->is_reference = $item->is_reference;
+            $family->healh_box_id = $item->healh_box_id;
+            $family->number_healt_box = $item->number_healt_box;
             $family->save();
 
             Log::info($item->first_name);

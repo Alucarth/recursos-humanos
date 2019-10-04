@@ -61,6 +61,20 @@
                             ></v-date-picker>
                         </v-menu>
                     </v-flex>
+                    <v-flex xs12 sm12 md3>
+                        <v-select
+                        label="Caja de Seguro"
+                        v-model="item.healh_box_id"
+                        :items="health_boxes"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-text-field label="Nro de Matricula" hint="Ingrese  Matricula" v-model="item.number_healt_box"></v-text-field>
+                    </v-flex>
                      <v-flex xs6 sm6 md3>
                         <v-text-field label="Edad" hint="Ingrese Edad" v-model="item.age"></v-text-field>
                     </v-flex>
@@ -113,12 +127,13 @@ export default
         menu_birth_date:false,
         modal: false,
         menu2: false,
-        imageData: ""
+        imageData: "",
+        health_boxes:[],
 
     }),
     mounted(){
 
-
+        this.getHealthBoxes();
         this.getKinships();
 
     },
@@ -144,6 +159,16 @@ export default
             console.log(date);
             this.item.birth_date = date;
             this.$refs.menu_birth_date.save(date)
+        },
+        getHealthBoxes (){
+            axios.get('/api/auth/health_box')
+            .then(response => {
+                this.health_boxes = response.data.health_boxes;
+                console.log(this.health_boxes);
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
     },
     computed:{

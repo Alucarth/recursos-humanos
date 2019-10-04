@@ -36,6 +36,10 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 7 <br> Paquetes
             </v-tab>
+            <v-tab href="#tab-8">
+                <!-- <v-icon>mdi-phone</v-icon> -->
+                7 <br> Otros
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
@@ -51,6 +55,7 @@
                         <!-- <label for="">Nacionalidad:{{employee.country?employee.contry.name:''}}</label> <br> -->
                         <label for="">Estado Civil: {{employee.civil_status}}</label> <br>
                         <label for="">Libreta Militar: {{employee.has_military_card?'Si':'No'}}</label> <br>
+                        <label for="">Numbero de Libreta: {{employee.military_serial_number}}</label> <br>
                         <label for="">Género:{{employee.gender }}</label> <br>
                         <label for="">Certificado de discapacidad: {{ employee.disability?'Si':'No'}}</label> <br>
                         <label for="">Dirección: {{employee.address}}</label> <br>
@@ -134,6 +139,11 @@
                         <label for="">Matrícula:</label> {{employee.registration_number_medical}}<br>
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
                         <label for="">Doctor/Médico:</label> {{employee.doctor_name}} <br>
+                        <label for="">Numero de Dependencia:</label> {{employee.number_dependency}} <br>
+                        <label for="">Declaracion Jurada:</label> {{employee.sworn_declaration?'Si':'No'}} <br>
+                        <label for="">Fecha de Declaracion:</label> {{employee.date_sworn_declaration}} <br>
+                        <label for="">Fecha de Recepcion en Recursos Humanos:</label> {{employee.date_reception}} <br>
+                        <label for="">Numero de Declaracion:</label> {{employee.number_declaration}} <br>
                     </v-card-text>
                 </v-card>
 
@@ -290,6 +300,24 @@
                 </v-card-text>
                 </v-card>
             </v-tab-item>
+             <v-tab-item
+                value="tab-8"
+            >
+                <size-edit :dialog="dialog_size" :employee="employee" @close="close_size"  @employee="update_zise"></size-edit>
+                <v-card flat>
+                    <v-card-title> Espeficicacion de Tallas <v-btn v-if="employee.user_edit" icon @click="dialog_size=true">  <v-icon>edit</v-icon> </v-btn></v-card-title>
+                    <v-card-text>
+                        <label for="" v-if="employee.gender == 'F'" >Talla de Blusas:</label> {{employee.blouses}} <br>
+                        <label for="">Talla de Camisas:</label> {{employee.shirt}}<br>
+                        <label for="">Talla de Poleras:</label> {{employee.t_shirt}} <br>
+                        <label for="">Talla de Chamarras:</label> {{employee.jacket}}<br>
+                        <label for="">Nro de Bota:</label> {{employee.boots_number}}<br>
+                    </v-card-text>
+                </v-card>
+
+
+            </v-tab-item>
+
         </v-tabs>
 
         <div class="text-xs-center mt-3">
@@ -343,6 +371,7 @@ import AcademicEdit from './AcademicEdit.vue';
 import CourseEdit from './CourseEdit.vue';
 import LanguageEdit from './LanguageEdit.vue';
 import PackageEdit from './PackageEdit.vue';
+import SizeEdit from './SizeEdit.vue';
 export default
 {
 
@@ -363,6 +392,7 @@ export default
         dialog_language:false,
         dialog_package:false,
         dialog_report:false,
+        dialog_size:false,
         family:{},
         academic:{},
         course:{},
@@ -385,7 +415,7 @@ export default
         {
             let number = this.tab.toString().substr(4);
             number++;
-            if(number>7){
+            if(number>8){
                 number =1;
             }
             this.tab = 'tab-'+number;
@@ -516,6 +546,17 @@ export default
         {
             this.employee.packages.splice(index, 1)
         },
+        close_size()
+        {
+            this.dialog_size = false;
+        },
+
+        update_zise(item){
+            // console.log(item);
+            // this.employee.packages.push(item);
+            this.dialog_size = false;
+            //adicionar
+        },
         save_employee()
         {
             axios.post('/api/auth/save_employee',this.employee)
@@ -553,7 +594,8 @@ export default
         AcademicEdit,
         CourseEdit,
         LanguageEdit,
-        PackageEdit
+        PackageEdit,
+        SizeEdit
 
     }
 }

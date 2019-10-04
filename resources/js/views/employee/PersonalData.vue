@@ -188,6 +188,10 @@
                     <v-flex xs6 sm6 md3>
                         <v-switch v-model="item.has_military_card" :label="`Libreta Militar:${item.has_military_card?'Si':'No'}`"></v-switch>
                     </v-flex>
+                    <v-flex xs6 sm6 md3 v-if="item.has_military_card">
+                        <v-text-field label="Nro de Libreta" hint="Nro de Libreta" v-model="item.military_serial_number"></v-text-field>
+                    </v-flex>
+
                     <v-flex xs6 sm6 md3>
                         <v-switch v-model="item.disability" :label="`Certificado de Discapacidad:${item.disability?'Si':'No'}`"></v-switch>
                     </v-flex>
@@ -205,7 +209,6 @@
                         >
                         </v-select>
                     </v-flex>
-
 
 
                     <!-- <v-flex xs6 sm6 md3>
