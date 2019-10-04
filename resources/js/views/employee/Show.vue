@@ -245,7 +245,7 @@
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
                             <td>Gestión</td>
-                            <td>Insitución</td>
+                            <td>Institución</td>
                             <td>Idioma</td>
                             <td></td>
                         </tr>
@@ -254,7 +254,7 @@
                         <tr v-for="(language,index) in employee.languages" :key="index" >
 
                             <td>{{language.date}}</td>
-                            <td>{{language.institutión}}</td>
+                            <td>{{language.institution}}</td>
                             <td>{{language.name}}</td>
                             <td> <v-btn v-if="employee.user_edit" icon  @click="delete_language(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
