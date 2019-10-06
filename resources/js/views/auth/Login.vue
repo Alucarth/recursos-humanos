@@ -1,11 +1,63 @@
+
 <template>
 
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
+    <link href="css/login.css" rel="stylesheet">
+      <!-- <v-container fluid fill-height> -->
+        <!-- <v-layout align-center justify-center> -->
+          <v-flex xs12 sm12 md12>
             <v-form @submit.prevent="login">
-            <v-card >
+                <div class="limiter">
+                <div class="container-login100">
+                    <div class="wrap-login100">
+                        <div class="login100-pic js-tilt" data-tilt>
+                            <img src="img/logo_eba.png" alt="IMG">
+                        </div>
+                        <div class="login100-form">
+
+                            <span class="login100-form-title">
+                                <i class="fa fa-store-alt"></i>
+                                Recursos Humanos
+                            </span>
+                            <div class="owl">
+                                <div :class="owl_hide?'hand password':'hand'"></div>
+                                <div :class="owl_hide?'hand hand-r password':'hand hand-r'"></div>
+                                <div class="arms">
+                                    <div :class="owl_hide?'arm password':'arm'"></div>
+                                    <div :class="owl_hide?'arm arm-r password':'arm arm-r'"></div>
+                                </div>
+                            </div>
+                            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                <input id="usr_usuario" v-model="usr_usuario" type="text" class="input100" name="usr_usuario"  required autofocus>
+
+
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                                <input id="password" type="password"  v-model="password" class="input100" name="password" @focus="owl_hide = true"  @blur="owl_hide = false" required>
+
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+
+
+                            <div class="container-login100-form-btn">
+                                    <button type="submit" class="login100-form-btn" >
+                                        Iniciar Sesion
+                                    </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <!-- <v-card >
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Recursos Humanos</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -29,20 +81,25 @@
                 <v-spacer></v-spacer>
                 <v-btn dark color="primary" type="submit">Inciar Sesion</v-btn>
               </v-card-actions>
-            </v-card>
+            </v-card> -->
             </v-form>
           </v-flex>
-        </v-layout>
-      </v-container>
+        <!-- </v-layout> -->
+      <!-- </v-container> -->
     </v-content>
 </template>
+
 <script>
+
 export default {
   data:()=>({
         owl_hide: false,
         usr_usuario : "",
         password : ""
     }),
+    mounted(){
+
+    },
     methods:{
         login() {
          console.log('enviando datos auth');
