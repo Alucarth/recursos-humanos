@@ -6,8 +6,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use DB;
+
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -69,23 +71,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Employee','usr_prs_id','id')->with('management');
     }
 
-    // public function permissions()
+    // public function getRoles()
     // {
+    //     $permission = Permission::where('name','RRHH')->first();
     //     $roles = [];
-
-    //     // $roles = DB::table('public.model_has_roles')
-    //     //             ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
-    //     //             ->where('public.model_has_roles.model_id','=',$this->usr_id)
-    //     //             ->select('public.roles.*')
-    //     //             ->get();
-    //     $roles = DB::table('public.model_has_roles')
-    //                 ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
-    //                 // ->join('public.role_has_permissions','public.role_has_permissions.role_id','=','public.model_has_roles.role_id')
-    //                 ->where('public.model_has_roles.model_id','=', $this->usr_id)
-    //                 // ->where('public.role_has_permissions.permission_id','=',7)
-    //                 ->select('public.roles.id','public.roles.name')
-    //                 ->get();
-
+    //     foreach($permission->getRoleNames() as $role_name)
+    //     {
+    //         $role = Role::where('name',$role_name)->first();
+    //         array_push($roles,$role);
+    //     }
     //     return $roles;
+
     // }
 }

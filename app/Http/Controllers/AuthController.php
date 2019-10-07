@@ -56,7 +56,8 @@ class AuthController extends Controller
             'status' => 'success',
             'token' => $token,
             'user' => Auth::user(),
-            // 'roles' => Auth::user()->permissions()
+            'permissions' => Auth::user()->permissions,
+            'roles' => Auth::user()->roles,
         ]);
     }
     /**
