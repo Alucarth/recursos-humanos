@@ -7,10 +7,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HasRoles;
 
     protected $table = 'public._bp_usuarios';
     protected $primaryKey = "usr_id";
@@ -67,23 +69,23 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Employee','usr_prs_id','id')->with('management');
     }
 
-    public function permissions()
-    {
-        $roles = [];
+    // public function permissions()
+    // {
+    //     $roles = [];
 
-        // $roles = DB::table('public.model_has_roles')
-        //             ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
-        //             ->where('public.model_has_roles.model_id','=',$this->usr_id)
-        //             ->select('public.roles.*')
-        //             ->get();
-        $roles = DB::table('public.model_has_roles')
-                    ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
-                    // ->join('public.role_has_permissions','public.role_has_permissions.role_id','=','public.model_has_roles.role_id')
-                    ->where('public.model_has_roles.model_id','=', $this->usr_id)
-                    // ->where('public.role_has_permissions.permission_id','=',7)
-                    ->select('public.roles.id','public.roles.name')
-                    ->get();
+    //     // $roles = DB::table('public.model_has_roles')
+    //     //             ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
+    //     //             ->where('public.model_has_roles.model_id','=',$this->usr_id)
+    //     //             ->select('public.roles.*')
+    //     //             ->get();
+    //     $roles = DB::table('public.model_has_roles')
+    //                 ->join('public.roles','public.roles.id','=','public.model_has_roles.role_id')
+    //                 // ->join('public.role_has_permissions','public.role_has_permissions.role_id','=','public.model_has_roles.role_id')
+    //                 ->where('public.model_has_roles.model_id','=', $this->usr_id)
+    //                 // ->where('public.role_has_permissions.permission_id','=',7)
+    //                 ->select('public.roles.id','public.roles.name')
+    //                 ->get();
 
-        return $roles;
-    }
+    //     return $roles;
+    // }
 }
