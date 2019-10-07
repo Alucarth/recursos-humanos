@@ -34,7 +34,7 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
-        <v-list-group prepend-icon="personal_video">
+        <v-list-group prepend-icon="personal_video" v-if="isAdmin">
             <template v-slot:activator>
                 <v-list-tile>
                     <v-list-tile-title>Paramétricas</v-list-tile-title>
@@ -51,7 +51,7 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
-        <v-list-group prepend-icon="folder_shared">
+        <v-list-group prepend-icon="folder_shared" v-if="isAdmin">
             <template v-slot:activator>
                 <v-list-tile>
                     <v-list-tile-title>RRHH</v-list-tile-title>
@@ -68,7 +68,7 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
-        <v-list-group prepend-icon="mail">
+        <v-list-group prepend-icon="mail" v-if="isAdmin">
             <template v-slot:activator>
                 <v-list-tile>
                     <v-list-tile-title>Solicitudes de Permiso</v-list-tile-title>
@@ -141,7 +141,10 @@ export default {
         ]
 
     }),
-
+    mounted(){
+        console.log('Check Admin');
+        console.log(this.isAdmin)
+    },
     methods: {
 
     },
@@ -153,7 +156,11 @@ export default {
             set(value){
             this.$store.commit('template/updateDrawer',value);
             }
+        },
+        isAdmin(){
+            return this.$store.getters['auth/isAdmin'];
         }
+
     }
 }
 </script>
