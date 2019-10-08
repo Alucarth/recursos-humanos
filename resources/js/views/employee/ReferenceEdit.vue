@@ -181,7 +181,10 @@ export default
                 console.log(error);
             });
         },
-        sendEmployee() {
+        sendEmployee()
+        {
+             this.item.health_box = _.find(this.health_boxes, (o) => { return o.id == this.item.healh_box_id; });
+             this.item.contribution = _.find(this.contributions, (o) => { return o.id == this.item.contribution_id; });
             this.$emit('employee',this.item)
         },
         sendClose() {

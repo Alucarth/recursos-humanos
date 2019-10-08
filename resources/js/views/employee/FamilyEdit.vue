@@ -149,7 +149,9 @@ export default
                 console.log(error);
             });
         },
-        sendFamily() {
+        sendFamily()
+        {
+             this.item.kinship = _.find(this.kinships, (o) => { return o.id == this.item.kinship_id; });
             this.$emit('family',this.item)
         },
         sendClose() {

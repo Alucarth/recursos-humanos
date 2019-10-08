@@ -27,7 +27,7 @@ class EmployeeController extends Controller
 
     public function info()
     {
-        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages')->find(Auth::user()->employee->id);
+        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages','country','contribution','health_box')->find(Auth::user()->employee->id);
         return response()->json(compact('employee'));
     }
     /**
@@ -126,7 +126,7 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::with('contribution')->find($id);
+        $employee = Employee::with('contribution','country')->find($id);
         return response()->json(compact('employee'));
     }
 

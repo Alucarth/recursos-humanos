@@ -50,13 +50,12 @@
                         <label for="">Nombres:</label> {{ full_name }} <br>
                         <label for="">Cédula de Identidad:</label> {{ employee.identity_card }}<br>
                         <label for="">Fecha de Nacimiento:</label> {{ employee.birth_date }}<br>
-                        <label for="">Nacionalidad:{{employee.country_id }}</label> <br>
-
+                        <label for="">Nacionalidad:{{employee.country?employee.country.name:'' }}</label> <br>
                         <!-- <label for="">Nacionalidad:{{employee.country?employee.contry.name:''}}</label> <br> -->
-                        <label for="">Estado Civil: {{employee.civil_status}}</label> <br>
+                        <label for="">Estado Civil: {{civil_status}}</label> <br>
                         <label for="">Libreta Militar: {{employee.has_military_card?'Si':'No'}}</label> <br>
                         <label for="">Numbero de Libreta: {{employee.military_serial_number}}</label> <br>
-                        <label for="">Género:{{employee.gender }}</label> <br>
+                        <label for="">Género:{{gender }}</label> <br>
                         <label for="">Certificado de discapacidad: {{ employee.disability?'Si':'No'}}</label> <br>
                         <label for="">Dirección: {{employee.address}}</label> <br>
                         <label for="">Teléfono: {{employee.phone}} </label> <br>
@@ -98,7 +97,7 @@
                         <tr v-for="(family,index) in employee.families" :key="index" >
                             <!-- <td>{{family.first_name || ''+' '+family.second_name+' '+family.last_name+' '+family.mother_last_name}}</td> -->
                             <td>{{fullName(family) }}</td>
-                            <td>{{ family.kinship_id }}</td>
+                            <td>{{ family.kinship?family.kinship.name:'' }}</td>
                             <td>{{family.age}}</td>
                             <td>{{family.birth_date}}</td>
                             <td>{{family.phone}}</td>
@@ -115,7 +114,10 @@
                                      {{family.is_reference?'Si':'No'}}
                                 </v-chip>
                             </td>
-                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_parentesco(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td>
+                                <v-btn v-if="employee.user_edit" icon  @click="edit_parentesco(family)"> <v-icon >edit</v-icon> </v-btn>
+                                <v-btn v-if="employee.user_edit" icon  @click="delete_parentesco(index)"> <v-icon >delete</v-icon> </v-btn>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,11 +133,11 @@
                 <v-card flat>
                     <v-card-title> Datos Referenciales <v-btn v-if="employee.user_edit" icon @click="edit_reference()">  <v-icon>edit</v-icon> </v-btn></v-card-title>
                     <v-card-text>
-                        <label for="">AFP:</label> {{employee.contribution_id}} <br>
+                        <label for="">AFP:</label> {{employee.contribution?employee.contribution.afp_name:''}} <br>
                         <label for="">NUA/CUA:</label> {{employee.cua_nua}}<br>
                         <label for="">Banco:</label> {{employee.bank}} <br>
                         <label for="">Nro Cuenta:</label> {{employee.account_number}}<br>
-                        <label for="">Seguro a Corto Plazo:</label> {{employee.healh_box_id}}<br>
+                        <label for="">Seguro a Corto Plazo:</label> {{employee.health_box?employee.health_box.name:''}}<br>
                         <label for="">Matrícula:</label> {{employee.registration_number_medical}}<br>
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
                         <label for="">Doctor/Médico:</label> {{employee.doctor_name}} <br>
@@ -184,6 +186,7 @@
                             <td>{{academic.grade}}</td>
                             <td>{{academic.has_title?'Si':'No'}}</td>
                             <td>{{academic.date}}</td>
+                            <td> <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn> </td>
                             <td> <v-btn v-if="employee.user_edit" icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
@@ -379,13 +382,8 @@ export default
 
     data:()=>({
         employee:{},
-        text:'hola',
+        text:'',
         tab: null,
-        childrens: [
-            {name:'Luis Perez Perez', years:10,birth_date:"01-01-2009"},
-            {name:'Luis Perez Perez', years:10,birth_date:"01-01-2009"},
-            {name:'Luis Perez Perez', years:10,birth_date:"01-01-2009"}
-        ],
         dialog_pd:false, //dialog personal data
         dialog_parentesco:false,
         dialog_reference:false,
@@ -399,7 +397,10 @@ export default
         academic:{},
         course:{},
         language:{},
-        paquete:{}
+        paquete:{},
+        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'}],
+        countries: [],
+
     }),
     mounted()
     {
@@ -448,7 +449,9 @@ export default
             this.family = {};
             this.dialog_parentesco = true;
         },
-        edit_parentesco(){
+        edit_parentesco(item){
+            this.family = item;
+            this.dialog_parentesco = true;
             // this.employee.families.push*
         },
         delete_parentesco(index)
@@ -461,7 +464,16 @@ export default
         update_parentesco(item)
         {
             // console.log(item);
-            this.employee.families.push(item);
+            let index = this.employee.families.indexOf(item)
+            if (index > -1)
+            {
+                Object.assign(this.employee.families[index], item)
+
+            } else {
+                // this.desserts.push(this.editedItem)
+                  this.employee.families.push(item);
+            }
+
             this.dialog_parentesco = false;
         },
         close_reference(){
@@ -475,6 +487,11 @@ export default
         edit_reference()
         {
             this.dialog_reference = true;
+        },
+        edit_academic(item)
+        {
+            this.academic = item;
+            this.dialog_academic = true;
         },
         create_academic()
         {
@@ -576,8 +593,7 @@ export default
             let last_name = item.last_name || '';
             let mother_last_name = item.mother_last_name || '';
             return first_name + ' '+ second_name + ' '+ last_name + ' ' + mother_last_name;
-        }
-
+        },
 
     },
     computed:{
@@ -588,6 +604,30 @@ export default
             }
             return full_name;
         },
+        civil_status(){
+            let name=''
+            if(this.employee.civil_status)
+            {
+               let obj = _.find(this.civil_statuses, (o)=> { return o.id ==this.employee.civil_status });
+               if(obj){
+                   name = obj.name
+               }
+            }
+            return name;
+        },
+        gender(){
+            let name=''
+            if(this.employee.gender)
+            {
+               if(this.employee.gender=='M')
+               {
+                   name = 'Masculino'
+               }else{
+                   name = 'Femenino'
+               }
+            }
+            return name;
+        }
 
     },
     components: {

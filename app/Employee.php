@@ -26,7 +26,7 @@ class Employee extends Model
     }
     public function families()
     {
-        return $this->hasMany('App\Family');
+        return $this->hasMany('App\Family')->with('kinship');
     }
     public function academic_trainings()
     {

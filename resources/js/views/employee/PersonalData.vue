@@ -459,7 +459,10 @@ export default
         //         console.log(error);
         //     });
         // },
-        sendEmployee() {
+        sendEmployee()
+        {
+            //before send
+            this.item.country = _.find(this.countries, (o) => { return o.id == this.item.country_id; });
             this.$emit('employee',this.item)
         },
         sendClose() {
