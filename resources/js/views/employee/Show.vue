@@ -186,7 +186,7 @@
                             <td>{{academic.grade}}</td>
                             <td>{{academic.has_title?'Si':'No'}}</td>
                             <td>{{academic.date}}</td>
-                            <td> <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn> </td>
+                            <!-- <td> <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn> </td> -->
                             <td> <v-btn v-if="employee.user_edit" icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
                         </tr>
                     </tbody>
