@@ -169,7 +169,7 @@
                             <td>Formación Académica</td>
                             <td>Documentos</td>
                             <td>Estado</td>
-                            <td>Insitución</td>
+                            <td>Institución</td>
                             <td>Grado</td>
                             <td>Título</td>
                             <td>Fecha de Emisión</td>
@@ -211,7 +211,7 @@
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
                             <td>Gestión</td>
-                            <td>Insitución</td>
+                            <td>Institución</td>
                             <td>Nombre</td>
                             <td>Duración</td>
                             <td></td>
@@ -273,7 +273,7 @@
             >
                 <package-edit :dialog="dialog_package" :paquete="paquete" @close="close_package"  @package="update_package"  ></package-edit>
                 <v-card flat>
-                <v-card-title> Paquetes
+                <v-card-title> Ofimatica y/o Aplicaciones
                     <v-btn icon @click="create_package()" v-if="employee.user_edit"> <v-icon>add</v-icon> </v-btn>
                 </v-card-title>
                 <v-card-text>
@@ -283,7 +283,7 @@
                     <thead>
                         <tr style="background:#1B2938;color:#FFFFFF">
                             <td>Gestión</td>
-                            <td>Insitución</td>
+                            <td>Institución</td>
                             <td>Paquetes</td>
                             <td></td>
                         </tr>

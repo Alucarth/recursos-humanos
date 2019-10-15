@@ -27,8 +27,17 @@
                         <v-text-field label="Nua/Cua" hint="Ingrese Nua Cua" v-model="item.cua_nua"></v-text-field>
                     </v-flex>
 
-                    <v-flex xs6 sm6 md3>
+                    <!-- <v-flex xs6 sm6 md3>
                         <v-text-field label="Banco" hint="Ingrese Banco" v-model="item.bank"></v-text-field>
+                    </v-flex> -->
+                      <v-flex xs12 sm12 md3>
+                        <v-select
+                        label="Banco"
+                        v-model="item.bank"
+                        :items="banks"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Nro Cuenta" hint="Ingrese Cuenta" v-model="item.account_number"></v-text-field>
@@ -139,6 +148,7 @@ export default
     data:()=>({
 
         civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'}],
+        banks:['Banco Union','Banco Bisa','BNB','Banco FIE','Banco Sol'],
         curriculum_name:'',
         curriculum_file:'',
         curriculum_url:'',
@@ -205,10 +215,10 @@ export default
 			return this.dialog
         },
         title(){
-            let title='Crear Empleado'
+            let title='Crear Datos Referenciales'
             if(this.item.id) {
 
-                title = 'Editar Datos Personales'
+                title = 'Editar Datos Referenciales'
             }
             return title
         },

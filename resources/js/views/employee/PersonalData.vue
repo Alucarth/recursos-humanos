@@ -116,7 +116,18 @@
                         <v-text-field label="Email" hint="Ingrese Email" v-model="item.personal_email"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md3>
-                        <v-text-field label="Email Insitucional" hint="Ingrese Email" v-model="item.corporate_email"></v-text-field>
+                        <v-text-field label="Email Institucional" hint="Ingrese Email" v-model="item.corporate_email"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-select
+                        label="Estado Civil"
+                        v-model="item.civil_status"
+                        :items="civil_statuses"
+                        item-text="name"
+                        item-value="id"
+                        :hint="`Selecciones estado Civil`"
+                        >
+                        </v-select>
                     </v-flex>
 
                     <!-- <v-flex xs6 sm6 md6>
@@ -198,17 +209,7 @@
                     <v-flex xs6 sm6 md3 v-if="item.disability">
                         <v-text-field label="Tutor" hint="Tutor del Descapacitado" v-model="item.tutor"></v-text-field>
                     </v-flex>
-                    <v-flex xs6 sm6 md3>
-                        <v-select
-                        label="Estado Civil"
-                        v-model="item.civil_status"
-                        :items="civil_statuses"
-                        item-text="name"
-                        item-value="id"
-                        :hint="`Selecciones estado Civil`"
-                        >
-                        </v-select>
-                    </v-flex>
+
 
 
                     <!-- <v-flex xs6 sm6 md3>
