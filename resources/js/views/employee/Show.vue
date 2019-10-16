@@ -34,12 +34,16 @@
             </v-tab>
             <v-tab href="#tab-7">
                 <!-- <v-icon>mdi-phone</v-icon> -->
-                7 <br> Paquetes
+                7 <br> Ofimatica y/o Aplicaciones
             </v-tab>
             <v-tab href="#tab-8">
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 8 <br> Otros
             </v-tab>
+            <!-- <v-tab href="#tab-9">
+
+                9 <br> Experiencia Laboral
+            </v-tab> -->
 
             <v-tab-item
                 value="tab-1"
@@ -82,7 +86,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr style="background:#1B2938;color:#FFFFFF">
+                        <tr class="rrhh-primary">
                             <td>Nombre</td>
                             <td>Parentesco</td>
                             <td>Edad</td>
@@ -165,7 +169,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr style="background:#1B2938;color:#FFFFFF">
+                        <tr  class="rrhh-primary">
                             <td>Formación Académica</td>
                             <td>Documentos</td>
                             <td>Estado</td>
@@ -209,7 +213,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr style="background:#1B2938;color:#FFFFFF">
+                        <tr  class="rrhh-primary">
                             <td>Gestión</td>
                             <td>Institución</td>
                             <td>Nombre</td>
@@ -246,7 +250,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr style="background:#1B2938;color:#FFFFFF">
+                        <tr  class="rrhh-primary">
                             <td>Gestión</td>
                             <td>Institución</td>
                             <td>Idioma</td>
@@ -281,7 +285,7 @@
 
                 <table class="table">
                     <thead>
-                        <tr style="background:#1B2938;color:#FFFFFF">
+                        <tr  class="rrhh-primary">
                             <td>Gestión</td>
                             <td>Institución</td>
                             <td>Paquetes</td>
@@ -322,6 +326,7 @@
 
 
             </v-tab-item>
+
 
         </v-tabs>
 

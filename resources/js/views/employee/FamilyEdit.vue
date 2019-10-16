@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="800px">
             <v-card>
-            <v-card-title>
+            <v-card-title class="rrhh-primary">
                 <span class="headline">{{ title }} </span>
             </v-card-title>
 
@@ -76,7 +76,11 @@
                         <v-text-field label="Nro de Matricula" hint="Ingrese  Matricula" v-model="item.number_healt_box"></v-text-field>
                     </v-flex>
                      <v-flex xs6 sm6 md3>
-                        <v-text-field label="Edad" hint="Ingrese Edad" v-model="item.age"></v-text-field>
+                        <v-text-field label="Edad" hint=" Edad" v-model="getAge" disabled></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 v-if="item.age >= 9 && item.age<=12 && item.kinship_id==2">
+                        <v-switch v-model="item.has_vaccine" :label="`Vacuna (VPH):${item.has_vaccine?'Si':'No'}`"></v-switch>
                     </v-flex>
 
                     <v-flex xs6 sm6 md3>
@@ -85,7 +89,6 @@
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Celular" hint="Ingrese Celular" v-model="item.cellphone"></v-text-field>
                     </v-flex>
-
                     <v-flex xs6 sm6 md6>
                         <v-text-field label="Dirección" hint="Ingrese Dirección" v-model="item.address"></v-text-field>
                     </v-flex>
@@ -93,7 +96,7 @@
                         <v-switch v-model="item.disability" :label="`Certificado de Discapacidad:${item.disability?'Si':'No'}`"></v-switch>
                     </v-flex> -->
                     <v-flex xs6 sm6 md3>
-                        <v-switch v-model="item.is_reference" :label="`Contacto de Emergencia:${item.is_reference?'Si':'No'}`"></v-switch>
+                        <v-switch v-model="item.is_reference" :label="`Es Contacto de Emergencia?:${item.is_reference?'Si':'No'}`"></v-switch>
                     </v-flex>
                 </v-layout>
                 </v-container>
@@ -160,6 +163,8 @@ export default
         save (date) {
             console.log(date);
             this.item.birth_date = date;
+            // this.calculateAge();
+            // this,item.age = this.calculateAge(date);
             this.$refs.menu_birth_date.save(date)
         },
         getHealthBoxes (){
@@ -172,6 +177,8 @@ export default
                 console.log(error);
             });
         },
+
+
     },
     computed:{
         item(){
@@ -181,14 +188,35 @@ export default
         parent_dialog(){
 			return this.dialog
         },
-        title(){
+        title()
+        {
             let title='Adicionar Familiar'
-            if(this.item.id) {
-
+            if(this.item.id)
+            {
                 title = 'Datos Familiar'
             }
             return title
         },
+        getAge()
+        {
+            let age=0;
+            if(this.item)
+            {
+                let today = new Date();
+                let birthDate = new Date(this.item.birth_date);
+                age = today.getFullYear() - birthDate.getFullYear();
+                let m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+                {
+                    age--;
+                }
+
+                this.item.age = age;
+            }
+
+            return age;
+        }
+
     },
     watch: {
       menu_birth_date (val) {

@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="800px">
             <v-card>
-            <v-card-title>
+            <v-card-title class="rrhh-primary">
                 <span class="headline">{{ title }} </span>
             </v-card-title>
 
@@ -66,11 +66,11 @@
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Numero de Dependiente" hint="Ingrese Nro Dependiente" v-model="item.number_dependency"></v-text-field>
                     </v-flex>
-
+<!--
                     <v-flex xs6 sm6 md3>
                         <v-switch v-model="item.sworn_declaration" :label="`Declaracion Juarada:${item.sworn_declaration?'Si':'No'}`"></v-switch>
-                    </v-flex>
-                    <v-flex xs6 sm6 md3>
+                    </v-flex> -->
+                    <!-- <v-flex xs6 sm6 md3>
                         <v-menu
                         ref="menu1"
                         v-model="menu1"
@@ -122,7 +122,7 @@
                     </v-flex>
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Nro de Declaracion" hint="Ingrese Nro Declaracion" v-model="item.number_declaration"></v-text-field>
-                    </v-flex>
+                    </v-flex> -->
 
 
                 </v-layout>
@@ -131,7 +131,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="sendClose()">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click="sendClose()">Cancelar</v-btn>
 
                 <v-btn color="blue darken-1" flat @click="sendEmployee()">Guardar</v-btn>
             </v-card-actions>

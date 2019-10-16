@@ -225,6 +225,7 @@ class EmployeeController extends Controller
             $family->is_reference = $item->is_reference;
             $family->healh_box_id = $item->healh_box_id;
             $family->number_healt_box = $item->number_healt_box;
+            $family->has_vaccine = $item->has_vaccine;
             $family->save();
 
             Log::info($item->first_name);

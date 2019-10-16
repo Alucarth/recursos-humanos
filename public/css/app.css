@@ -14312,6 +14312,11 @@ a.text-dark:focus {
   }
 }
 
+.rrhh-primary {
+  background-color: #1B2938;
+  color: #ffffff;
+}
+
 html,
 body {
   font-weight: 500;

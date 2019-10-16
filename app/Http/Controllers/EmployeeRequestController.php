@@ -165,6 +165,7 @@ class EmployeeRequestController extends Controller
     {
         $employee_request = EmployeeRequest::find($employee_request_id);
         $approve = Approve::where('employee_request_id',$employee_request->id)->where('state','Pendiente')->first();
+
         $employee = Employee::where('position_id',$approve->position_id)->first();
         if($employee)
         {

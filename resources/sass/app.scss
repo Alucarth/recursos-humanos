@@ -19,6 +19,15 @@
 //@import '~bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap';
 
+$blanco: #ffffff;
+$azul: #1B2938;
+.rrhh-primary
+{
+    background-color: $azul;
+    color: $blanco;
+}
+
+
 html,
 body {
   font-weight: 500;
