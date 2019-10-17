@@ -15,6 +15,7 @@ import Contribution from './views/contribution/Index';
 import MyRequest from './views/my_request/Index';
 import EmployeeRequest from './views/request/Index';
 import EmployeeInfo from './views/employee/Show';
+import Biometric from './views/biometric/Index';
 
 export const routes= [
     {
@@ -186,6 +187,18 @@ export const routes= [
         name: '/employee_info',
         components: {
             default: EmployeeInfo,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/biometric',
+        name: '/biometric',
+        components: {
+            default: Biometric,
             toolbar: Toolbar,
             nav: Nav
         },

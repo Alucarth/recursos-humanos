@@ -125,6 +125,7 @@ export default {
             // { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
         ],
         parameters: [
+            { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
             { icon: 'work', text: 'Cargos' , link: '/position' },
             { icon: 'location_on', text: 'Ciudades' , link: '/city' },
             { icon: 'public', text: 'Paises' , link: '/country' },
