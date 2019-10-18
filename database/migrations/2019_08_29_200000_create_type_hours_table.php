@@ -17,6 +17,15 @@ class CreateTypeHoursTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code');
+            $table->boolean('mondey')->default(false);
+            $table->boolean('tuesday')->default(false);
+            $table->boolean('thursday')->default(false);
+            $table->boolean('friday')->default(false);
+            $table->boolean('saturday')->default(false);
+            $table->boolean('sunday')->default(false);
+            $table->time('entry');
+            $table->time('output');
+            $table->time('tolerance');
             $table->timestamps();
         });
     }
