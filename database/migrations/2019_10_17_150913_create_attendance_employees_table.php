@@ -17,6 +17,8 @@ class CreateAttendanceEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees'); //empleado
+            $table->bigInteger('biometric_id')->unsigned();
+            $table->foreign('biometric_id')->references('id')->on('biometrics'); //biometrico
             $table->bigInteger('biometric_code'); //badge number
             $table->date('date');
             $table->time('time');

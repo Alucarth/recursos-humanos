@@ -45,7 +45,9 @@ Route::group([
     Route::resource('kinship', 'KinshipController');
     Route::resource('health_box', 'HealthBoxController');
     Route::resource('biometric', 'BiometricController');
+    Route::resource('attendance', 'AttendanceController');
     Route::post('sync_biometric','BiometricController@sync');
+    Route::get('info_biometric/{biometric_id}','BiometricController@getInfo');
     Route::get('employee_info','EmployeeController@info');
     Route::get('my_request', 'EmployeeRequestController@index_employee');
     Route::get('send_request/{employee_request_id}', 'EmployeeRequestController@send');
