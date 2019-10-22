@@ -54,6 +54,7 @@ Route::group([
     Route::resource('request_type', 'RequestTypeController');
     Route::post('approve_request','EmployeeRequestController@approve');
     Route::post('save_employee','EmployeeController@save_employee' );
+    Route::post('enabled_employee','EmployeeController@enabled' );
 
 
 });

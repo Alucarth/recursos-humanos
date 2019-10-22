@@ -41,6 +41,13 @@ class EmployeeController extends Controller
         //
     }
 
+    public function enabled(Request $request)
+    {
+        $employee = Employee::find($request->id);
+        $employee->user_edit = $request->user_edit;
+        $employee->save();
+        return response()->json(compact('employee'));
+    }
     /**
      * Store a newly created resource in storage.
      *
