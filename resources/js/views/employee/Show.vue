@@ -146,10 +146,10 @@
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
                         <label for="">Doctor/Médico:</label> {{employee.doctor_name}} <br>
                         <label for="">Numero de Dependencia:</label> {{employee.number_dependency}} <br>
-                        <label for="">Declaracion Jurada:</label> {{employee.sworn_declaration?'Si':'No'}} <br>
+                        <!-- <label for="">Declaracion Jurada:</label> {{employee.sworn_declaration?'Si':'No'}} <br>
                         <label for="">Fecha de Declaracion:</label> {{employee.date_sworn_declaration}} <br>
                         <label for="">Fecha de Recepcion en Recursos Humanos:</label> {{employee.date_reception}} <br>
-                        <label for="">Numero de Declaracion:</label> {{employee.number_declaration}} <br>
+                        <label for="">Numero de Declaracion:</label> {{employee.number_declaration}} <br> -->
                     </v-card-text>
                 </v-card>
 
@@ -453,6 +453,10 @@ export default
         axios.get('/api/auth/employee_info')
             .then(response => {
                 this.employee = response.data.employee;
+                this.employee.courses.push({date:'2019-01-01',name:'Ley 1178',institution:'EGGP',hours:10});
+                this.employee.courses.push({date:'2019-01-01',name:'Responsibilidad Funcionaria',institution:'EGGP',hours:10});
+                this.employee.courses.push({date:'2019-01-01',name:'Politicas Publicas',institution:'EGGP',hours:10});
+                this.employee.languages.push({date:'2019-01-01',name:'Aymara',institution:'EGGP'});
                 console.log(this.employee);
             })
             .catch(error => {
