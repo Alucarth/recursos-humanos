@@ -95,33 +95,40 @@ class EmployeeRequestController extends Controller
         if(!$approves->count()>0)
         {
             $position = Position::find(Auth::user()->employee->position->id);
-            if($position->type_dependency == 'Unidad')
-            {
-               $first_position  = Position::where('type_dependency','Gerencia')->where('unit_id',$position->unit_id)->first();
-               $approve = new Approve;
-               $approve->employee_request_id = $employee_request->id;
-               $approve->position_id = $first_position->id;
-               $approve->state = 'Pendiente';
-               $approve->date = Carbon::now();
-               $approve->save();
+            $rrhh_position = Position::where('name','Responsable de Recursos Humanos')->first();
+            $approve = new Approve;
+            $approve->employee_request_id = $employee_request->id;
+            $approve->position_id = $rrhh_position->id;
+            $approve->state = 'Pendiente';
+            $approve->date = Carbon::now();
+            $approve->save();
+            // if($position->type_dependency == 'Unidad')
+            // {
+            //    $first_position  = Position::where('type_dependency','Gerencia')->where('unit_id',$position->unit_id)->first();
+            //    $approve = new Approve;
+            //    $approve->employee_request_id = $employee_request->id;
+            //    $approve->position_id = $first_position->id;
+            //    $approve->state = 'Pendiente';
+            //    $approve->date = Carbon::now();
+            //    $approve->save();
 
-               $second_postion =  Position::where('type_dependency','Gerencia Ejecutiva')->where('managament_id',$position->unity->management->id)->first();
-               $approve = new Approve;
-               $approve->employee_request_id = $employee_request->id;
-               $approve->position_id = $second_postion->id;
-               $approve->state = 'Pendiente';
-               $approve->date = Carbon::now();
-               $approve->save();
+            //    $second_postion =  Position::where('type_dependency','Gerencia Ejecutiva')->where('managament_id',$position->unity->management->id)->first();
+            //    $approve = new Approve;
+            //    $approve->employee_request_id = $employee_request->id;
+            //    $approve->position_id = $second_postion->id;
+            //    $approve->state = 'Pendiente';
+            //    $approve->date = Carbon::now();
+            //    $approve->save();
 
-               $rrhh_position = Position::where('name','Responsable de Recursos Humanos')->first();
-               $approve = new Approve;
-               $approve->employee_request_id = $employee_request->id;
-               $approve->position_id = $rrhh_position->id;
-               $approve->state = 'Pendiente';
-               $approve->date = Carbon::now();
-               $approve->save();
+            //    $rrhh_position = Position::where('name','Responsable de Recursos Humanos')->first();
+            //    $approve = new Approve;
+            //    $approve->employee_request_id = $employee_request->id;
+            //    $approve->position_id = $rrhh_position->id;
+            //    $approve->state = 'Pendiente';
+            //    $approve->date = Carbon::now();
+            //    $approve->save();
 
-            }
+            // }
         }
         //
 
@@ -227,7 +234,14 @@ class EmployeeRequestController extends Controller
     public function destroy($id)
     {
         //
+
+
         $employee_request = EmployeeRequest::find($id);
+        $approves = Approve::where('employee_request_id',$employee_request->id)->get();
+        foreach($approves as $approve)
+        {
+            $approve->delete();
+        }
         $name = $employee_request->date;
         $employee_request->delete();
         return response()->json(compact('name'));

@@ -39,16 +39,16 @@
                                 remove_red_eye
                             </v-icon>
                         </v-btn>
-                        <v-btn @click="edit(props.row)" >
+                        <v-btn @click="edit(props.row)" v-if="porcentajeApprove(props.row.approves) != 100" >
                             <v-icon  >
                                 thumbs_up_down
                             </v-icon>
                         </v-btn>
 
-                        <v-btn @click="sendRequest(props.row)"  >
+                        <v-btn @click="sendRequest(props.row)"  v-if="employee.position_id!=58" >
                                 <v-icon>send</v-icon>
                         </v-btn>
-                        <v-btn  v-if="porcentajeApprove(props.row.approves) > 99">
+                        <v-btn >
                                 <v-icon>print</v-icon>
                         </v-btn>
                     </v-btn-toggle>
@@ -168,7 +168,8 @@ export default {
                     // this.employees = response.data;
                     this.employee_requests = response.data.employee_requests;
                     this.employee = response.data.employee;
-                    // console.log(response.data);
+
+                    console.log(response.data);
                 });
         },
         create() {

@@ -51,6 +51,9 @@
                         <v-btn @click="sendRequest(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
                                 <v-icon>send</v-icon>
                         </v-btn>
+                        <v-btn>
+                               <v-icon>print</v-icon>
+                        </v-btn>
                     </v-btn-toggle>
 
 

@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 // });
 Route::get('print_demo','ReportController@print_demo');
 Route::get('ficha_personal/{id}','ReportController@ficha_personal');
+Route::get('employee_request/{id}','ReportController@boleta');
+
 Route::post('login', 'AuthController@login');
 Route::group([
             'prefix' => 'auth',
