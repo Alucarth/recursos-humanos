@@ -70,7 +70,7 @@ export default
         employee: Object
 	},
     data:()=>({
-        sizes: ['S','M','L','XL','XXL','XXXL'],
+        sizes: ['XS','S','M','L','XL','XXL','XXXL'],
 
     }),
     mounted(){
