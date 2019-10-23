@@ -30,18 +30,16 @@
                         <tbody>
                             <tr>
                                 <td class="text-center bg-grey-darker text-xxs text-white">Fecha de Emisión</td>
-                                <td class="text-xs">{{ $date }}</td>
+                                <td class="text-xs">{{ $date??'' }}</td>
                             </tr>
                             <tr>
                                 <td class="text-center bg-grey-darker text-xxs text-white">Usuario</td>
-                                <td class="text-xs">{!! $username !!}</td>
+                                <td class="text-xs">{!! $username??'' !!}</td>
                             </tr>
-                            @if(isset($code))
                             <tr>
                                 <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
-                                <td class="text-xs">{!! $code !!}</td>
+                                <td class="text-xs">{!! $code??'' !!}</td>
                             </tr>
-                            @endif
                         </tbody>
                     </table>
 
