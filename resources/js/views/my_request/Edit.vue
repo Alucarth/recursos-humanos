@@ -8,51 +8,70 @@
             <v-card-text v-if="item">
 
                  <v-layout wrap>
-                    <v-flex xs12 sm6 md6>
-                        <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            :return-value.sync="date"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            min-width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                            <v-text-field
-                                v-model="item.date"
-                                label="Picker in menu"
-                                prepend-icon="event"
-                                readonly
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="item.date" no-title scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                            <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                            </v-date-picker>
-                        </v-menu>
-                    </v-flex>
-
-                    <v-flex xs6 sm6 md6>
+                    <v-flex xs12 sm12 md12>
                         <v-combobox
                         v-model="item.request_type"
                         :items="request_types"
                         label="Tipo de Solicitud"
                         item-text="name"
                         ></v-combobox>
-                        <!-- <v-select
-                        v-model="item.request_type"
-                        :items="request_types"
-                        label="Tipo de Solicitud"
-                        item-text="name"
-                        item-id="id"
-                        ></v-select> -->
                     </v-flex>
 
-                    <v-flex xs11 sm3>
+                    <v-flex xs12 sm6 md6 >
+                         <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.date"
+                            label="Fecha"
+                            hint="YYYY-MM-DD"
+                            persistent-hint
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.date" no-title @input="menu = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6 v-if="hasToDate">
+                         <v-menu
+                        ref="menu4"
+                        v-model="menu4"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.todate"
+                            label="A Fecha"
+                            hint="YYYY-MM-DD"
+                            persistent-hint
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.todate" no-title @input="menu4 = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
+
+
+                    <v-flex xs11 sm3 v-if="hasHours">
                         <v-menu
                             ref="menu2"
                             v-model="menu2"
@@ -82,7 +101,7 @@
                             ></v-time-picker>
                         </v-menu>
                     </v-flex>
-                    <v-flex xs11 sm3>
+                    <v-flex xs11 sm3 v-if="hasHours">
                         <v-menu
                             ref="menu3"
                             v-model="menu3"
@@ -112,7 +131,7 @@
                             ></v-time-picker>
                         </v-menu>
                     </v-flex>
-                    <v-flex xs6 sm6 md6 >
+                    <v-flex xs6 sm6 md6 v-if="hasPlace">
                         <v-text-field label="Lugar" hint="Ingrese Lugar" required v-model="item.destiny_place"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md12 v-if="item.request_type" >
@@ -193,6 +212,7 @@ export default
         menu2: false,
         time2: null,
         menu3:false,
+        menu4:false,
     }),
     mounted(){
         // console.log(this.$root.themeColor);
@@ -231,6 +251,61 @@ export default
             }
             return title
         },
+        hasToDate(){
+            let has = false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 6:
+                    case 7:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return has;
+        },
+        hasPlace()
+        {
+            let has= false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 1:
+                    case 2:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return has;
+        },
+        hasHours()
+        {
+            let has= false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return has;
+        }
 	}
 }
 </script>

@@ -16,6 +16,9 @@ class CreateRequestTypesTable extends Migration
         Schema::create('request_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('version')->nullable();
+            $table->string('code')->nullable();
             $table->string('label1')->nullable();
             $table->string('label2')->nullable();
             $table->string('label3')->nullable();
