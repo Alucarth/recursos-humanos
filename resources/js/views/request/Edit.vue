@@ -43,13 +43,7 @@
                         label="Tipo de Solicitud"
                         item-text="name"
                         ></v-combobox>
-                        <!-- <v-select
-                        v-model="item.request_type"
-                        :items="request_types"
-                        label="Tipo de Solicitud"
-                        item-text="name"
-                        item-id="id"
-                        ></v-select> -->
+
                     </v-flex>
 
                     <v-flex xs11 sm3>

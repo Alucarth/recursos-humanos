@@ -135,7 +135,10 @@
                         <v-text-field label="Lugar" hint="Ingrese Lugar" required v-model="item.destiny_place"></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6 md12 v-if="hasReason" >
-                        <v-text-field label="Motivo" hint="Ingrese Motivo" required v-model="item.reason" v-if="item.request_type.name != 'Permiso sin Goce de Haberes'"></v-text-field>
+                        <v-text-field label="Motivo" hint="Ingrese Motivo" required v-model="item.reason" ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md12 >
+                        <v-text-field label="Autorizado por:" hint="Ingrese Autorizado por:" required v-model="item.authorized_name" ></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12 v-if="item.request_type">
                         <!-- {{item.request_type}} -->
@@ -148,7 +151,7 @@
                         <div v-if="item.request_type.name=='Permiso con Goce de Haberes'">
                             <label for="">Compensación:</label>
                         </div>
-                         <div v-if="item.request_type.name=='Permiso sin Goce de Haberes'">
+                         <div v-if="item.request_type.name=='TOLERANCIA'">
                             <label for="">Motivo:</label>
                         </div>
                             <v-switch
@@ -312,9 +315,9 @@ export default
             if(this.item.request_type)
             {
                 switch (this.item.request_type.id) {
+                    case 1:
                     case 2:
                     case 3:
-                    case 4:
                         has=true;
                         break;
                     default:
