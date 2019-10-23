@@ -22,14 +22,6 @@
                         <h6>{{ Math.ceil(porcentajeApprove(props.row.approves)) }}%</h6>
                     </v-progress-linear>
 
-                   <!-- <div class="text-xs-center"> -->
-
-                    <!-- <div class="progress">
-
-                        <div class="progress-bar" role="progressbar" :style="'width: '+porcentajeApprove(props.row.approves)+'%'" :aria-valuenow="porcentajeApprove(props.row.approves)" aria-valuemin="0" aria-valuemax="100">{{Math.round( * 10) / 10}} %</div>
-                    </div> -->
-                    <!-- <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip> -->
-                    <!-- </div> -->
                 </template>
                 <template slot="option" slot-scope="props">
                     <v-btn-toggle>
@@ -51,23 +43,36 @@
                         <v-btn @click="sendRequest(props.row)" v-if="props.row.employee_id==props.row.employee_approve_id">
                                 <v-icon>send</v-icon>
                         </v-btn>
-                        <v-btn>
+                        <v-btn @click="showReport(props.row)">
                                <v-icon>print</v-icon>
                         </v-btn>
                     </v-btn-toggle>
 
 
-                    <!-- <v-icon @click="edit(props.row)" >
-                        edit
-                    </v-icon>
-                    <v-icon @click="destroy(props.row)" >
-                        delete
-                    </v-icon> -->
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
         <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"></edit-request>
         <show-request :dialog_show="dialog_show" :employee_request="employee_request" @close_show="close_show"  @employee_request_show="update_show"></show-request>
+        <!-- dialog_printer -->
+        <v-dialog v-model="dialog_printer" fullscreen hide-overlay transition="dialog-bottom-transition">
+
+        <v-card>
+            <v-toolbar dark color="rrhh-primary">
+            <v-btn icon dark @click="dialog_printer = false">
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Boleta</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+                <v-btn dark flat @click="dialog_printer = false">Salir</v-btn>
+            </v-toolbar-items>
+            </v-toolbar>
+                <iframe :src="getUrl" frameborder="0" style="height:600px;width:100%;" ></iframe>
+            <!-- <v-card-text>
+            </v-card-text> -->
+        </v-card>
+        </v-dialog>
 
     </v-card>
 </template>
@@ -82,6 +87,7 @@ export default {
         employee:{},
         dialog:false,
         dialog_show:false,
+        dialog_printer:false,
         // knowledge:25,
         toggle_exclusive: undefined,
         columns: [
@@ -276,6 +282,10 @@ export default {
         close_show() {
             this.dialog_show = false;
         },
+        showReport(item){
+            this.employee_request = item;
+            this.dialog_printer = true;
+        },
         sendRequest(item)
         {
             Swal.fire({
@@ -325,6 +335,18 @@ export default {
                 // )
             }
             })
+        }
+    },
+    computed:
+    {
+        getUrl()
+        {
+            let url=''
+            if(this.employee_request.id)
+            {
+                url= `/api/employee_request_print/${this.employee_request.id}`;
+            }
+            return url;
         }
     },
     components: {

@@ -34,14 +34,12 @@ class ReportController extends Controller
         $employee_request = EmployeeRequest::find($id);
         $title = $employee_request->request_type->name;
         $date = date('d-m-Y');
-        $username = '';
-        $employee = Employee::with('families','courses','languages','packages','academic_trainings')->find($id);
+        $employee = $employee_request->employee;
         //return $employee;
-        $view = \View::make('report.boleta', compact('title','date','username','area','type_report','employee'));
+        $view = \View::make('report.boleta', compact('title','date','employee'));
         $html_content = $view->render();
         $pdf = App::make('snappy.pdf.wrapper');
         $pdf->loadHTML($html_content);
-        //$pdf->loadHTML($html_content)->setPaper('Letter')->setOrientation('landscape')->setOption('margin-bottom', 0); //SETTEANDO LANDSCAPE HORIZONTAL
         return $pdf->inline();
 
     }

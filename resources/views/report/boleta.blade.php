@@ -1,4 +1,4 @@
-@extends('layouts.print')
+@extends('layouts.print_request')
 
 @section('content')
 <h5>1) IDENTIFICACIÓN DEL BENEFICIARIO</h5>
@@ -21,7 +21,7 @@
     </tr>
 </table>
 <h5>2) SOLICITUD DEL </h5>
-<table class="table-info align-top no-padding no-margins border">
+{{-- <table class="table-info align-top no-padding no-margins border">
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">APELLIDO PATERNO</td>
         <td class="text-center bg-grey-darker text-xs text-white ">APELLIDO MATERNO</td>
@@ -38,7 +38,7 @@
         <td class="text-center bg-grey-darker text-xs text-white ">FECHA NACIMIENTO:</td>
         <td class="text-center text-xs uppercase">{{$employee->birth_date}}</td>
     </tr>
-</table>
+</table> --}}
 
 
 @endsection
