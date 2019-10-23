@@ -52,4 +52,8 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Country');
     }
+    public function works()
+    {
+        return $this->hasMany('App\WorkExperience');
+    }
 }

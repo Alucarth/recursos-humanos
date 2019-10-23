@@ -9,6 +9,7 @@ use App\Family;
 use App\Course;
 use App\Language;
 use App\Package;
+use App\WorkExperience;
 use Auth;
 use Log;
 class EmployeeController extends Controller
@@ -27,7 +28,7 @@ class EmployeeController extends Controller
 
     public function info()
     {
-        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages','country','contribution','health_box')->find(Auth::user()->employee->id);
+        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages','country','contribution','health_box','works')->find(Auth::user()->employee->id);
         return response()->json(compact('employee'));
     }
     /**
@@ -40,6 +41,13 @@ class EmployeeController extends Controller
         //
     }
 
+    public function enabled(Request $request)
+    {
+        $employee = Employee::find($request->id);
+        $employee->user_edit = $request->user_edit;
+        $employee->save();
+        return response()->json(compact('employee'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -290,6 +298,24 @@ class EmployeeController extends Controller
             // Log::info($item->first_name);
         }
 
+        $works = WorkExperience::where('employee_id',$employee->id)->get();
+        foreach($works as $work){
+            $work->delete();
+        }
+
+        foreach($request->works as $a_work)
+        {
+            $item = (object) $a_work;
+            $work = new WorkExperience;
+            $work->employee_id = $employee->id;
+            $work->position = $item->position;
+            $work->phone = $item->phone;
+            $work->institution = $item->institution;
+            $work->date = $item->date;
+            $work->save();
+            // Log::info($item->first_name);
+        }
+
         $packages = Package::where('employee_id',$employee->id)->get();
         foreach($packages as $package){
             $package->delete();
@@ -306,7 +332,7 @@ class EmployeeController extends Controller
             $package->save();
             // Log::info($item->first_name);
         }
-        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages')->find(Auth::user()->employee->id);
+        $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages','country','contribution','health_box','works')->find(Auth::user()->employee->id);
         return response()->json(compact('employee'));
         // return $request->all();
     }

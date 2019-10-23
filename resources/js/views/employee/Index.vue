@@ -26,9 +26,13 @@
                     </div>
                 </template>
                 <template slot="option" slot-scope="props">
-                    <!-- <v-icon  small>
-                        remove_red_eye
-                    </v-icon> -->
+
+                    <v-icon @click="disabled(props.row)" v-if="props.row.user_edit==true" >
+                        check_box
+                    </v-icon>
+                    <v-icon @click="enabled(props.row)" v-if="props.row.user_edit==false" >
+                        crop_square
+                    </v-icon>
                     <v-icon @click="edit(props.row)" >
                         edit
                     </v-icon>
@@ -162,6 +166,25 @@ export default {
         this.search();
     },
     methods:{
+
+        enabled(item)
+        {
+            console.log('habilitando');
+            axios.post('api/auth/enabled_employee',{id:item.id,user_edit:true})
+                 .then(response=>{
+                     console.log(response.data);
+                     this.search();
+                 })
+        },
+        disabled(item)
+        {
+            console.log('deshabilitado');
+            axios.post('api/auth/enabled_employee',{id:item.id,user_edit:false})
+                 .then(response=>{
+                     console.log(response.data);
+                     this.search();
+                 })
+        },
 
         search(){
             axios.get('api/auth/employee')

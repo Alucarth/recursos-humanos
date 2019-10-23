@@ -111,9 +111,9 @@ export default {
             { icon: 'person', text: 'Información Personal' , link: '/employee_info' },
             // { icon: 'vpn_key', text: 'Cambio de Contraseña', link: '/buyout' },
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
-            { icon: 'calendar_today', text: 'Mis Asistencias', link: '/assitense' },
+            // { icon: 'calendar_today', text: 'Mis Asistencias', link: '/attendance' },
             { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/my_request' },
-            { icon: 'av_timer', text: 'Mis Horarios', link: '/hours' },
+            // { icon: 'av_timer', text: 'Mis Horarios', link: '/hours' },
         ],
         rrhh_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
@@ -125,6 +125,7 @@ export default {
             // { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
         ],
         parameters: [
+            { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
             { icon: 'work', text: 'Cargos' , link: '/position' },
             { icon: 'location_on', text: 'Ciudades' , link: '/city' },
             { icon: 'public', text: 'Paises' , link: '/country' },

@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 // });
 Route::get('print_demo','ReportController@print_demo');
 Route::get('ficha_personal/{id}','ReportController@ficha_personal');
+Route::get('employee_request_print/{id}','ReportController@boleta');
+
 Route::post('login', 'AuthController@login');
 Route::group([
             'prefix' => 'auth',
@@ -44,12 +46,17 @@ Route::group([
     Route::resource('employee_request', 'EmployeeRequestController');
     Route::resource('kinship', 'KinshipController');
     Route::resource('health_box', 'HealthBoxController');
+    Route::resource('biometric', 'BiometricController');
+    Route::resource('attendance', 'AttendanceController');
+    Route::post('sync_biometric','BiometricController@sync');
+    Route::get('info_biometric/{biometric_id}','BiometricController@getInfo');
     Route::get('employee_info','EmployeeController@info');
     Route::get('my_request', 'EmployeeRequestController@index_employee');
     Route::get('send_request/{employee_request_id}', 'EmployeeRequestController@send');
     Route::resource('request_type', 'RequestTypeController');
     Route::post('approve_request','EmployeeRequestController@approve');
     Route::post('save_employee','EmployeeController@save_employee' );
+    Route::post('enabled_employee','EmployeeController@enabled' );
 
 
 });

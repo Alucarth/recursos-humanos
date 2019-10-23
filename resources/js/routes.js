@@ -15,6 +15,8 @@ import Contribution from './views/contribution/Index';
 import MyRequest from './views/my_request/Index';
 import EmployeeRequest from './views/request/Index';
 import EmployeeInfo from './views/employee/Show';
+import Biometric from './views/biometric/Index';
+import Attendance from './views/attendance/Index';
 
 export const routes= [
     {
@@ -193,4 +195,29 @@ export const routes= [
             requiresAuth: true,
         }
     },
+    {
+        path: '/biometric',
+        name: '/biometric',
+        components: {
+            default: Biometric,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/attendance',
+        name: '/attendance',
+        components: {
+            default: Attendance,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+
 ];

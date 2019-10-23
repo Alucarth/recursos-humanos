@@ -23,35 +23,35 @@
         <td class="text-center bg-grey-darker text-xs text-white ">NACIONALIDAD:</td>
         <td class="text-center text-xs uppercase">{{$employee->country->name}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">ESTADO CIVIL:</td>
-        <td class="text-center text-xs uppercase">{{$employee->civil_status}}</td>          
+        <td class="text-center text-xs uppercase">{{$employee->civil_status}}</td>
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">LIBRETA DE SERVICIO MILITAR:</td>
         <td class="text-center text-xs uppercase">{{$employee->has_military_card?'SI':'NO'}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">NÚMERO DE LIBRETA:</td>
-        <td class="text-center text-xs uppercase">{{$employee->military_serial_number}}</td>          
+        <td class="text-center text-xs uppercase">{{$employee->military_serial_number}}</td>
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">CERTIFICADO DISCAPACIDAD:</td>
         <td class="text-center text-xs uppercase">{{$employee->disability?'SI':'NO'}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">CELULAR:</td>
-        <td class="text-center text-xs uppercase">{{$employee->cellphone}}</td>          
-    </tr>    
+        <td class="text-center text-xs uppercase">{{$employee->cellphone}}</td>
+    </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">SEXO:</td>
         <td class="text-center text-xs uppercase">{{$employee->gender}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">TELÉFONO:</td>
-        <td class="text-center text-xs uppercase">{{$employee->phone}}</td>          
+        <td class="text-center text-xs uppercase">{{$employee->phone}}</td>
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">CORREO PERSONAL:</td>
         <td class="text-center text-xs">{{$employee->personal_email}}</td>
         <td class="text-center bg-grey-darker text-xs text-white ">CORREO INSTITUCIONAL:</td>
-        <td class="text-center text-xs">{{$employee->corporate_email}}</td>          
+        <td class="text-center text-xs">{{$employee->corporate_email}}</td>
     </tr>
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">DIRECCIÓN:</td>
-        <td colspan="3" class="text-center text-xs uppercase">{{$employee->address}}</td>          
+        <td colspan="3" class="text-center text-xs uppercase">{{$employee->address}}</td>
     </tr>
 </table>
 
@@ -64,13 +64,13 @@
         <th class="text-center bg-grey-darker text-xs text-white">FECHA NACMIENTO</th>
         <th class="text-center bg-grey-darker text-xs text-white">TELEFÓNO</th>
         <th class="text-center bg-grey-darker text-xs text-white">CELULAR</th>
-        <th class="text-center bg-grey-darker text-xs text-white">CAJA SEGURO</th>        
+        <th class="text-center bg-grey-darker text-xs text-white">CAJA SEGURO</th>
         <th class="text-center bg-grey-darker text-xs text-white">N° MATRICULA</th>
     </tr>
     @foreach($employee->families as $family)
     <tr>
         <th class="text-center text-xs">{{$family->first_name.' '.$family->second_name.' '.$family->last_name.' '.$family->mother_last_name}}</th>
-        <th class="text-center text-xs">{{$family->kinship->name}}</th> 
+        <th class="text-center text-xs">{{$family->kinship->name}}</th>
         <th class="text-center text-xs">{{$family->age}}</th>
         <th class="text-center text-xs">{{$family->birth_date}}</th>
         <th class="text-center text-xs">{{$family->phone}}</th>

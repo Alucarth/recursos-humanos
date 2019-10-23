@@ -40,10 +40,10 @@
                 <!-- <v-icon>mdi-phone</v-icon> -->
                 8 <br> Otros
             </v-tab>
-            <!-- <v-tab href="#tab-9">
+            <v-tab href="#tab-9">
 
                 9 <br> Experiencia Laboral
-            </v-tab> -->
+            </v-tab>
 
             <v-tab-item
                 value="tab-1"
@@ -146,10 +146,10 @@
                         <label for="">Tipo de Sangre:</label> {{employee.blood_type}}<br>
                         <label for="">Doctor/Médico:</label> {{employee.doctor_name}} <br>
                         <label for="">Numero de Dependencia:</label> {{employee.number_dependency}} <br>
-                        <label for="">Declaracion Jurada:</label> {{employee.sworn_declaration?'Si':'No'}} <br>
+                        <!-- <label for="">Declaracion Jurada:</label> {{employee.sworn_declaration?'Si':'No'}} <br>
                         <label for="">Fecha de Declaracion:</label> {{employee.date_sworn_declaration}} <br>
                         <label for="">Fecha de Recepcion en Recursos Humanos:</label> {{employee.date_reception}} <br>
-                        <label for="">Numero de Declaracion:</label> {{employee.number_declaration}} <br>
+                        <label for="">Numero de Declaracion:</label> {{employee.number_declaration}} <br> -->
                     </v-card-text>
                 </v-card>
 
@@ -320,6 +320,44 @@
                         <label for="">Talla de Chamarras:</label> {{employee.jacket}}<br>
                         <label for="">Nro de Bota:</label> {{employee.boots_number}}<br>
 
+                        <!-- <v-btn color="success" v-if="employee.user_edit" @click="save_employee()"> Registrar Información </v-btn> -->
+                    </v-card-text>
+                </v-card>
+
+
+            </v-tab-item>
+            <v-tab-item
+                value="tab-9"
+            >
+                <!-- <size-edit :dialog="dialog_size" :employee="employee" @close="close_size"  @employee="update_zise"></size-edit> -->
+                <work-edit :dialog="dialog_work" :work="work" @close="close_work"  @work="update_work"  ></work-edit>
+                <v-card flat>
+                     <v-card-title> Experiencia Laboral
+                        <v-btn icon @click="create_work()" v-if="employee.user_edit"> <v-icon>add</v-icon> </v-btn>
+                    </v-card-title>
+                    <v-card-text>
+                         <table class="table">
+                            <thead>
+                                <tr  class="rrhh-primary">
+                                    <td>Gestión</td>
+                                    <td>Empresa</td>
+                                    <td>Cargo</td>
+                                    <td>Telefono</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(work,index) in employee.works" :key="index" >
+
+                                    <td>{{work.date}}</td>
+                                    <td>{{work.institution}}</td>
+                                    <td>{{work.position}}</td>
+                                    <td>{{work.phone}}</td>
+                                    <td> <v-btn v-if="employee.user_edit" icon  @click="delete_work(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                         <v-btn color="success" v-if="employee.user_edit" @click="save_employee()"> Registrar Información </v-btn>
                     </v-card-text>
                 </v-card>
@@ -382,6 +420,7 @@ import CourseEdit from './CourseEdit.vue';
 import LanguageEdit from './LanguageEdit.vue';
 import PackageEdit from './PackageEdit.vue';
 import SizeEdit from './SizeEdit.vue';
+import WorkEdit from './WorkExperienceEdit.vue';
 export default
 {
 
@@ -398,11 +437,13 @@ export default
         dialog_package:false,
         dialog_report:false,
         dialog_size:false,
+        dialog_work:false,
         family:{},
         academic:{},
         course:{},
         language:{},
         paquete:{},
+        work:{},
         civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'}],
         countries: [],
 
@@ -412,6 +453,10 @@ export default
         axios.get('/api/auth/employee_info')
             .then(response => {
                 this.employee = response.data.employee;
+                this.employee.courses.push({date:'2019-01-01',name:'Ley 1178',institution:'EGGP',hours:10});
+                this.employee.courses.push({date:'2019-01-01',name:'Responsibilidad Funcionaria',institution:'EGGP',hours:10});
+                this.employee.courses.push({date:'2019-01-01',name:'Politicas Publicas',institution:'EGGP',hours:10});
+                this.employee.languages.push({date:'2019-01-01',name:'Aymara',institution:'EGGP'});
                 console.log(this.employee);
             })
             .catch(error => {
@@ -423,7 +468,7 @@ export default
         {
             let number = this.tab.toString().substr(4);
             number++;
-            if(number>8){
+            if(number>9){
                 number =1;
             }
             this.tab = 'tab-'+number;
@@ -570,6 +615,24 @@ export default
         {
             this.employee.packages.splice(index, 1)
         },
+        create_work()
+        {
+            this.work = {};
+            this.dialog_work = true;
+        },
+        update_work(item){
+            console.log(item);
+            this.employee.works.push(item);
+            this.dialog_work = false;
+            //adicionar
+        },
+        close_work(){
+            this.dialog_work = false;
+        },
+        delete_work(index)
+        {
+            this.employee.works.splice(index, 1) //verificar existencia de array
+        },
         close_size()
         {
             this.dialog_size = false;
@@ -643,7 +706,8 @@ export default
         CourseEdit,
         LanguageEdit,
         PackageEdit,
-        SizeEdit
+        SizeEdit,
+        WorkEdit
 
     }
 }
