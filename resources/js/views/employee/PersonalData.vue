@@ -276,7 +276,7 @@ export default
         managements: [],
         unities: [],
         contributions: [],
-        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'}],
+        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'},{id:'U',name:'Union Libre'}],
         curriculum_name:'',
         curriculum_file:'',
         curriculum_url:'',
