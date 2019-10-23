@@ -35,6 +35,32 @@
                             </v-date-picker>
                         </v-menu>
                     </v-flex>
+                    <v-flex xs12 sm6 md6>
+                         <v-menu
+                        ref="menu4"
+                        v-model="menu4"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.todate"
+                            label="Hasta"
+                            hint="MM/DD/YYYY format"
+                            persistent-hint
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.todate" no-title @input="menu4 = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
 
                     <v-flex xs6 sm6 md6>
                         <v-combobox
@@ -194,6 +220,7 @@ export default
         menu2: false,
         time2: null,
         menu3:false,
+        menu4:false,
     }),
     mounted(){
         // console.log(this.$root.themeColor);
