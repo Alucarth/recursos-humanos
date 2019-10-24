@@ -56,6 +56,11 @@ class Employee extends Model
     {
         return $this->hasMany('App\WorkExperience');
     }
+    public function unity()
+    {
+        return $this->belongsTo('App\Unity');
+    }
+
     public function getFullName()
     {
         $first_name = $this->first_name??'';

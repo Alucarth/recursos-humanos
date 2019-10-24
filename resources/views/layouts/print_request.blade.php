@@ -36,6 +36,10 @@
                                 <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
                                 <td class="text-xs">{!! $employee_request->request_type->code??'' !!}</td>
                             </tr>
+                            <tr>
+                                <td class="text-center bg-grey-darker text-xxs text-white">Numero</td>
+                                <td class="text-xs">{!! $employee_request->correlative??'' !!}</td>
+                            </tr>
                         </tbody>
                     </table>
 

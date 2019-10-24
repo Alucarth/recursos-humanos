@@ -4,12 +4,16 @@
 <h5>I. IDENTIFICACIÓN DEL SOLICITANTE</h5>
 <table class="table-info align-top no-padding no-margins border">
     <tr>
-        <td class="text-center bg-grey-darker text-xs text-white ">Solicitante</td>
+        <td class="text-center bg-grey-darker text-xs text-white ">Nombre de Solicitante</td>
         <td colspan="3" class="text-xs uppercase">{{$persona}}</td>
     </tr>
     <tr>
-        <td  class="text-center bg-grey-darker text-xs text-white">Dependencia</td>
+        <td  class="text-center bg-grey-darker text-xs text-white">Gerencia</td>
         <td colspan="3" class="text-xs uppercase">{{$gerencia}}</td>
+    </tr>
+    <tr>
+        <td  class="text-center bg-grey-darker text-xs text-white">Departamento</td>
+        <td colspan="3" class="text-xs uppercase">{{$unidad}}</td>
     </tr>
 
 </table>
@@ -30,7 +34,7 @@
     @if($employee_request->reason)
     <tr>
         <td class="text-center bg-grey-darker text-xs text-white ">Motivo</td>
-        <td colspan="3" class="text-xs uppercase">{{$employee_request->reason}}</td>
+        <td colspan="9" class="text-xs uppercase">{{$employee_request->reason}}</td>
     </tr>
     @endif
 
