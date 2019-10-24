@@ -92,7 +92,7 @@
     @if($employee_request->request_type->label2)
         <tr>
             <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
-            <td colspan="3" class="text-xs uppercase">{{$employee_request->value1==2?'SI':'NO'}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value2==1?'SI':'NO'}}</td>
         </tr>
     @endif
 
@@ -100,7 +100,7 @@
 @endif
 
 @if($employee_request->request_type->name == "COMISIÓN")
-<h5>II. JUSTIFICACIÓN </h5>
+<h5>III. ACEPTACIÓN </h5>
 <table class="table-info align-top no-padding no-margins border">
         @if($employee_request->request_type->label1)
         <tr>
@@ -124,7 +124,7 @@
     @if($employee_request->request_type->label2)
         <tr>
             <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
-            <td colspan="3" class="text-xs uppercase">{{$employee_request->value1==2?'SI':'NO'}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value2==1?'SI':'NO'}}</td>
         </tr>
     @endif
     </table>

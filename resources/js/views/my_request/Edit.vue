@@ -1,7 +1,7 @@
 <template>
 <v-dialog v-model="dialog" max-width="700px" persistent>
             <v-card>
-            <v-card-title class="headline" >
+            <v-card-title class="headline rrhh-primary"  >
                 <span >{{ title }}</span>
             </v-card-title>
 
@@ -279,10 +279,10 @@ export default
 			return this.dialog
         },
         title(){
-            let title='Crear Boleta'
+            let title='Registrar Solicitud'
             if(this.item.id) {
 
-                title = 'Editar Boleta'
+                title = 'Editar Solicitud'
             }
             return title
         },
