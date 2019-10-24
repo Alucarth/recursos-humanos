@@ -22,6 +22,7 @@ class CreateEmployeeRequestsTable extends Migration
             $table->bigInteger('request_type_id')->unsigned();
             $table->foreign('request_type_id')->references('id')->on('request_types'); // persona que tiene la boleta
             // $table->enum('type', ['Personal', 'Comisión'])->nullable(); //tipo de solicitud
+            $table->integer('correlative')->nullable();
             $table->date('date')->nullable();
             $table->date('todate')->nullable();
             $table->time('hour_in')->nullable();
