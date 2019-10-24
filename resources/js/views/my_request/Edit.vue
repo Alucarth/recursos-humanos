@@ -226,7 +226,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="sendClose()">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click="sendClose()">Cancelar</v-btn>
 
                 <v-btn color="blue darken-1" flat @click="sendRequest()">Guardar</v-btn>
             </v-card-actions>
@@ -353,6 +353,7 @@ export default
                     case 1:
                     case 2:
                     case 3:
+                    case 4:
                         has=true;
                         break;
                     default:
