@@ -160,7 +160,7 @@
                         persistent-hint>
                         </v-select>
                     </v-flex> -->
-                    <!-- <v-flex xs12 sm12 md6>
+                    <v-flex xs12 sm12 md6>
                         <v-select
                         label="Gerencia"
                         v-model="item.management_id"
@@ -181,18 +181,18 @@
                         hint=""
                         persistent-hint>
                         </v-select>
-                    </v-flex> -->
-                    <!-- <v-flex xs12 sm12 md6>
-                        <v-select
+                    </v-flex>
+                    <v-flex xs12 sm12 md6>
+                        <v-combobox
                         label="Cargo"
-                        v-model="item.position_id"
+                        v-model="item.position"
                         :items="positions"
                         item-text="name"
-                        item-value="id"
+
                         :hint="`Descripcion del tipo seleccionado`"
                         persistent-hint>
-                        </v-select>
-                    </v-flex> -->
+                        </v-combobox>
+                    </v-flex>
                     <!-- <v-flex xs6 sm6 md3>
                         <v-text-field label="Salario" hint="Ingrese total ganado" v-model="item.salary"></v-text-field>
                     </v-flex> -->
@@ -276,7 +276,7 @@ export default
         managements: [],
         unities: [],
         contributions: [],
-        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'},{id:'U',name:'Union Libre'}],
+        civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'},{id:'U',name:'Concubinato'}],
         curriculum_name:'',
         curriculum_file:'',
         curriculum_url:'',

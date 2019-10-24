@@ -27,7 +27,7 @@ class CreateEmployeeRequestsTable extends Migration
             $table->time('hour_in')->nullable();
             $table->time('hour_out')->nullable();
             $table->string('reason')->nullable();
-            $table->string('authorized name')->nullable();
+            $table->string('authorized_name')->nullable();
             $table->string('destiny_place')->nullable();
             $table->string('value1')->nullable();
             $table->string('value2')->nullable();

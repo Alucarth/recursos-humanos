@@ -183,7 +183,9 @@ class EmployeeController extends Controller
         $employee->corporate_cell = $request->corporate_cell;
         $employee->corporate_email = $request->corporate_email;
         $employee->personal_email = $request->personal_email;
-
+        $employee->management_id = $request->management_id;
+        $employee->position_id = $request->position?$request->position['id']:null;
+        $employee->unit_id = $request->unit_id;
 
         //guardando datos referenciales
         $employee->contribution_id = $request->contribution_id;

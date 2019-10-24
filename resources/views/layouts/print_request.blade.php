@@ -16,10 +16,9 @@
                     <img src="{{ public_path('images/logopeqe.png') }}" style=" width: 148px;">
                 </th>
                 <th class="w-50 align-center text-center">
-                    <span class="font-semibold uppercase leading-tight " >
-                        {{ $institution ?? 'EMPRESA BOLIVIANA DE ALIMENTOS Y DERIVADOS' }} <br>
+                    <span class="font-bold text-xl uppercase leading-tight " >
+                        {{ 'FORMULARIO DE '.$employee_request->request_type->name ?? '' }} <br>
 
-                        {{ $area ?? 'GERENCIA DE PLANIFICACIÓN Y DESARROLLO' }} <br>
                         {{-- {{ $direction ?? '  DE BENEFICIOS ECONÓMICOS' }} <br>
                         {{ $unit ?? 'UNIDAD DE OTORGACIÓN DE FONDO DE RETIRO POLICIAL, CUOTA MORTUORIA Y AUXILIO MORTUORIO' }} --}}
                     </span>
@@ -29,16 +28,13 @@
                     <table class="table-code align-top no-padding no-margins">
                         <tbody>
                             <tr>
-                                <td class="text-center bg-grey-darker text-xxs text-white">Fecha de Emisión</td>
-                                <td class="text-xs">{{ $date??'' }}</td>
+                                <td class="text-center bg-grey-darker text-xxs text-white">Version</td>
+                                <td class="text-xs">{{ $employee_request->request_type->version??'' }}</td>
                             </tr>
-                            <tr>
-                                <td class="text-center bg-grey-darker text-xxs text-white">Usuario</td>
-                                <td class="text-xs">{!! $username??'' !!}</td>
-                            </tr>
+
                             <tr>
                                 <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
-                                <td class="text-xs">{!! $code??'' !!}</td>
+                                <td class="text-xs">{!! $employee_request->request_type->code??'' !!}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -48,11 +44,9 @@
             </tr>
             <tr class="no-border"><td colspan="3" class="no-border" style="border-bottom: 1px solid #22292f;"></td></tr>
             <tr>
-                <td colspan="3" class="font-bold text-center text-xl uppercase">
-                    {{ $title }}
-                    @if (isset($subtitle))
-                    <br><span class="font-medium">{{ $subtitle ?? '' }}</span>
-                    @endif
+                <td colspan="3" class="font-normal text-center text-xs uppercase">
+                    <span class="font-medium">{{ $employee_request->request_type->description ?? '' }}</span>
+
                 </td>
             </tr>
             {{-- <tr><td colspan="3"></td></tr>

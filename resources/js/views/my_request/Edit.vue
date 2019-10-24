@@ -134,32 +134,69 @@
                     <v-flex xs6 sm6 md6 v-if="hasPlace">
                         <v-text-field label="Lugar" hint="Ingrese Lugar" required v-model="item.destiny_place"></v-text-field>
                     </v-flex>
-                    <v-flex xs6 sm6 md12 v-if="item.request_type" >
-                        <v-text-field label="Motivo" hint="Ingrese Motivo" required v-model="item.reason" v-if="item.request_type.name != 'Permiso sin Goce de Haberes'"></v-text-field>
+                    <v-flex xs6 sm6 md12 v-if="hasReason" >
+                        <v-text-field label="Motivo" hint="Ingrese Motivo" required v-model="item.reason" ></v-text-field>
                     </v-flex>
+                    <v-flex xs6 sm6 md12 >
+                        <v-text-field label="Autorizado por:" hint="Ingrese Nombre" required v-model="item.authorized_name" ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md6 v-if="isBreak">
+                        <v-text-field :label="`${item.request_type.label1}`" required v-model="item.value1"></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6 md6 v-if="isBreak">
+                         <v-menu
+                        ref="menu5"
+                        v-model="menu5"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                            v-model="item.value2"
+                            :label="`${item.request_type.label2}`"
+                            hint="YYYY-MM-DD"
+                            persistent-hint
+                            prepend-icon="event"
+                            v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="item.value2" no-title @input="menu5 = false"></v-date-picker>
+                        </v-menu>
+                        <!-- <v-text-field :label="`${item.request_type.label2}`" required v-model="item.value2"></v-text-field> -->
+                    </v-flex>
+
                     <v-flex xs12 sm12 md12 v-if="item.request_type">
-                        <!-- {{item.request_type}} -->
-                        <div v-if="item.request_type.name=='Permiso por Asueto'" >
-                            <v-text-field :label="item.request_type.label1" v-if="item.request_type.label1" v-model="item.value1" ></v-text-field>
+
+                        <div v-if="item.request_type.name=='DESCANSO ANUAL'">
+                            <label for="">toma solo medio dia?:</label>
                         </div>
-                        <div v-if="item.request_type.name=='Permiso por Tolerancia'">
-                            <label for="">Tolerancia:</label>
-                        </div>
-                        <div v-if="item.request_type.name=='Permiso con Goce de Haberes'">
+                        <div v-if="item.request_type.name=='PERMISO PERSONAL CON GOCE DE HABERES'">
                             <label for="">Compensación:</label>
                         </div>
-                         <div v-if="item.request_type.name=='Permiso sin Goce de Haberes'">
+                         <div v-if="item.request_type.name=='TOLERANCIA' || item.request_type.name=='PERMISO PERSONAL SIN GOCE DE HABERES' ">
                             <label for="">Motivo:</label>
                         </div>
                             <v-switch
                             v-model="item.value1"
-                            :label="`${item.request_type.label1}`"
-                            v-if="item.request_type.label1 && item.request_type.name !='Permiso por Asueto'"
+                            :label="`${item.request_type.label1} : ${item.value1?'Si':'No'}`"
+                            v-if="item.request_type.label1 &&  item.request_type.id == 1"
+                            ></v-switch>
+                            <v-switch
+                            v-model="item.value1"
+                            :label="`${item.request_type.label1} `"
+                            v-if="item.request_type.label1 && isSwith"
                             ></v-switch>
                             <v-switch
                             v-model="item.value2"
                             :label="`${item.request_type.label2}`"
-                            v-if="item.request_type.label2"
+                            v-if="item.request_type.label2 && isSwith"
                             ></v-switch>
                             <v-switch
                             v-model="item.value3"
@@ -179,10 +216,6 @@
 
 
                     </v-flex>
-                    <!-- {{JSON.stringify(item)}} -->
-                    <!-- <v-flex xs12 sm12 md12>
-                        <v-text-field label="Nombre Corto" hint="Ingrese Nombre Corto " v-model="item.shortened"></v-text-field>
-                    </v-flex> -->
 
                 </v-layout>
 
@@ -213,6 +246,8 @@ export default
         time2: null,
         menu3:false,
         menu4:false,
+        menu5:false,
+
     }),
     mounted(){
         // console.log(this.$root.themeColor);
@@ -305,7 +340,57 @@ export default
                 }
             }
             return has;
+        },
+        hasReason()
+        {
+            let has= false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return has;
+        },
+        isSwith(){
+            let has= false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 1:
+                    case 7:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return !has;
+        },
+        isBreak(){
+            let has= false;
+            if(this.item.request_type)
+            {
+                switch (this.item.request_type.id) {
+                    case 7:
+                        has=true;
+                        break;
+                    default:
+                        has=false;
+                        break;
+                }
+            }
+            return has;
         }
+
 	}
 }
 </script>

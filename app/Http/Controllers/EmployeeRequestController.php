@@ -61,6 +61,8 @@ class EmployeeRequestController extends Controller
             $employee_request = new EmployeeRequest;
         }
         $employee_request->date = $request->date;
+        $employee_request->todate = $request->todate;
+        $employee_request->authorized_name = $request->authorized_name;
         $employee_request->hour_in = $request->hour_in;
         $employee_request->hour_out = $request->hour_out;
         $employee_request->reason = $request->reason;
