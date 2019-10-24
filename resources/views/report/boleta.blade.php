@@ -13,7 +13,14 @@
     </tr>
 
 </table>
-<h5>II. JUSTIFICACIÓN </h5>
+@if($employee_request->request_type->name != "PERMISO PERSONAL CON GOCE DE HABERES" && $employee_request->request_type->name != "PERMISO PERSONAL SIN GOCE DE HABERES")
+    <h5>II. JUSTIFICACIÓN </h5>
+@endif
+
+@if($employee_request->request_type->name == "PERMISO PERSONAL CON GOCE DE HABERES" || $employee_request->request_type->name == "PERMISO PERSONAL SIN GOCE DE HABERES"  )
+    <h5>II. DETALLES DEL PERMISO </h5>
+@endif
+
 <table class="table-info align-top no-padding no-margins border">
 
     @if($employee_request->reason)
@@ -94,6 +101,60 @@
 
     </table>
 @endif
+
+@if($employee_request->request_type->name == "PERMISO PERSONAL CON GOCE DE HABERES")
+    <h5>COMPENSACIÓN </h5>
+    <table class="table-info align-top no-padding no-margins border">
+    @if($employee_request->request_type->label1)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label1}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value1==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label2)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value1==2?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    </table>
+@endif
+@if($employee_request->request_type->name == "PERMISO PERSONAL SIN GOCE DE HABERES")
+    <h5>MOTIVO </h5>
+    <table class="table-info align-top no-padding no-margins border">
+    @if($employee_request->request_type->label1)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label1}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value1==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label2)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value2==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label3)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label3}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value3==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label4)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label4}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value4==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label5)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label5}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value5==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    </table>
+@endif
+
 <br>
 <br>
 <br>
