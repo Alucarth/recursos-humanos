@@ -213,42 +213,42 @@ export default {
         update (item) {
             console.log(item)
             let formData = new FormData();
-            formData.set('first_name',item.first_name);
-            formData.set('second_name',item.second_name);
-            formData.set('last_name',item.last_name);
-            formData.set('mother_last_name',item.mother_last_name);
-            formData.set('biometric_code',item.biometric_code);
-            formData.set('identity_card',item.identity_card);
+            formData.set('first_name',item.first_name|| '');
+            formData.set('second_name',item.second_name|| '');
+            formData.set('last_name',item.last_name|| '') ;
+            formData.set('mother_last_name',item.mother_last_name|| '');
+            formData.set('biometric_code',item.biometric_code || '' );
+            formData.set('identity_card',item.identity_card || '');
             // formData.set('identity_card_id',item.identity_card_id);
-            formData.set('birth_date',item.birth_date);
-            formData.set('cellphone',item.cellphone);
-            formData.set('city_identity_card_id',item.city_identity_card_id);
-            formData.set('contract_type_id',item.contract_type_id);
-            formData.set('civil_status',item.civil_status);
-            formData.set('contract_modality_id',item.contract_modality_id);
-            formData.set('contribution_id',item.contribution_id);
-            formData.set('country_id',item.country_id);
-            formData.set('cua_nua',item.cua_nua);
-            formData.set('disability',item.disability);
-            formData.set('document_type_id',item.document_type_id);
-            formData.set('entry_date',item.entry_date);
-            formData.set('gender',item.gender);
-            formData.set('management_id',item.management_id);
-            formData.set('phone',item.phone);
-            formData.set('position_id',item.position_id);
-            formData.set('profession',item.profession);
-            formData.set('reason',item.reason);
-            formData.set('salary',item.salary);
-            formData.set('tutor',item.tutor);
-            formData.set('retirement_date',item.retirement_date);
-            formData.set('unit_id',item.unit_id);
+            formData.set('birth_date',item.birth_date || '');
+            formData.set('cellphone',item.cellphone || '');
+            formData.set('city_identity_card_id',item.city_identity_card_id || '');
+            formData.set('contract_type_id',item.contract_type_id || '');
+            formData.set('civil_status',item.civil_status || '');
+            formData.set('contract_modality_id',item.contract_modality_id || '');
+            formData.set('contribution_id',item.contribution_id || '');
+            formData.set('country_id',item.country_id || '' );
+            formData.set('cua_nua',item.cua_nua || '');
+            formData.set('disability',item.disability || '');
+            formData.set('document_type_id',item.document_type_id || '');
+            formData.set('entry_date',item.entry_date || '');
+            formData.set('gender',item.gender || '');
+            formData.set('management_id',item.management_id || '');
+            formData.set('phone',item.phone || '');
+            formData.set('position_id',item.position_id || '');
+            formData.set('profession',item.profession || '');
+            formData.set('reason',item.reason || '');
+            formData.set('salary',item.salary || '');
+            formData.set('tutor',item.tutor || '');
+            formData.set('retirement_date',item.retirement_date || '');
+            formData.set('unit_id',item.unit_id || '');
             if(item.id)
             {
                 formData.set('id',item.id);
             }
 
-            formData.append("curriculum_file", item.curriculum_file);
-            formData.append("image_file", item.image_file);
+            formData.append("curriculum_file", item.curriculum_file || '');
+            formData.append("image_file", item.image_file || '');
             console.log(formData);
             axios.post('/api/auth/employee', formData,{
                             headers: {
@@ -261,7 +261,7 @@ export default {
                             title: 'OK',
                             message: 'Se Actualizaron los datos del empleado!',
                         });
-
+                        this.search();
                         console.log(response.data);
                         // this.search();
                     })
