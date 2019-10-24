@@ -34,9 +34,12 @@ class ReportController extends Controller
         $employee_request = EmployeeRequest::find($id);
         $title = $employee_request->request_type->name;
         $date = date('d-m-Y');
-        $employee = $employee_request->employee;
+
+        $persona = $employee_request->employee->getFullName();
+        //return $persona;
+        $gerencia = $employee_request->employee->management->name??'';
         //return $employee;
-        $view = \View::make('report.boleta', compact('title','date','employee'));
+        $view = \View::make('report.boleta', compact('title','date','persona','gerencia','employee_request'));
         $html_content = $view->render();
         $pdf = App::make('snappy.pdf.wrapper');
         $pdf->loadHTML($html_content);

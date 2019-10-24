@@ -173,10 +173,7 @@
                     </v-flex>
 
                     <v-flex xs12 sm12 md12 v-if="item.request_type">
-                        <!-- {{item.request_type}} -->
-                        <!-- <div v-if="item.request_type.name=='Permiso por Asueto'" >
-                            <v-text-field :label="item.request_type.label1" v-if="item.request_type.label1" v-model="item.value1" ></v-text-field>
-                        </div> -->
+
                         <div v-if="item.request_type.name=='DESCANSO ANUAL'">
                             <label for="">toma solo medio dia?:</label>
                         </div>
@@ -219,10 +216,6 @@
 
 
                     </v-flex>
-                    <!-- {{JSON.stringify(item)}} -->
-                    <!-- <v-flex xs12 sm12 md12>
-                        <v-text-field label="Nombre Corto" hint="Ingrese Nombre Corto " v-model="item.shortened"></v-text-field>
-                    </v-flex> -->
 
                 </v-layout>
 
