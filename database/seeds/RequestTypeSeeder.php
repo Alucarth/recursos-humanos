@@ -20,7 +20,7 @@ class RequestTypeSeeder extends Seeder
             ['name'=>'TOLERANCIA','label1'=>'Indivudual','label2'=>'Grupal','description'=>'Permiso que permite la flexibilización del tiempo al ingreso o la salida por motivo específico.','version'=>'01','code'=>'FOR-RRHH-04'],
             ['name'=>'PERMISO PERSONAL CON GOCE DE HABERES','label1'=>'Con tiempo de trabajo','label2'=>'A cuenta de vacación','description'=>'Permiso para realizar actividades personales, si se pasa de las 2 horas mensuales, se deberá realizar una compensación por el tiempo extra','version'=>'01','code'=>'FOR-RRHH-05'],
             ['name'=>'PERMISO PERSONAL SIN GOCE DE HABERES','label1'=>'Salud Personal','label2'=>'Salud de un familiar','label3'=>'Cursos o becas no Estatales','label4'=>'Participacion de otras actividades','label5'=>'Otros','description'=>'Permiso para realizar actividades personales, por lapsos superiores a una jornada, cuando no cuente con vacaciones adquiridas','version'=>'01','code'=>'FOR-RRHH-06'],
-            ['name'=>'DESCANSO ANUAL','label1'=>'Periodo de descanso anual','label2'=>'Fecha de Presentacion','label3'=>'Mañana','label4'=>'Tarde','description'=>'','version'=>'01','code'=>'FOR-RRHH-08'],
+            ['name'=>'DESCANSO ANUAL','label1'=>'Periodo de descanso anual(Dias)','label2'=>'Fecha de Presentacion','label3'=>'Mañana','label4'=>'Tarde','description'=>'','version'=>'01','code'=>'FOR-RRHH-08'],
         ];
         foreach($request_types as $request_type)
         {
