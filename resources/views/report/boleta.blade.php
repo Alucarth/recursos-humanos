@@ -13,12 +13,16 @@
     </tr>
 
 </table>
-@if($employee_request->request_type->name != "PERMISO PERSONAL CON GOCE DE HABERES" && $employee_request->request_type->name != "PERMISO PERSONAL SIN GOCE DE HABERES")
+@if($employee_request->request_type->name != "PERMISO PERSONAL CON GOCE DE HABERES" && $employee_request->request_type->name != "PERMISO PERSONAL SIN GOCE DE HABERES" && $employee_request->request_type->name != "DESCANSO ANUAL" )
     <h5>II. JUSTIFICACIÓN </h5>
 @endif
 
 @if($employee_request->request_type->name == "PERMISO PERSONAL CON GOCE DE HABERES" || $employee_request->request_type->name == "PERMISO PERSONAL SIN GOCE DE HABERES"  )
     <h5>II. DETALLES DEL PERMISO </h5>
+@endif
+
+@if($employee_request->request_type->name == "DESCANSO ANUAL" )
+    <h5>II. SOLICITUD DEL DESCANSO </h5>
 @endif
 
 <table class="table-info align-top no-padding no-margins border">
@@ -69,6 +73,12 @@
     </tr>
     @endif
 
+    @if($employee_request->request_type->name == "DESCANSO ANUAL")
+    <tr>
+        <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label1}}</td>
+        <td colspan="3" class="text-xs uppercase">{{$employee_request->value1}}</td>
+    </tr>
+    @endif
 </table>
 @if($employee_request->request_type->name == "TOLERANCIA")
 <h5>TOLERANCIA</h5>
@@ -153,6 +163,32 @@
         </tr>
     @endif
     </table>
+@endif
+
+@if($employee_request->request_type->name == "DESCANSO ANUAL")
+    <h5>Toma solo medio dia</h5>
+    <table class="table-info align-top no-padding no-margins border">
+    @if($employee_request->request_type->label3)
+        <tr>
+            <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label3}}</td>
+            <td colspan="3" class="text-xs uppercase">{{$employee_request->value3==1?'SI':'NO'}}</td>
+        </tr>
+    @endif
+    @if($employee_request->request_type->label4)
+    <tr>
+        <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label4}}</td>
+        <td colspan="3" class="text-xs uppercase">{{$employee_request->value4==1?'SI':'NO'}}</td>
+    </tr>
+    @endif
+    </table>
+    <h5>III. AUTORIZACION</h5>
+    <table class="table-info align-top no-padding no-margins border">
+            <tr>
+                <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
+                <td colspan="3" class="text-xs uppercase">{{$employee_request->value2}}</td>
+            </tr>
+    </table>
+
 @endif
 
 <br>
