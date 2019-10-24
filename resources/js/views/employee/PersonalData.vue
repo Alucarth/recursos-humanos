@@ -173,7 +173,7 @@
                     </v-flex>
                     <v-flex xs12 sm12 md6>
                         <v-select
-                        label="Unidad"
+                        label="Departamento"
                         v-model="item.unit_id"
                         :items="unities"
                         item-text="name"
