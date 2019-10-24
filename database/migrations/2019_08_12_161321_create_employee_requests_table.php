@@ -29,6 +29,7 @@ class CreateEmployeeRequestsTable extends Migration
             $table->string('reason')->nullable();
             $table->string('authorized_name')->nullable();
             $table->string('destiny_place')->nullable();
+            $table->string('image_path')->nullable();
             $table->string('value1')->nullable();
             $table->string('value2')->nullable();
             $table->string('value3')->nullable();

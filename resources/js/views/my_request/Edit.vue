@@ -83,6 +83,7 @@
                             full-width
                             max-width="290px"
                             min-width="290px"
+
                         >
                             <template v-slot:activator="{ on }">
                             <v-text-field
@@ -96,6 +97,7 @@
                             <v-time-picker
                             v-if="menu2"
                             v-model="item.hour_in"
+                            format="24hr"
                             full-width
                             @click:minute="$refs.menu2.save(item.hour_in)"
                             ></v-time-picker>
@@ -126,6 +128,7 @@
                             <v-time-picker
                             v-if="menu3"
                             v-model="item.hour_out"
+                            format="24hr"
                             full-width
                             @click:minute="$refs.menu3.save(item.hour_out)"
                             ></v-time-picker>
