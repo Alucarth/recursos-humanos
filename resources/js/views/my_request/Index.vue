@@ -55,8 +55,11 @@
         <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"></edit-request>
         <show-request :dialog_show="dialog_show" :employee_request="employee_request" @close_show="close_show"  @employee_request_show="update_show"></show-request>
         <!-- dialog_printer -->
-        <v-dialog v-model="dialog_printer" fullscreen hide-overlay transition="dialog-bottom-transition">
-
+        <!-- <v-dialog v-model="dialog_printer" fullscreen hide-overlay transition="dialog-bottom-transition"> -->
+        <v-dialog
+            v-model="dialog_printer"
+            max-width="800"
+        >
         <v-card>
             <v-toolbar dark color="rrhh-primary">
             <v-btn icon dark @click="dialog_printer = false">
