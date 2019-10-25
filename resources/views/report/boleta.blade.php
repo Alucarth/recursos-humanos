@@ -176,7 +176,7 @@
 @endif
 
 @if($employee_request->request_type->name == "DESCANSO ANUAL")
-    <h5>Toma solo medio dia</h5>
+    <strong class="text-xs"> Toma solo medio dia</strong>
     <table class="table-info align-top no-padding no-margins border">
     <tr>
         @if($employee_request->request_type->label3)
@@ -189,7 +189,7 @@
         @endif
     </tr>
     </table>
-    <h5>III. AUTORIZACION</h5>
+    <strong class="text-xs">III. AUTORIZACION</strong >
     <table class="table-info align-top no-padding no-margins border">
             <tr>
                 <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
@@ -200,7 +200,6 @@
 @endif
 
 
-<br>
 <br>
 <table>
     <tr>
@@ -389,7 +388,7 @@
 @endif
 
 @if($employee_request->request_type->name == "DESCANSO ANUAL")
-    <h5>Toma solo medio dia</h5>
+    <strong class="text-xs"> Toma solo medio dia</strong>
     <table class="table-info align-top no-padding no-margins border">
     <tr>
         @if($employee_request->request_type->label3)
@@ -402,7 +401,7 @@
         @endif
     </tr>
     </table>
-    <h5>III. AUTORIZACION</h5>
+    <strong class="text-xs">III. AUTORIZACION</strong >
     <table class="table-info align-top no-padding no-margins border">
             <tr>
                 <td class="text-center bg-grey-darker text-xs text-white ">{{$employee_request->request_type->label2}}</td>
@@ -412,7 +411,6 @@
 
 @endif
 
-<br>
 <br>
 <table>
     <tr>
@@ -430,20 +428,18 @@
 <br>
 @if($employee_request->request_type->name=="DESCANSO ANUAL")
 
-<h5>IV. CONTROL DEL DEPARTAMENTO DE GESTION DEL TALENTO HUMANO</h5>
+<strong class="text-xs">IV. CONTROL DEL DEPARTAMENTO DE GESTION DEL TALENTO HUMANO</strong class="text-xs">
 <table class="table-info align-top no-padding no-margins border">
         <tr>
             <td class="text-center bg-grey-darker text-xs text-white ">Fecha</td>
             <td  colspan="4" class="text-xs uppercase">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
             <td class="text-center bg-grey-darker text-xs text-white ">Saldo por Utilizar</td>
             <td colspan="4" class="text-xs uppercase">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         </tr>
 </table>
 <br>
 Observaciones: _________________________________________________________________________
-<br><br>
+
 <br><br>
 <table>
     <tr>

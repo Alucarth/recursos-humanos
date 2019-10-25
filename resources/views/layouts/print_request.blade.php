@@ -39,10 +39,9 @@
                             </tr>
                         </tbody>
                     </table>
-
-
                 </th>
             </tr>
+            @if($employee_request->request_type->name != 'DESCANSO ANUAL')
             <tr class="no-border"><td colspan="3" class="no-border" style="border-bottom: 1px solid #22292f;"></td></tr>
             <tr>
                 <td colspan="3" class="font-normal text-center text-xxs uppercase">
@@ -50,14 +49,12 @@
 
                 </td>
             </tr>
-
+            @endif
         </table>
-
         <div class="block">
-
             @yield('content')
         </div>
-        -----------------------------------------------------------------------------------------------------------------------------------------------------------
+        <hr class="w-100">
         <table class="w-100 ">
             <tr>
                 <th class="w-15 text-left no-padding no-margins align-middle" >
@@ -87,10 +84,9 @@
                             </tr>
                         </tbody>
                     </table>
-
-
                 </th>
             </tr>
+            @if($employee_request->request_type->name != 'DESCANSO ANUAL')
             <tr class="no-border"><td colspan="3" class="no-border" style="border-bottom: 1px solid #22292f;"></td></tr>
             <tr>
                 <td colspan="3" class="font-normal text-center text-xxs uppercase">
@@ -98,7 +94,7 @@
 
                 </td>
             </tr>
-
+            @endif
         </table>
 
 
@@ -109,9 +105,9 @@
         <div class="block">
             @yield('content_footer')
         </div>
-        <footer>
+        {{-- <footer>
             @yield('footer')
-        </footer>
+        </footer> --}}
         </div>
     </div>
 </body>

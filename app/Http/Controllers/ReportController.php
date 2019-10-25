@@ -40,6 +40,7 @@ class ReportController extends Controller
         $gerencia = $employee_request->employee->management->name??'';
         $unidad = $employee_request->employee->unity->name??'';
         //return $employee;
+        // return view('report.boleta', compact('title','date','persona','gerencia','unidad','employee_request'));
         $view = \View::make('report.boleta', compact('title','date','persona','gerencia','unidad','employee_request'));
         $html_content = $view->render();
         $pdf = App::make('snappy.pdf.wrapper');
