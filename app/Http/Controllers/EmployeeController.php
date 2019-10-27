@@ -56,6 +56,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         if($request->has("id"))
         {
             $employee = Employee::find($request->id);
@@ -78,7 +79,7 @@ class EmployeeController extends Controller
         $employee->contribution_id = $request->contribution_id;   //adicionar la contribucion en la tabla XD
         $employee->country_id = $request->country_id;
         $employee->cua_nua = $request->cua_nua;
-        $employee->disability = $request->disability;
+        $employee->disability = $request->disability??false;
         $employee->document_type_id = $request->document_type_id;
         $employee->entry_date = $request->entry_date;
         $employee->gender = $request->gender; //revisar el tipo de dato
@@ -163,6 +164,7 @@ class EmployeeController extends Controller
 
     public function save_employee(Request $request)
     {
+
         $employee = Employee::find($request->id);
         $employee->first_name = $request->first_name;
         $employee->second_name = $request->second_name;

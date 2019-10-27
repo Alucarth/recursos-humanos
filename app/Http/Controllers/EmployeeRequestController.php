@@ -53,6 +53,13 @@ class EmployeeRequestController extends Controller
     {
         //
         // return $request->all();
+        $last_employee_request = EmployeeRequest::where('employee_id',Auth::user()->employee->id)->orderBy('correlative','DESC')->first();
+        $count = 1;
+        if($last_employee_request)
+        {
+            $count = $last_employee_request->correlative+1;
+        }
+
         if($request->has('id'))
         {
             $employee_request = EmployeeRequest::find($request->id);
@@ -70,6 +77,9 @@ class EmployeeRequestController extends Controller
         $employee_request->destiny_place = $request->destiny_place;
         $employee_request->employee_id = Auth::user()->employee->id;//$request->employee_id;
         $employee_request->employee_approve_id = $request->employee_id; // quien tiene la boleta
+
+        //adicionando correlativo
+        $employee_request->correlative = $count;
 
         if($request->has("value1"))
         {
@@ -92,6 +102,8 @@ class EmployeeRequestController extends Controller
             $employee_request->value5 = $request->value5;
         }
         $employee_request->save();
+
+
         //hasta aqui lo de la boleta
         $approves = Approve::where('employee_request_id',$employee_request->id)->get();
         if(!$approves->count()>0)

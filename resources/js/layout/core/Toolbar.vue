@@ -74,24 +74,24 @@ export default {
         {
           icon: 'account_circle',
           href: '#',
-          title: 'Profile',
+          title: 'Perfil',
           click: (e) => {
           }
         },
-        {
-          icon: 'settings',
-          href: '#',
-          title: 'Settings',
-          click: () => {
-            const vm = this;
+        // {
+        //   icon: 'settings',
+        //   href: '#',
+        //   title: 'Settings',
+        //   click: () => {
+        //     const vm = this;
 
-            vm.dialogSettings = true;
-          }
-        },
+        //     vm.dialogSettings = true;
+        //   }
+        // },
         {
           icon: 'exit_to_app',
           href: '#',
-          title: 'Log Out',
+          title: 'Salir',
           click: () => {
             const vm = this;
 
