@@ -338,4 +338,11 @@ class EmployeeController extends Controller
         return response()->json(compact('employee'));
         // return $request->all();
     }
+
+    public function check()
+    {
+        $username = Auth::user()->usr_usuario;
+        return response()->json('username');
+    }
+
 }
