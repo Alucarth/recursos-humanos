@@ -23,7 +23,12 @@ class EmployeeRequestController extends Controller
     {
         //
         $employee = Auth::user()->employee;
-        $employee_requests = EmployeeRequest::with('request_type','approves')->where('employee_approve_id',$employee->id)->where('employee_id','!=',$employee->id)->orderBy('id','Desc')->get();
+        $employee_requests = EmployeeRequest::with('request_type','approves')
+                            ->where('employee_approve_id',$employee->id)
+                            ->where('employee_id','!=',$employee->id)
+                            ->where('is_archived','=',false)
+                            ->orderBy('id','Desc')
+                            ->get();
         return response()->json(compact('employee','employee_requests'));
     }
     public function index_employee()
@@ -33,6 +38,17 @@ class EmployeeRequestController extends Controller
         return response()->json(compact('employee','employee_requests'));
     }
 
+    public function index_archived()
+    {
+        $employee = Auth::user()->employee;
+        $employee_requests = EmployeeRequest::with('request_type','approves')
+                            ->where('employee_approve_id',$employee->id)
+                            ->where('employee_id','!=',$employee->id)
+                            ->where('is_archived','=',true)
+                            ->orderBy('id','Desc')
+                            ->get();
+        return response()->json(compact('employee','employee_requests'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,6 +57,19 @@ class EmployeeRequestController extends Controller
     public function create()
     {
         //
+    }
+
+    public function upload_image(Request $request)
+    {
+        $employee_request = EmployeeRequest::find($request->id);
+
+        if ($request->hasFile('image_file')) {
+            //
+            $employee_request->image_path = $request->file('image_file')->store('public/request_images');
+        }
+
+        $employee_request->save();
+        return response()->json(compact('employee_request'));
     }
 
     /**
@@ -77,7 +106,7 @@ class EmployeeRequestController extends Controller
         $employee_request->destiny_place = $request->destiny_place;
         $employee_request->employee_id = Auth::user()->employee->id;//$request->employee_id;
         $employee_request->employee_approve_id = $request->employee_id; // quien tiene la boleta
-
+        $employee_request->state = 'Pendiente';
         //adicionando correlativo
         $employee_request->correlative = $count;
 
@@ -205,9 +234,25 @@ class EmployeeRequestController extends Controller
         return $employee_request;
     }
 
+    public function archived($id)
+    {
+        $employee_request = EmployeeRequest::find($id);
+        if($employee_request){
+            $employee_request->is_archived= true;
+            $employee_request->save();
+        }
+        return response()->json($employee_request);
+    }
+
     public function approve(Request $request)
     {
         $employee = Employee::where('id',Auth::user()->employee->id)->first();
+        $employee_request = EmployeeRequest::find($request->id);
+        if($employee_request)
+        {
+            $employee_request->state= $request->approve_state;
+            $employee_request->save();
+        }
         // return $employee->p;
         $approve = Approve::where('employee_request_id',$request->id)->where('position_id',$employee->position->id)->first();
         if($approve)

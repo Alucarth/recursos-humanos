@@ -344,7 +344,7 @@ class EmployeeController extends Controller
     public function check()
     {
         $username = Auth::user()->usr_usuario;
-        return response()->json('username');
+        return response()->json(compact('username'));
     }
 
 }

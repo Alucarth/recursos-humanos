@@ -17,7 +17,7 @@ import EmployeeRequest from './views/request/Index';
 import EmployeeInfo from './views/employee/Show';
 import Biometric from './views/biometric/Index';
 import Attendance from './views/attendance/Index';
-
+import RequestArchive from './views/request_archived/Index';
 export const routes= [
     {
         path: '/',
@@ -212,6 +212,18 @@ export const routes= [
         name: '/attendance',
         components: {
             default: Attendance,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/request_archive',
+        name: '/request_archive',
+        components: {
+            default: RequestArchive,
             toolbar: Toolbar,
             nav: Nav
         },
