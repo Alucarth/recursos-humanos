@@ -57,6 +57,8 @@ Route::group([
     Route::post('approve_request','EmployeeRequestController@approve');
     Route::post('save_employee','EmployeeController@save_employee' );
     Route::post('enabled_employee','EmployeeController@enabled' );
-
+    Route::post('request_upload_image','EmployeeRequestController@upload_image');
+    Route::get('archive_request/{employee_request_id}','EmployeeRequestController@archived');
+    Route::get('archives','EmployeeRequestController@index_archived');
     Route::get('user_check','EmployeeController@check');
 });

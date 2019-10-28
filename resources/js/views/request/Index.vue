@@ -48,23 +48,51 @@
                         <v-btn @click="sendRequest(props.row)"  v-if="employee.position_id!=58" >
                                 <v-icon>send</v-icon>
                         </v-btn>
-                        <v-btn >
-                                <v-icon>print</v-icon>
+                        <v-btn @click="show_upload(props.row)" v-if="!props.row.image_path">
+                                <v-icon>file_upload</v-icon>
                         </v-btn>
+                        <v-btn @click="show_image(props.row)" v-else>
+                                <v-icon>insert_photo</v-icon>
+                        </v-btn>
+                        <v-btn @click="archive(props.row)">
+                                <v-icon>archive</v-icon>
+                        </v-btn>
+
+
+
+
                     </v-btn-toggle>
 
-
-                    <!-- <v-icon @click="edit(props.row)" >
-                        edit
-                    </v-icon>
-                    <v-icon @click="destroy(props.row)" >
-                        delete
-                    </v-icon> -->
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
-        <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"></edit-request>
+
+        <upload-image :dialog="dialog_upload" :employee_request="employee_request" @close="close_upload" @update_image="update_image"></upload-image>
+
+        <edit-request :dialog="dialog" :employee_request="employee_request" @close="close"  @employee_request="update"  ></edit-request>
         <show-request :dialog_show="dialog_show" :employee_request="employee_request" @close_show="close_show"  @employee_request_show="update_show"></show-request>
+
+        <v-dialog
+            v-model="dialog_view"
+            max-width="800"
+        >
+        <v-card>
+            <v-toolbar dark color="rrhh-primary">
+            <v-btn icon dark @click="dialog_view = false">
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Boleta Escaneada</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+                <v-btn dark flat @click="dialog_view = false">Salir</v-btn>
+            </v-toolbar-items>
+            </v-toolbar>
+                <iframe :src="getUrl" frameborder="0" style="height:600px;width:100%;" ></iframe>
+            <!-- <v-card-text>
+            </v-card-text> -->
+        </v-card>
+        </v-dialog>
+
 
     </v-card>
 </template>
@@ -72,6 +100,7 @@
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 import EditRequest from './Edit.vue';
 import ShowRequest from './Show.vue';
+import UploadImage from './Upload.vue';
 export default {
     data:()=>({
         employee_requests:[],
@@ -79,6 +108,8 @@ export default {
         employee:{},
         dialog:false,
         dialog_show:false,
+        dialog_upload:false,
+        dialog_view:false,
         // knowledge:25,
         toggle_exclusive: undefined,
         columns: [
@@ -161,6 +192,17 @@ export default {
     mounted(){
         this.search();
     },
+    computed:{
+        getUrl()
+        {
+            let url=''
+            if(this.employee_request.id)
+            {
+                url= `${this.employee_request.image_path?this.employee_request.image_path.toString().substring(7,(this.employee_request.image_path).length ):''}`;
+            }
+            return url;
+        }
+    },
     methods:{
         search(){
             axios.get('/api/auth/employee_request')
@@ -223,6 +265,46 @@ export default {
             this.dialog =false;
 
         },
+        update_image(item){
+            //console.log(item)
+            let formData = new FormData();
+            formData.set('id',item.id);
+            formData.append("image_file", item.image_file || '');
+            console.log(formData);
+            axios.post('/api/auth/request_upload_image', formData,{
+                        headers: {
+                                'Content-Type': 'multipart/form-data'
+                                }
+                    })
+                .then(response => {
+                    //this.$store.dispatch('template/showMessage',{message:'Se Actualizó la lista de productos',color:'success'});
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Se Subio la imagen con exito!',
+                    });
+                    this.search();
+                    console.log(response.data);
+                    // this.search();
+                })
+                .catch(function (error) {
+                    //this.$store.dispatch('template/showMessage',{message:error,color:'danger'});
+
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'No se pudo registrar la imagen, error contactase con el administrador del sistema',
+                    });
+
+                });
+
+
+            this.dialog_upload = false;
+
+        },
+        show_upload(item)
+        {
+            this.employee_request = item;
+            this.dialog_upload = true;
+        },
         update_show (item) {
             console.log(item);
             // axios.post('/api/auth/employee_request', item)
@@ -242,6 +324,12 @@ export default {
             //         });
             this.dialog =false;
 
+        },
+        show_image(item)
+        {
+            // console.log();
+            this.employee_request = item;
+            this.dialog_view = true;
         },
         destroy (item) {
 
@@ -277,6 +365,45 @@ export default {
         },
         close_show() {
             this.dialog_show = false;
+        },
+        close_upload() {
+            this.dialog_upload = false;
+        },
+        archive(item)
+        {
+            Swal.fire({
+            title: 'Archivar Solicitud ?',
+            text: "Archivar solicitud de permiso",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Archivar',
+            cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.value) {
+
+            axios.get(`/api/auth/archive_request/${item.id}`)
+                .then(response => {
+                    // this.employee_request = response.data.employee_request
+                    iziToast.success({
+                        title: 'Se archivo la solicitud',
+                        message: '',
+                    });
+                    this.search();
+                })
+                .catch(error => {
+                    // console.log(error);
+                    iziToast.error({
+                            title: 'Error',
+                            message: error,
+                        });
+            });
+
+            }
+            })
+
+
         },
         sendRequest(item)
         {
@@ -319,12 +446,6 @@ export default {
                         });
             });
 
-
-                // Swal.fire(
-                // 'Deleted!',
-                // 'Your file has been deleted.',
-                // 'success'
-                // )
             }
             })
         }
@@ -332,7 +453,8 @@ export default {
     components: {
         VueBootstrap4Table,
         EditRequest,
-        ShowRequest
+        ShowRequest,
+        UploadImage
     }
 }
 </script>

@@ -118,7 +118,7 @@ export default {
         rrhh_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
             { icon: 'people', text: 'Funcionarios' , link: '/employee' },
-            { icon: 'assignment', text: 'Solicitudes', link: '/buyout' },
+            // { icon: 'assignment', text: 'Solicitudes', link: '/buyout' },
             { icon: 'local_dining', text: 'Refrigerios', link: '/food' },
             { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
@@ -138,7 +138,7 @@ export default {
         ],
         employee_requests:[
             { icon: 'inbox', text: 'Recibidos' , link: '/employee_request' },
-            { icon: 'send', text: 'Enviados' , link: '/employee_request_send' },
+            { icon: 'archive', text: 'Archivados' , link: '/request_archive' },
         ]
 
     }),

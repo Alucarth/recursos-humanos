@@ -25,13 +25,17 @@
       <v-icon medium>fab fa-github</v-icon>
     </v-btn> -->
 
-
+    {{user.usr_usuario}}
     <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
+
       <v-btn icon large flat slot="activator" :ripple="false">
         <v-avatar size="42px">
           <img src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairDreads01&accessoriesType=Round&hairColor=Black&facialHairType=Blank&clotheType=GraphicShirt&clotheColor=Black&graphicType=SkullOutline&eyeType=Default&eyebrowType=RaisedExcited&mouthType=Default&skinColor=Yellow"/>
+
         </v-avatar>
+
       </v-btn>
+
       <v-list>
         <v-list-tile
           v-for="(item,index) in items"
@@ -149,8 +153,10 @@ export default {
             this.$store.commit('template/updateDrawer',value);
           }
         },
+    user(){
+        return this.$store.state.auth.user;
+    }
   },
-
   methods: {
     toggleNavigationBar() {
       const vm = this;

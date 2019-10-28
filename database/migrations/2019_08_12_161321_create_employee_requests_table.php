@@ -21,7 +21,8 @@ class CreateEmployeeRequestsTable extends Migration
             $table->foreign('employee_approve_id')->references('id')->on('employees'); // persona que tiene la boleta
             $table->bigInteger('request_type_id')->unsigned();
             $table->foreign('request_type_id')->references('id')->on('request_types'); // persona que tiene la boleta
-            // $table->enum('type', ['Personal', 'Comisión'])->nullable(); //tipo de solicitud
+            $table->enum('state', ['Pendiente', 'Aprobado','Rechazado'])->nullable(); //tipo de solicitud
+            $table->boolean('is_archived')->default(false);
             $table->integer('correlative')->nullable();
             $table->date('date')->nullable();
             $table->date('todate')->nullable();
