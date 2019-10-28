@@ -122,5 +122,12 @@ const app = new Vue({
         themeColor: '#1D2939',
         userEmail: 'ltorrezs2008@gmail.com',
         userPassword: '123456'
+    },
+    mounted()
+    {
+        axios.get('api/auth/user_check')
+             .then(response=>{
+                 console.log(response.data)
+             })
     }
 });

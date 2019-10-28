@@ -58,5 +58,5 @@ Route::group([
     Route::post('save_employee','EmployeeController@save_employee' );
     Route::post('enabled_employee','EmployeeController@enabled' );
 
-
+    Route::get('user_check','EmployeeController@check');
 });
