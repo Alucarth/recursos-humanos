@@ -108,6 +108,15 @@ export default {
                 sort: true,
             },
             {
+                label: "Gerencia",
+                name: "management.name",
+                filter: {
+                    type: "simple",
+                    placeholder: "Gerencia"
+                },
+                sort: true,
+            },
+            {
                 label: "Cargo",
                 name: "position.name",
                 filter: {
