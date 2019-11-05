@@ -18,6 +18,7 @@ import EmployeeInfo from './views/employee/Show';
 import Biometric from './views/biometric/Index';
 import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
+import TypeHour from './views/type_hour/Index';
 export const routes= [
     {
         path: '/',
@@ -224,6 +225,18 @@ export const routes= [
         name: '/request_archive',
         components: {
             default: RequestArchive,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/type_hour',
+        name: '/type_hour',
+        components: {
+            default: TypeHour,
             toolbar: Toolbar,
             nav: Nav
         },

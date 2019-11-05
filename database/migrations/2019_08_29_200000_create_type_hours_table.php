@@ -26,6 +26,7 @@ class CreateTypeHoursTable extends Migration
             $table->time('entry');
             $table->time('output');
             $table->time('tolerance');
+            $table->enum('work_shift', ['Mañana', 'Tarde', 'Noche'])->nullable(); //Turno de Trabajo
             $table->timestamps();
         });
     }

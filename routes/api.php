@@ -48,6 +48,7 @@ Route::group([
     Route::resource('health_box', 'HealthBoxController');
     Route::resource('biometric', 'BiometricController');
     Route::resource('attendance', 'AttendanceController');
+    Route::resource('type_hour', 'TypeHourController');
     Route::post('sync_biometric','BiometricController@sync');
     Route::get('info_biometric/{biometric_id}','BiometricController@getInfo');
     Route::get('employee_info','EmployeeController@info');
