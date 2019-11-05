@@ -122,7 +122,7 @@ export default {
             { icon: 'local_dining', text: 'Refrigerios', link: '/food' },
             { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
-            // { icon: 'av_timer', text: 'Mis Horarios', link: '/employee' },
+            { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
         ],
         parameters: [
             { icon: 'devices', text: 'Biometricos' , link: '/biometric' },

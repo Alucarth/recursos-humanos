@@ -17,12 +17,13 @@ class CreateTypeHoursTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code');
-            $table->boolean('mondey')->default(false);
-            $table->boolean('tuesday')->default(false);
-            $table->boolean('thursday')->default(false);
-            $table->boolean('friday')->default(false);
-            $table->boolean('saturday')->default(false);
-            $table->boolean('sunday')->default(false);
+            $table->boolean('monday')->default(false);//lunes
+            $table->boolean('tuesday')->default(false);//martes
+            $table->boolean('wednesday')->default(false);//mircoles
+            $table->boolean('thursday')->default(false);//jueves
+            $table->boolean('friday')->default(false);//viernes
+            $table->boolean('saturday')->default(false);//sabado
+            $table->boolean('sunday')->default(false);//domingo
             $table->time('entry');
             $table->time('output');
             $table->time('tolerance');

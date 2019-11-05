@@ -14,7 +14,7 @@ class TypeHourController extends Controller
     public function index()
     {
         //
-        $type_hours = Type::all();
+        $type_hours = TypeHour::all();
         return response()->json(compact('type_hours'));
     }
 
@@ -37,6 +37,29 @@ class TypeHourController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->has('id'))
+        {
+            $type_hour = TypeHour::find($request->id);
+        }else{
+            $type_hour = new TypeHour;
+        }
+        $type_hour->name = $request->name;
+        $type_hour->code = $request->code;
+        $type_hour->work_shift = $request->work_shift;
+        $type_hour->entry = $request->entry;
+        $type_hour->output = $request->output;
+        $type_hour->tolerance = $request->tolerance;
+        $type_hour->monday = $request->monday?true:false;
+        $type_hour->tuesday = $request->tuesday?true:false;
+        $type_hour->wednesday = $request->wednesday?true:false;
+        $type_hour->thursday = $request->thursday?true:false;
+        $type_hour->friday = $request->friday?true:false;
+        $type_hour->saturday = $request->saturday?true:false;
+        $type_hour->sunday = $request->sunday?true:false;
+        $type_hour->save();
+
+        return response()->json(compact('type_hour'));
+
     }
 
     /**
@@ -59,6 +82,8 @@ class TypeHourController extends Controller
     public function edit($id)
     {
         //
+        $type_hour= TypeHour::find($id);
+        return response()->json(compact('type_hour'));
     }
 
     /**
