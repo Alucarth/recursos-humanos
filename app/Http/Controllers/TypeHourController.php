@@ -107,5 +107,9 @@ class TypeHourController extends Controller
     public function destroy($id)
     {
         //
+        $type_hour = TypeHour::find($id);
+        $name = $type_hour->name;
+        $type_hour->delete();
+        return response()->json(compact('name'));
     }
 }

@@ -4,9 +4,6 @@
             <h3>Empleados</h3>
         <v-spacer></v-spacer>
 
-
-
-
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>

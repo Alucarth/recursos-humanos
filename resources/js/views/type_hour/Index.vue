@@ -21,7 +21,7 @@
                     <v-icon @click="edit(props.row)">
                         edit
                     </v-icon>
-                    <v-icon  >
+                    <v-icon  @click="destroy(props.row)">
                         delete
                     </v-icon>
                     <!-- <v-btn-toggle>
@@ -154,6 +154,39 @@ export default {
         {
             this.type_hour = {};
             this.dialog=true;
+        },
+        destroy(item)
+        {
+            Swal.fire({
+            title: 'Eliminar Horario?',
+            text: "Una vez eliminado no se podra revertir el proceso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    axios.delete(`api/auth/type_hour/${item.id}`)
+                        .then(response => {
+                            iziToast.success({
+                                title: 'Eliminacion de Registro',
+                                message: 'Se elimino el horario '+response.data.name,
+                            });
+                            this.search();
+                            this.dialog = false;
+                        })
+                        .catch( (error)=> {
+
+                            iziToast.error({
+                                title: 'Error',
+                                message: 'Contactese con el Administrador de la Pagina: '+error,
+                            });
+                        });
+                }
+            })
+
         },
         close()
         {
