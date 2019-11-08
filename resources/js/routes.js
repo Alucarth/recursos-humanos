@@ -19,6 +19,7 @@ import Biometric from './views/biometric/Index';
 import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
 import TypeHour from './views/type_hour/Index';
+import MyHourType from './views/employee/ShowTypeHours';
 export const routes= [
     {
         path: '/',
@@ -237,6 +238,18 @@ export const routes= [
         name: '/type_hour',
         components: {
             default: TypeHour,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/my_type_hour',
+        name: '/my_type_hour',
+        components: {
+            default: MyHourType,
             toolbar: Toolbar,
             nav: Nav
         },

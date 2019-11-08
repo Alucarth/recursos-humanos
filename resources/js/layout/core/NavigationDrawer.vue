@@ -113,7 +113,7 @@ export default {
             // { icon: 'cloud_upload', text: 'Importar Compras', link: '/import_purchases' },
             { icon: 'calendar_today', text: 'Mis Asistencias', link: '/attendance' },
             { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/my_request' },
-            { icon: 'av_timer', text: 'Mis Horarios', link: '/hours' },
+            { icon: 'alarm', text: 'Mis Horarios', link: '/my_type_hour' },
         ],
         rrhh_items: [
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
