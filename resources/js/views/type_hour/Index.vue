@@ -18,6 +18,7 @@
                 </template>
 
                 <template slot="option" slot-scope="props">
+
                     <v-icon @click="edit(props.row)">
                         edit
                     </v-icon>

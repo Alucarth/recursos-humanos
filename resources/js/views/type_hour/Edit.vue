@@ -8,7 +8,7 @@
             <v-card-text v-if="item">
                 <v-container grid-list-md>
                     <v-layout wrap>
-                        <v-flex xs12 sm12 md4>
+                        <v-flex xs12 sm12 md8>
                             <v-text-field label="Nombre" hint="Ingrese Nombre" required v-model="item.name">
                             </v-text-field>
                         </v-flex>
@@ -24,6 +24,14 @@
                             hint="Seleccione Turno de Trabajo"
                             >
                             </v-select>
+                        </v-flex>
+                        <v-flex xs12 sm12 md8>
+                            <v-combobox
+                            v-model="item.location"
+                            :items="locations"
+                            item-text='name'
+                            label="Ubicacion"
+                            ></v-combobox>
                         </v-flex>
                         <v-flex xs6 sm4 md4 >
                         <v-menu
@@ -188,9 +196,10 @@ export default
         menu3:false,//salida
         menu4:false, //tolerancia
         work_shifts:['Mañana','Tarde','Noche'],
+        locations:[],
     }),
     mounted(){
-
+        this.getLocations();
     },
     methods:{
         sendTypeHour() {
@@ -199,6 +208,13 @@ export default
         sendClose() {
             this.$emit('close',false)
         },
+        getLocations()
+        {
+            axios.get(`api/auth/location`)
+                 .then(response=>{
+                     this.locations = response.data.locations;
+                 });
+        }
 
     },
     computed:{

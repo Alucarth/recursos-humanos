@@ -49,6 +49,7 @@ class TypeHourController extends Controller
         $type_hour->entry = $request->entry;
         $type_hour->output = $request->output;
         $type_hour->tolerance = $request->tolerance;
+        $type_hour->location_id = $request->location?$request->location['id']:null;
         $type_hour->monday = $request->monday?true:false;
         $type_hour->tuesday = $request->tuesday?true:false;
         $type_hour->wednesday = $request->wednesday?true:false;
