@@ -34,100 +34,260 @@
                             >
                             </v-combobox>
                         </v-flex>
-                        <v-flex xs6 sm4 md4 >
-                        <v-menu
-                            ref="menu2"
-                            v-model="menu2"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            :return-value.sync="item.entry"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            max-width="290px"
-                            min-width="290px"
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu1"
+                                v-model="menu1"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.entry"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
 
-                        >
-                            <template v-slot:activator="{ on }">
-                            <v-text-field
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.entry"
+                                    label="Entrada"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu1"
                                 v-model="item.entry"
-                                label="Entrada"
-                                prepend-icon="access_time"
-                                readonly
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-time-picker
-                            v-if="menu2"
-                            v-model="item.entry"
-                            format="24hr"
-                            full-width
-                            @click:minute="$refs.menu2.save(item.entry)"
-                            ></v-time-picker>
-                        </v-menu>
-                    </v-flex>
-                    <v-flex xs6 sm4 md4 >
-                        <v-menu
-                            ref="menu3"
-                            v-model="menu3"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            :return-value.sync="item.output"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            max-width="290px"
-                            min-width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                            <v-text-field
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu1.save(item.entry)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu2"
+                                v-model="menu2"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.start_of_entry"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.start_of_entry"
+                                    label="Entrada Inicio"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu2"
+                                v-model="item.start_of_entry"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu2.save(item.start_of_entry)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu3"
+                                v-model="menu3"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.end_of_entry"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.end_of_entry"
+                                    label="Entrada Fin"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu3"
+                                v-model="item.end_of_entry"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu3.save(item.end_of_entry)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu4"
+                                v-model="menu4"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.tolerance_entry"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.tolerance_entry"
+                                    label="Tolerancia"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu4"
+                                v-model="item.tolerance_entry"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu4.save(item.tolerance_entry)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <!-- hasta aqui lo de inicio  -->
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu5"
+                                v-model="menu5"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.output"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.output"
+                                    label="Salida"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu5"
                                 v-model="item.output"
-                                label="Salida"
-                                prepend-icon="access_time"
-                                readonly
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-time-picker
-                            v-if="menu3"
-                            v-model="item.output"
-                            format="24hr"
-                            full-width
-                            @click:minute="$refs.menu3.save(item.output)"
-                            ></v-time-picker>
-                        </v-menu>
-                    </v-flex>
-                    <v-flex xs6 sm4 md4 >
-                        <v-menu
-                            ref="menu4"
-                            v-model="menu4"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            :return-value.sync="item.tolerance"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            max-width="290px"
-                            min-width="290px"
-                        >
-                            <template v-slot:activator="{ on }">
-                            <v-text-field
-                                v-model="item.tolerance"
-                                label="Tolerancia"
-                                prepend-icon="access_time"
-                                readonly
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-time-picker
-                            v-if="menu4"
-                            v-model="item.tolerance"
-                            format="24hr"
-                            full-width
-                            @click:minute="$refs.menu4.save(item.tolerance)"
-                            ></v-time-picker>
-                        </v-menu>
-                    </v-flex>
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu5.save(item.output)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu6"
+                                v-model="menu6"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.start_of_output"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.start_of_output"
+                                    label="Salida Inicio"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu6"
+                                v-model="item.start_of_output"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu6.save(item.start_of_output)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu7"
+                                v-model="menu7"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.end_of_output"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.end_of_output"
+                                    label="Salida Fin"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu7"
+                                v-model="item.end_of_output"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu7.save(item.end_of_output)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs3 sm3 md3 >
+                            <v-menu
+                                ref="menu8"
+                                v-model="menu8"
+                                :close-on-content-click="false"
+                                :nudge-right="40"
+                                :return-value.sync="item.tolerance_output"
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                max-width="290px"
+                                min-width="290px"
+                            >
+                                <template v-slot:activator="{ on }">
+                                <v-text-field
+                                    v-model="item.tolerance_output"
+                                    label="Tolerancia"
+                                    prepend-icon="access_time"
+                                    readonly
+                                    v-on="on"
+                                ></v-text-field>
+                                </template>
+                                <v-time-picker
+                                v-if="menu8"
+                                v-model="item.tolerance_output"
+                                format="24hr"
+                                full-width
+                                @click:minute="$refs.menu8.save(item.tolerance_output)"
+                                ></v-time-picker>
+                            </v-menu>
+                        </v-flex>
+
                     <v-flex xs3 sm3 md3>
                         <v-switch
                             v-model="item.monday"
@@ -193,9 +353,14 @@ export default
         type_hour: Object
 	},
     data:()=>({
+        menu1:false,//entrada
         menu2:false,//entrada
-        menu3:false,//salida
-        menu4:false, //tolerancia
+        menu3:false,//entrada
+        menu4:false, //entrada
+        menu5:false,//salida
+        menu6:false,//salida
+        menu7:false,//salida
+        menu8:false, //salida
         work_shifts:['Mañana','Tarde','Noche'],
         locations:[],
     }),

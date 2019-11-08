@@ -27,8 +27,13 @@ class CreateTypeHoursTable extends Migration
             $table->boolean('saturday')->default(false);//sabado
             $table->boolean('sunday')->default(false);//domingo
             $table->time('entry');
+            $table->time('start_of_entry');
+            $table->time('end_of_entry');
+            $table->time('tolerance_entry');//tolerancia en atraso
             $table->time('output');
-            $table->time('tolerance');
+            $table->time('start_of_output');
+            $table->time('end_of_output');
+            $table->time('tolerance_output');//tolerancia sallida
             $table->enum('work_shift', ['Mañana', 'Tarde', 'Noche'])->nullable(); //Turno de Trabajo
             $table->timestamps();
         });

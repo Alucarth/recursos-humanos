@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 Route::get('print_demo','ReportController@print_demo');
 Route::get('ficha_personal/{id}','ReportController@ficha_personal');
 Route::get('employee_request_print/{id}','ReportController@boleta');
+Route::get('attendance_employee','AttendanceController@attendance');
 
 Route::post('login', 'AuthController@login');
 Route::group([
@@ -64,4 +65,6 @@ Route::group([
     Route::get('archive_request/{employee_request_id}','EmployeeRequestController@archived');
     Route::get('archives','EmployeeRequestController@index_archived');
     Route::get('user_check','EmployeeController@check');
+
+
 });

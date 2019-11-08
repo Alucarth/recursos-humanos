@@ -25,13 +25,13 @@
                         <td>{{item.output}}</td>
                         <td>{{item.tolerance}}</td>
                         <td>
-                            <span class="badge badge-primary" v-if="item.monday">Lunes</span>
-                            <span class="badge badge-primary" v-if="item.tuesday">Martes</span>
-                            <span class="badge badge-primary" v-if="item.wednesday">Miercoles</span>
-                            <span class="badge badge-primary" v-if="item.thursday">Jueves</span>
-                            <span class="badge badge-primary" v-if="item.friday">Viernes</span>
-                            <span class="badge badge-primary" v-if="item.saturday">Sabado</span>
-                            <span class="badge badge-primary" v-if="item.sunday">Domingo</span>
+                            <span class="badge badge-success" v-if="item.monday">Lunes</span>
+                            <span class="badge badge-success" v-if="item.tuesday">Martes</span>
+                            <span class="badge badge-success" v-if="item.wednesday">Miercoles</span>
+                            <span class="badge badge-success" v-if="item.thursday">Jueves</span>
+                            <span class="badge badge-success" v-if="item.friday">Viernes</span>
+                            <span class="badge badge-success" v-if="item.saturday">Sabado</span>
+                            <span class="badge badge-success" v-if="item.sunday">Domingo</span>
                         </td>
 
                     </tr>

@@ -47,8 +47,13 @@ class TypeHourController extends Controller
         $type_hour->code = $request->code;
         $type_hour->work_shift = $request->work_shift;
         $type_hour->entry = $request->entry;
+        $type_hour->start_of_entry = $request->start_of_entry;
+        $type_hour->end_of_entry = $request->end_of_entry;
+        $type_hour->tolerance_entry = $request->tolerance_entry;
         $type_hour->output = $request->output;
-        $type_hour->tolerance = $request->tolerance;
+        $type_hour->start_of_output = $request->start_of_output;
+        $type_hour->end_of_output = $request->end_of_output;
+        $type_hour->tolerance_output = $request->tolerance_output;
         $type_hour->location_id = $request->location?$request->location['id']:null;
         $type_hour->monday = $request->monday?true:false;
         $type_hour->tuesday = $request->tuesday?true:false;
