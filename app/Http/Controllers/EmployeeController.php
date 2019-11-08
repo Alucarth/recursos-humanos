@@ -125,6 +125,8 @@ class EmployeeController extends Controller
     public function show($id)
     {
         //
+        $employee = Employee::with('type_hours')->find($id);
+        return response()->json(compact('employee'));
     }
 
     /**
@@ -149,6 +151,20 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function assign_type_hour(Request $request)
+    {
+        $employee = Employee::find($request->id);
+        $ids =[];
+
+        foreach($request->type_hours as $type_hour)
+        {
+            array_push($ids,$type_hour['id']);
+        }
+        $employee->type_hours()->sync($ids);
+        $name = $employee->getFullName();
+        return response()->json(compact('name'));
     }
 
     /**

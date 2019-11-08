@@ -27,11 +27,12 @@
                         </v-flex>
                         <v-flex xs12 sm12 md8>
                             <v-combobox
-                            v-model="item.location"
-                            :items="locations"
-                            item-text='name'
-                            label="Ubicacion"
-                            ></v-combobox>
+                                v-model="item.location"
+                                :items="locations"
+                                item-text='name'
+                                label="Ubicacion"
+                            >
+                            </v-combobox>
                         </v-flex>
                         <v-flex xs6 sm4 md4 >
                         <v-menu

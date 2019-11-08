@@ -207,12 +207,23 @@ export default {
         },
         edit_assing(item)
         {
-            this.employee = item;
-            this.dialog_assign = true;
+            axios.get(`api/auth/employee/${item.id}`)
+                 .then(response=>{
+                    this.employee= response.data.employee;
+                    this.dialog_assign = true;
+                 });
         },
         update_assign(item)
         {
-            console.log(item)
+            axios.post(`api/auth/assign_type_hour`,item)
+                 .then(response=>{
+                      iziToast.success({
+                                title: 'Se asigo horario a ',
+                                message: `${response.data.name}`,
+                            })
+                        this.dialog_assign = false;
+                 });
+            // console.log(item)
         },
         close_assign()
         {

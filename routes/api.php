@@ -51,6 +51,7 @@ Route::group([
     Route::resource('type_hour', 'TypeHourController');
     Route::resource('location', 'LocationController');
     Route::post('sync_biometric','BiometricController@sync');
+    Route::post('assign_type_hour','EmployeeController@assign_type_hour');
     Route::get('info_biometric/{biometric_id}','BiometricController@getInfo');
     Route::get('employee_info','EmployeeController@info');
     Route::get('my_request', 'EmployeeRequestController@index_employee');
