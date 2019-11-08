@@ -18,6 +18,8 @@ import EmployeeInfo from './views/employee/Show';
 import Biometric from './views/biometric/Index';
 import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
+import Refreshment from './views/refreshment/Index';
+
 export const routes= [
     {
         path: '/',
@@ -224,6 +226,18 @@ export const routes= [
         name: '/request_archive',
         components: {
             default: RequestArchive,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+     {
+        path: '/refreshment',
+        name: '/refreshment',
+        components: {
+            default: Refreshment,
             toolbar: Toolbar,
             nav: Nav
         },
