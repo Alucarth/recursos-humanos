@@ -25,6 +25,7 @@ export default {
     mounted()
     {
         console.log('Load Component Attendance');
+        // console.log(moment);
         this.getAttendances();
     },
     methods:{
@@ -33,10 +34,18 @@ export default {
             axios.get('/api/auth/attendance')
                  .then(response=>{
                         console.log(response.data);
+
+                        let days=[];
                         response.data.attendances.forEach(attendance => {
-                            let event = {title:''+attendance.time, date: attendance.date +' '+attendance.time }
+                            let event = {title:attendance.time, date: `${attendance.date}`,backgroundColor: attendance.state=='success'?'#4CAF50':'#FFEA00', textColor: attendance.state=='success'?'#FFFFFF':'#000000'  }
                             this.attendances.push(event);
+                            // days.push(attendance.date.toString().split('-')[2]);
                         });
+                        // let day = moment().day();
+                        // for (let i = 0; i < array.day; i++) 
+                        // {
+                            
+                        // }
                  });
         },
 
