@@ -4,9 +4,6 @@
             <h3>Empleados</h3>
         <v-spacer></v-spacer>
 
-
-
-
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
@@ -39,16 +36,21 @@
                     <v-icon @click="destroy(props.row)" >
                         delete
                     </v-icon>
+                    <v-icon @click="edit_assing(props.row)">
+                        add_alarm
+                    </v-icon>
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
         <edit-employee :dialog="dialog" :employee="employee" @close="close"  @employee="update"></edit-employee>
+        <assign-edit :dialog="dialog_assign" :employee="employee" @close="close_assign" @employee="update_assign">  </assign-edit>
 
     </v-card>
 </template>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 import EditEmployee from './Edit.vue';
+import AssignEdit from './AssignEdit';
 export default {
     data:()=>({
 
@@ -163,6 +165,7 @@ export default {
         employees: [],
         employee: {},
         dialog: false,
+        dialog_assign:false,
 
     }),
     computed: {
@@ -201,6 +204,30 @@ export default {
                     this.employees = response.data;
                     console.log(response.data);
                 });
+        },
+        edit_assing(item)
+        {
+            axios.get(`api/auth/employee/${item.id}`)
+                 .then(response=>{
+                    this.employee= response.data.employee;
+                    this.dialog_assign = true;
+                 });
+        },
+        update_assign(item)
+        {
+            axios.post(`api/auth/assign_type_hour`,item)
+                 .then(response=>{
+                      iziToast.success({
+                                title: 'Se asigo horario a ',
+                                message: `${response.data.name}`,
+                            })
+                        this.dialog_assign = false;
+                 });
+            // console.log(item)
+        },
+        close_assign()
+        {
+            this.dialog_assign = false;
         },
         create() {
             this.employee ={};
@@ -305,7 +332,8 @@ export default {
     },
     components: {
         VueBootstrap4Table,
-        EditEmployee
+        EditEmployee,
+        AssignEdit
     }
 }
 </script>

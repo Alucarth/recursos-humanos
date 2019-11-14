@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="grey lighten-5">
-        <loading :active.sync="isLoading" 
+        <loading :active.sync="isLoading"
             :is-full-page="fullPage">
         </loading>
         <div class="tabs-container">
@@ -41,11 +41,11 @@
                                 </div>
                                 <div class="col-md-12 mb-12">
                                     <label for="validationServer013">Departamento</label>
-                                    <label for="validationServer013">{{ departamento }}</label>                                    
+                                    <label for="validationServer013">{{ departamento }}</label>
                                 </div>
                                 <div class="col-md-12 mb-12">
                                     <div v-if="switch1==true">
-                                        
+
                                     </div>
                                     <div v-else><hr>
                                             <label for="validationServer013">Buscar Funcionario</label>
@@ -70,13 +70,13 @@
                                       @change="formMes()"
                                     ></v-switch>
                                 </v-flex>
-                            </v-layout> 
+                            </v-layout>
                         </v-container>
                     </div>
                     <div class="col-md-8">
                          <v-container fluid grid-list-md>
                             <div class="title">
-                                
+
                             </div>
                             <v-layout wrap>
                                     <v-flex xs4 sm4>
@@ -136,14 +136,14 @@
                                                     </v-btn>
                                                     <v-btn color="error" class="mr-4" @click="reset">
                                                         Limpiar
-                                                     </v-btn>   
+                                                     </v-btn>
                                                 </div>
                                         </div>
                                     </v-flex>
-                            </v-layout> 
-                        </v-container>                            
+                            </v-layout>
+                        </v-container>
                     </div>
-                 </div> 
+                 </div>
             </v-form>
                 </div>
                 <div role="tabpanel" id="tab-2" class="tab-pane">
@@ -188,7 +188,7 @@
                             </template>
                             <template slot="days_work_month" slot-scope="props">
                                <input type="days_work_month" style="font-size:12px;" name="days_work_month" class="form-control" v-model="props.row.days_work_month" @change="handleChangeTable(props,props.row.vbt_id)">
-                                
+
                             </template>
                              <template slot="sunday_holiday" slot-scope="props">
                                <input type="sunday_holiday" style="font-size:12px;" name="sunday_holiday" class="form-control" v-model="props.row.sunday_holiday" @change="handleChangeTable(props,props.row.vbt_id)">
@@ -282,7 +282,7 @@
                                 <button type="button" class="btn btn-lg btn-dark" @click="printCsv('csv')">
                                 <i class="material-icons pull-left">get_app</i><span>CSV<br><small>Descarga csv</small></span></button>  &nbsp;&nbsp;
                                  <button type="button" class="btn btn-lg btn-danger" @click="printTxt('txt')">
-                                <i class="material-icons pull-left">get_app</i><span>TXT<br><small>Descarga archivo txt</small></span></button> 
+                                <i class="material-icons pull-left">get_app</i><span>TXT<br><small>Descarga archivo txt</small></span></button>
                           </form>
                           <hr>
                           <div v-if="caso_report_1==true">
@@ -293,14 +293,14 @@
                           <div v-if="caso_report_2==true">
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
                                 <iframe class="embed-responsive-item" :src="'/api/ReportYear/' + fecha+'/'+usuario.usr_id+'/'+planta.id" allowfullscreen></iframe>
-                            </div>                              
+                            </div>
                           </div>
                         </v-card-text>
                     </v-card>
                 </div>
             </div>
         </div>
-        
+
     </v-container>
 </template>
 <style type="text/css" media="screen">
@@ -319,8 +319,8 @@
     {
         border:2px solid #eee;
         transform:rotate(360deg);
-        -ms-transform:rotate(360deg);  
-        -webkit-transform:rotate(360deg);  
+        -ms-transform:rotate(360deg);
+        -webkit-transform:rotate(360deg);
         /*-webkit-font-smoothing:antialiased;*/
     }
     table {
@@ -464,7 +464,7 @@ export default {
             },
              {
                 label: "Feriado domingo ",
-                name: "sunday_holiday",              
+                name: "sunday_holiday",
                 sort: false,
             },
              {
@@ -474,7 +474,7 @@ export default {
             },
              {
                 label: "Faltas",
-                name: "faults",               
+                name: "faults",
                 sort: false,
             },
              {
@@ -484,7 +484,7 @@ export default {
             },
              {
                 label: "Comisiones",
-                name: "commissions",                
+                name: "commissions",
                 sort: false,
             },
              {
@@ -494,13 +494,13 @@ export default {
             },
              {
                 label: "Monto bruto",
-                name: "ross_amount",               
+                name: "ross_amount",
                 sort: false,
             },
              {
                 label: "Formulario 110",
                 name: "invoices_110",
-                
+
                 sort: false,
             },
              {
@@ -561,9 +561,9 @@ export default {
     mounted()
     {
         this.getLocations();
-        this.getFecha();  
+        this.getFecha();
         this.listEmploye();
-        this.fechaEnvioReporte();  
+        this.fechaEnvioReporte();
         this.usuario=JSON.parse(localStorage.getItem('user'));
     },
     methods:{
@@ -824,7 +824,7 @@ export default {
                             message: 'Actualizado',
                             theme: 'question', // dark
                             color: 'green', // blue, red, green, yellow
-                        }); 
+                        });
                 }else{
                    iziToast.success({
                         position: 'topRight',
@@ -832,7 +832,7 @@ export default {
                         message: 'Error de consulta intente nuevamente',
                         theme: 'light', // dark
                         color: 'red', // blue, red, green, yellow
-                    }); 
+                    });
                 }
             })
             .catch(error => {
@@ -894,7 +894,7 @@ export default {
                         message: 'Ya se asigno el refrigerio correctamente',
                         theme: 'light', // dark
                         color: 'green', // blue, red, green, yellow
-                    }); 
+                    });
                 }).catch((error)=> {
                     this.isLoading = false;
                     iziToast.danger({
@@ -963,7 +963,7 @@ export default {
                             message: 'Ya se asigno los refrigerios para el mes de '+ this.fecha_nombre,
                             theme: 'light', // dark
                             color: 'blue', // blue, red, green, yellow
-                        }); 
+                        });
                     }else{
                          iziToast.success({
                             position: 'topRight',
@@ -981,9 +981,9 @@ export default {
                         message: 'Error de consulta intente nuevamente',
                         theme: 'light', // dark
                         color: 'red', // blue, red, green, yellow
-                    }); 
+                    });
                 }
-                
+
                 this.getData();
             }).catch((error)=> {
                 this.isLoading = false;
@@ -1072,7 +1072,7 @@ export default {
                 fileLink.setAttribute('download', 'Planilla_pago_refrigerio.txt');
                 document.body.appendChild(fileLink);
                 fileLink.click();
-            });  
+            });
         }
     },
     components: {

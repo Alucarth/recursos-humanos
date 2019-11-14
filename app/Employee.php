@@ -60,7 +60,10 @@ class Employee extends Model
     {
         return $this->belongsTo('App\Unity');
     }
-
+    public function type_hours()
+    {
+        return $this->belongsToMany('App\TypeHour','employee_type_hours','employee_id','type_hour_id');
+    }
     public function getFullName()
     {
         $first_name = $this->first_name??'';

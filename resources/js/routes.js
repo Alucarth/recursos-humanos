@@ -18,7 +18,10 @@ import EmployeeInfo from './views/employee/Show';
 import Biometric from './views/biometric/Index';
 import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
-import Refreshment from './views/refreshment/Index';
+import TypeHour from './views/type_hour/Index';
+import MyHourType from './views/employee/ShowTypeHours';
+import Holyday from './views/holyday/Index';
+// import Refreshment from './views/refreshment/Index';
 
 export const routes= [
     {
@@ -233,11 +236,11 @@ export const routes= [
             requiresAuth: true,
         }
     },
-     {
-        path: '/refreshment',
-        name: '/refreshment',
+    {
+        path: '/type_hour',
+        name: '/type_hour',
         components: {
-            default: Refreshment,
+            default: TypeHour,
             toolbar: Toolbar,
             nav: Nav
         },
@@ -245,5 +248,41 @@ export const routes= [
             requiresAuth: true,
         }
     },
+    {
+        path: '/my_type_hour',
+        name: '/my_type_hour',
+        components: {
+            default: MyHourType,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/holyday',
+        name: '/holyday',
+        components: {
+            default: Holyday,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    // {
+    //     path: '/refreshment',
+    //     name: '/refreshment',
+    //     components: {
+    //         default: Refreshment,
+    //         toolbar: Toolbar,
+    //         nav: Nav
+    //     },
+    //     meta: {
+    //         requiresAuth: true,
+    //     }
+    // },
 
 ];
