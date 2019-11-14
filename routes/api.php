@@ -89,6 +89,7 @@ Route::group([
     Route::resource('attendance', 'AttendanceController');
     Route::resource('type_hour', 'TypeHourController');
     Route::resource('location', 'LocationController');
+    Route::resource('holyday', 'HolydayController');
     Route::post('sync_biometric','BiometricController@sync');
     Route::post('assign_type_hour','EmployeeController@assign_type_hour');
     Route::get('info_biometric/{biometric_id}','BiometricController@getInfo');

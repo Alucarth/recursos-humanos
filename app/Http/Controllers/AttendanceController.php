@@ -8,6 +8,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Biometric;
 use App\Employee;
+use App\Holyday;
 use Log;
 class AttendanceController extends Controller
 {
@@ -35,82 +36,98 @@ class AttendanceController extends Controller
                 foreach($employee->type_hours as $type_hour)
                 {
                     //falta mas informacion en el type_hour
-
-                    $attendance_entry = AttendanceEmployee::where('date',$year.'-'.$month.'-'.$d)
-                                            // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
-                                            ->where('time','>=',$type_hour->start_of_entry)
-                                            ->where('time','<=',$type_hour->end_of_entry)
-                                            ->where('employee_id',$employee->id)
-                                            ->first();
-                    if($attendance_entry)
+                    $holyday = Holyday::where('date',$year.'-'.$month.'-'.$d)->first();
+                    if($holyday)  //si existe la fecha festiva
                     {
 
-                        $array_start_time = explode(':',$type_hour->start_of_entry);
-                        $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
-                        $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
-                        $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
-                        if($minutes >=60)
-                        {
-                            $minutes -= 60;
-                            $hours++;
-                        }
-                        $time = $hours.':'.$minutes;
-                        if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
-                        {
-                            $attendance_entry->state = 'success';
-                        }else
-                        {
-                            $attendance_entry->state = 'warning';
-                        }
-                        array_push($attendances,$attendance_entry);
-                    }else
-                    {
                         if(strlen($d)<2)
                         {
-                            $attendance_entry = array('date'=>$year.'-'.$month.'-0'.$d,'time'=> 'Sin Entrada','state'=>'error');
+                            $attendance_entry = array('date'=>$year.'-'.$month.'-0'.$d,'time'=> $holyday->name,'state'=>'primary');
                         }else{
-                            $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Entrada','state'=>'error');
+                            $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> $holyday->name,'state'=>'primary');
                         }
                         array_push($attendances,$attendance_entry);
-                    }
-
-                    $attendance_output = AttendanceEmployee::where('date',$year.'-'.$month.'-'.$d)
-                                            // ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
-                                            ->where('time','>=',$type_hour->start_of_output)
-                                            ->where('time','<=',$type_hour->end_of_output)
-                                            ->where('employee_id',$employee->id)
-                                            ->first();
-                    if($attendance_output)
-                    {
-
-                        // $array_start_time = explode(':',$type_hour->start_of_output);
-                        // $array_tolerance_time = explode(':',$type_hour->tolerance_output);
-                        // $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
-                        // $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
-                        // if($minutes >=60)
-                        // {
-                        //     $minutes -= 60;
-                        //     $hours++;
-                        // }
-                        // $time = $hours.':'.$minutes;
-                        if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
+                        array_push($attendances,$attendance_entry);
+                    }else{
+                        // en caso de no encontrar fecha festiva
+                        $attendance_entry = AttendanceEmployee::where('date',$year.'-'.$month.'-'.$d)
+                                                // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
+                                                ->where('time','>=',$type_hour->start_of_entry)
+                                                ->where('time','<=',$type_hour->end_of_entry)
+                                                ->where('employee_id',$employee->id)
+                                                ->first();
+                        if($attendance_entry)
                         {
-                            $attendance_output->state = 'success';
+
+                            $array_start_time = explode(':',$type_hour->start_of_entry);
+                            $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
+                            $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
+                            $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
+                            if($minutes >=60)
+                            {
+                                $minutes -= 60;
+                                $hours++;
+                            }
+                            $time = $hours.':'.$minutes;
+                            if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
+                            {
+                                $attendance_entry->state = 'success';
+                            }else
+                            {
+                                $attendance_entry->state = 'warning';
+                            }
+                            array_push($attendances,$attendance_entry);
                         }else
                         {
-                            $attendance_output->state = 'warning';
+                            if(strlen($d)<2)
+                            {
+                                $attendance_entry = array('date'=>$year.'-'.$month.'-0'.$d,'time'=> 'Sin Marcado','state'=>'error');
+                            }else{
+                                $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Marcado','state'=>'error');
+                            }
+                            array_push($attendances,$attendance_entry);
                         }
-                        array_push($attendances,$attendance_output);
-                    }else
-                    {
-                        if(strlen($d)<2)
+
+                        $attendance_output = AttendanceEmployee::where('date',$year.'-'.$month.'-'.$d)
+                                                // ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
+                                                ->where('time','>=',$type_hour->start_of_output)
+                                                ->where('time','<=',$type_hour->end_of_output)
+                                                ->where('employee_id',$employee->id)
+                                                ->first();
+                        if($attendance_output)
                         {
-                            $attendance_entry = array('date'=>$year.'-'.$month.'-0'.$d,'time'=> 'Sin Salida','state'=>'error');
-                        }else{
-                            $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Salida','state'=>'error');
+
+                            // $array_start_time = explode(':',$type_hour->start_of_output);
+                            // $array_tolerance_time = explode(':',$type_hour->tolerance_output);
+                            // $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
+                            // $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
+                            // if($minutes >=60)
+                            // {
+                            //     $minutes -= 60;
+                            //     $hours++;
+                            // }
+                            // $time = $hours.':'.$minutes;
+                            if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
+                            {
+                                $attendance_output->state = 'success';
+                            }else
+                            {
+                                $attendance_output->state = 'warning';
+                            }
+                            array_push($attendances,$attendance_output);
+                        }else
+                        {
+                            if(strlen($d)<2)
+                            {
+                                $attendance_entry = array('date'=>$year.'-'.$month.'-0'.$d,'time'=> 'Sin Marcado','state'=>'error');
+                            }else{
+                                $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Marcado','state'=>'error');
+                            }
+                            array_push($attendances,$attendance_entry);
                         }
-                        array_push($attendances,$attendance_entry);
                     }
+
+
                 }
             }
 
@@ -164,7 +181,7 @@ class AttendanceController extends Controller
                     array_push($attendances,$attendance_entry);
                 }else
                 {
-                    $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Entrada','state'=>'error');
+                    $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Marcado','state'=>'error');
 
                     array_push($attendances,$attendance_entry);
                 }
@@ -197,7 +214,7 @@ class AttendanceController extends Controller
                     }
                     array_push($attendances,$attendance_output);
                 }else{
-                    $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Salida','state'=>'error');
+                    $attendance_entry = array('date'=>$year.'-'.$month.'-'.$d,'time'=> 'Sin Marcado','state'=>'error');
                     array_push($attendances,$attendance_entry);
                 }
             }

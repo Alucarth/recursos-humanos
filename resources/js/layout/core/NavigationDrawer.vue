@@ -123,6 +123,7 @@ export default {
             { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
             { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
+            { icon: 'event', text: 'Dias Festivos', link: '/holyday' },
         ],
         parameters: [
             { icon: 'devices', text: 'Biometricos' , link: '/biometric' },

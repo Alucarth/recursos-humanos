@@ -20,6 +20,7 @@ import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
 import TypeHour from './views/type_hour/Index';
 import MyHourType from './views/employee/ShowTypeHours';
+import Holyday from './views/holyday/Index';
 // import Refreshment from './views/refreshment/Index';
 
 export const routes= [
@@ -252,6 +253,18 @@ export const routes= [
         name: '/my_type_hour',
         components: {
             default: MyHourType,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/holyday',
+        name: '/holyday',
+        components: {
+            default: Holyday,
             toolbar: Toolbar,
             nav: Nav
         },
