@@ -20,6 +20,8 @@ import Attendance from './views/attendance/Index';
 import RequestArchive from './views/request_archived/Index';
 import TypeHour from './views/type_hour/Index';
 import MyHourType from './views/employee/ShowTypeHours';
+// import Refreshment from './views/refreshment/Index';
+
 export const routes= [
     {
         path: '/',
@@ -257,5 +259,17 @@ export const routes= [
             requiresAuth: true,
         }
     },
+    // {
+    //     path: '/refreshment',
+    //     name: '/refreshment',
+    //     components: {
+    //         default: Refreshment,
+    //         toolbar: Toolbar,
+    //         nav: Nav
+    //     },
+    //     meta: {
+    //         requiresAuth: true,
+    //     }
+    // },
 
 ];

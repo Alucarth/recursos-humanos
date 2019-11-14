@@ -119,7 +119,7 @@ export default {
             // { icon: 'dashboard', text: 'Inicio' , link: '/' },
             { icon: 'people', text: 'Funcionarios' , link: '/employee' },
             // { icon: 'assignment', text: 'Solicitudes', link: '/buyout' },
-            { icon: 'local_dining', text: 'Refrigerios', link: '/food' },
+            { icon: 'local_dining', text: 'Refrigerios', link: '/refreshment' },
             { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
             { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
