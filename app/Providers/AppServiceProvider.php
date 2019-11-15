@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        require_once __DIR__ . '/../Http/Helpers/Util.php';
         require_once __DIR__ . '/../Http/zklib/zklib.php';
     }
 }

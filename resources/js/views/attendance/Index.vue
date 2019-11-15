@@ -6,7 +6,7 @@
         <!-- <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn> -->
         </v-card-title>
         <v-card-text>
-            <FullCalendar defaultView="dayGridMonth" :header="{left: 'dayGridMonth,dayGridWeek'}" :plugins="calendarPlugins"  locale='es' :events="attendances" />
+            <FullCalendar defaultView="dayGridMonth" :header="{left: 'dayGridMonth'}" :plugins="calendarPlugins"  locale='es' :events="attendances" />
         </v-card-text>
         <!-- <edit-biometric :dialog="dialog" :biometric="biometric" @close="close"  @biometric="update"></edit-biometric>
         <sync-biometric :dialog="dialog_sync" :biometric="biometric" @close="close_sync" ></sync-biometric> -->
@@ -20,8 +20,6 @@ export default {
     data:()=>({
         calendarPlugins: [ dayGridPlugin ],
         attendances:[],
-
-
     }),
     mounted()
     {
@@ -63,7 +61,6 @@ export default {
                 case 'error':
                     color='#FF8A80';
                     break;
-
             }
             return color;
         }
