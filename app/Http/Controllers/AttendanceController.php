@@ -38,8 +38,8 @@ class AttendanceController extends Controller
 
                 foreach($employee->type_hours as $type_hour)
                 {
-                    $date =$year.'-'.$month.'-';
-                    $date .= strlen($d)<2?'0'.$d:$d;
+
+                    $date = Carbon::create($year,$month,$d)->toDateString();
                     if(Util::validDay($date,$type_hour))
                     {
 
@@ -71,7 +71,9 @@ class AttendanceController extends Controller
                                     $minutes -= 60;
                                     $hours++;
                                 }
-                                $time = $hours.':'.$minutes;
+
+                                $time =  Carbon::create(0,0,0,$hours,$minutes)->toTimeString();
+                                Log::info($time);
                                 if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
                                 {
                                     $attendance_entry->state = 'success';
