@@ -7,6 +7,12 @@ use Auth;
 use App;
 use App\Employee;
 use App\EmployeeRequest;
+use App\AttendanceEmployee;
+use Carbon\Carbon;
+use App\Biometric;
+use App\Holyday;
+use Util;
+use Log;
 
 class ReportController extends Controller
 {
@@ -47,6 +53,224 @@ class ReportController extends Controller
         $pdf->loadHTML($html_content);
         return $pdf->inline();
 
+    }
+    public function attendance_employee($id)
+    {
+
+        $min_atraso=0;
+        $dias_haber=0;
+
+        $employee = Employee::find($id);
+
+        $date = Carbon::now();
+        $before_date = Carbon::now();
+
+        if($before_date->month -1 ==0 ) //en caso de de cobro de enero
+        {
+
+            $before_date->month = 12;
+            $before_date->year = $before_date->year-1;
+        }else
+        {
+            $before_date->month = $before_date->month-1;
+        }
+        $before_date->day=21;
+
+        $days=cal_days_in_month(CAL_GREGORIAN,$before_date->month , $before_date->year);
+        $day=$days;
+        $month = $before_date->month;
+        $year = $before_date->year;
+        // Log::info();
+        // $employee = Employee::find(23);
+        $attendances = [];
+
+        for ($d=21; $d <= $days ; $d++)
+        {
+            if($d<=$day)
+            {
+
+                foreach($employee->type_hours as $type_hour)
+                {
+
+                    $date = Carbon::create($year,$month,$d)->toDateString();
+                    if(Util::validDay($date,$type_hour))
+                    {
+
+                        $holyday = Holyday::where('date',$date)->first();
+                        if($holyday)  //si existe la fecha festiva
+                        {
+                            //se omite el marcado al ser feriado  XD
+                            $attendance_entry = array('date'=>$date,'time'=> $holyday->name,'state'=>'primary');
+                            array_push($attendances,$attendance_entry);
+                            array_push($attendances,$attendance_entry);
+
+                        }else{
+                            // en caso de no encontrar fecha festiva
+                            $attendance_entry = AttendanceEmployee::where('date',$date)
+                                                    // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
+                                                    ->where('time','>=',$type_hour->start_of_entry)
+                                                    ->where('time','<=',$type_hour->end_of_entry)
+                                                    ->where('employee_id',$employee->id)
+                                                    ->first();
+                            if($attendance_entry)
+                            {
+
+                                $array_start_time = explode(':',$type_hour->start_of_entry);
+                                $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
+                                $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
+                                $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
+                                if($minutes >=60)
+                                {
+                                    $minutes -= 60;
+                                    $hours++;
+                                }
+
+                                $time =  Carbon::create(0,0,0,$hours,$minutes)->toTimeString();
+                                // Log::info($time);
+                                if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
+                                {
+                                    $attendance_entry->state = 'success';
+                                }else
+                                {
+                                    $attendance_entry->state = 'warning';
+                                }
+                                array_push($attendances,$attendance_entry);
+                            }else
+                            {
+
+                                $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+
+                                array_push($attendances,$attendance_entry);
+                            }
+
+                            $attendance_output = AttendanceEmployee::where('date',$date)
+                                                    // ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
+                                                    ->where('time','>=',$type_hour->start_of_output)
+                                                    ->where('time','<=',$type_hour->end_of_output)
+                                                    ->where('employee_id',$employee->id)
+                                                    ->first();
+                            if($attendance_output)
+                            {
+
+                                if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
+                                {
+                                    $attendance_output->state = 'success';
+                                }else
+                                {
+                                    $attendance_output->state = 'warning';
+                                }
+                                array_push($attendances,$attendance_output);
+                            }else
+                            {
+                                $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+                                array_push($attendances,$attendance_entry);
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        //mes actual XD
+        $date = Carbon::now();
+        $day=explode('-',$date)[2];
+        $days=cal_days_in_month(CAL_GREGORIAN,$date->month , $date->year);
+        $month = $date->month;
+        $year = $date->year;
+        for ($d=1; $d <= $days ; $d++)
+        {
+            //buscar marcados solo para los horarios del dia XD
+
+            if($d<=$day)
+            {
+
+                foreach($employee->type_hours as $type_hour)
+                {
+
+                    $date = Carbon::create($year,$month,$d)->toDateString();
+                    if(Util::validDay($date,$type_hour))
+                    {
+
+                        $holyday = Holyday::where('date',$date)->first();
+                        if($holyday)  //si existe la fecha festiva
+                        {
+                            //se omite el marcado al ser feriado  XD
+                            $attendance_entry = array('date'=>$date,'time'=> $holyday->name,'state'=>'primary');
+                            array_push($attendances,$attendance_entry);
+                            array_push($attendances,$attendance_entry);
+
+                        }else{
+                            // en caso de no encontrar fecha festiva
+                            $attendance_entry = AttendanceEmployee::where('date',$date)
+                                                    // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
+                                                    ->where('time','>=',$type_hour->start_of_entry)
+                                                    ->where('time','<=',$type_hour->end_of_entry)
+                                                    ->where('employee_id',$employee->id)
+                                                    ->first();
+                            if($attendance_entry)
+                            {
+
+                                $array_start_time = explode(':',$type_hour->start_of_entry);
+                                $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
+                                $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
+                                $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
+                                if($minutes >=60)
+                                {
+                                    $minutes -= 60;
+                                    $hours++;
+                                }
+
+                                $time =  Carbon::create(0,0,0,$hours,$minutes)->toTimeString();
+                                // Log::info($time);
+                                if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
+                                {
+                                    $attendance_entry->state = 'success';
+                                }else
+                                {
+                                    $attendance_entry->state = 'warning';
+                                }
+                                array_push($attendances,$attendance_entry);
+                            }else
+                            {
+
+                                $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+
+                                array_push($attendances,$attendance_entry);
+                            }
+
+                            $attendance_output = AttendanceEmployee::where('date',$date)
+                                                    // ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
+                                                    ->where('time','>=',$type_hour->start_of_output)
+                                                    ->where('time','<=',$type_hour->end_of_output)
+                                                    ->where('employee_id',$employee->id)
+                                                    ->first();
+                            if($attendance_output)
+                            {
+
+                                if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
+                                {
+                                    $attendance_output->state = 'success';
+                                }else
+                                {
+                                    $attendance_output->state = 'warning';
+                                }
+                                array_push($attendances,$attendance_output);
+                            }else
+                            {
+                                $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+                                array_push($attendances,$attendance_entry);
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+        return response()->json(compact('attendances'));
     }
 
     public function print_demo()

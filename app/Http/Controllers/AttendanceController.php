@@ -73,7 +73,7 @@ class AttendanceController extends Controller
                                 }
 
                                 $time =  Carbon::create(0,0,0,$hours,$minutes)->toTimeString();
-                                Log::info($time);
+                                // Log::info($time);
                                 if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
                                 {
                                     $attendance_entry->state = 'success';
