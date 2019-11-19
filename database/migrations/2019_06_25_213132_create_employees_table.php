@@ -49,7 +49,7 @@ class CreateEmployeesTable extends Migration
             $table->string('cellphone')->nullable();
             $table->boolean('curriculum')->default(false);
             $table->string('path_curriculum')->nullable();
-            $table->decimal('salary')->nullable();
+           // $table->decimal('salary')->nullable(); //give wrong
             $table->bigInteger('biometric_code')->nullable();
 
             $table->foreign('city_identity_card_id')->references('id')->on('cities'); //identificación del ci

@@ -20,10 +20,13 @@
 Route::get('print_demo', 'ReportController@print_demo');
 Route::get('ficha_personal/{id}', 'ReportController@ficha_personal');
 Route::get('employee_request_print/{id}', 'ReportController@boleta');
+Route::get('attendance_employee/{employee_id}','ReportController@attendance_employee');
+//** Revisar  */
 Route::get('ReportMonth/{fecha}/{id_user}/{planta}', 'ReportController@ReportMonth');
 Route::get('ReportYear/{fecha}/{id_user}/{planta}', 'ReportController@ReportYear');
 Route::get('reportMonthExcel/{fecha}/{id_user}/{tipo_doc}/{planta}', 'ReportController@reportMonthExcel');
 Route::get('generateCart', 'RefreshmentController@generateCart');
+/**  */
 Route::post('login', 'AuthController@login');
 Route::group([
 	'prefix' => 'auth',

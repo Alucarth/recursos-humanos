@@ -25,28 +25,33 @@
                     </span>
                 </th>
                 <th class="w-20 no-padding  align-center">
-                    @if($type_report == 'FICHA TECNICA')
-                        <img src="{{ public_path('images/sin_foto.jpg') }}" style="width: 148px;">
-                    @else
-                    <table class="table-code align-top no-padding no-margins">
-                        <tbody>
-                            <tr>
-                                <td class="text-center bg-grey-darker text-xxs text-white">Fecha de Emisión</td>
-                                <td class="text-xs">{{ $date }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center bg-grey-darker text-xxs text-white">Usuario</td>
-                                <td class="text-xs">{!! $username !!}</td>
-                            </tr>
-                            @if(isset($code))
-                            <tr>
-                                <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
-                                <td class="text-xs">{!! $code !!}</td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                    @endif          
+                    @if(isset($type_report))
+                        @if($type_report == 'FICHA TECNICA')
+                            <img src="{{ public_path('images/sin_foto.jpg') }}" style="width: 148px;">
+                        @else
+
+                        <table class="table-code align-top no-padding no-margins">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center bg-grey-darker text-xxs text-white">Fecha de Emisión</td>
+                                    <td class="text-xs">{{ $date }}</td>
+                                </tr>
+                                @if(isset($username))
+                                <tr>
+                                    <td class="text-center bg-grey-darker text-xxs text-white">Usuario</td>
+                                    <td class="text-xs">{!! $username !!}</td>
+                                </tr>
+                                @endif
+                                @if(isset($code))
+                                <tr>
+                                    <td class="text-center bg-grey-darker text-xxs text-white">Codigo</td>
+                                    <td class="text-xs">{!! $code !!}</td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        @endif
+                    @endif
 
                 </th>
             </tr>
