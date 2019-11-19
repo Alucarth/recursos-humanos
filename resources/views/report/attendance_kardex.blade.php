@@ -32,6 +32,14 @@
         <td class="text-center bg-grey-darker text-xs text-white">Descuento</td>
         <td> {{Util::formatMoney($sanction_omision * $discount_day,'Bs ')}} </td>
     </tr>
+    <tr>
+        <td class="text-center bg-grey-darker text-xs text-white">Cantidad de Atrasos</td>
+        <td> {{$cantidad_atrasos}} </td>
+        <td class="text-center bg-grey-darker text-xs text-white">Horas Trabajadas</td>
+        <td>  </td>
+        <td class="text-center bg-grey-darker text-xs text-white">Horas Adicionales</td>
+        <td>  </td>
+    </tr>
 </table>
 
 @endsection

@@ -63,6 +63,7 @@ class ReportController extends Controller
         $dias_haber=0;
         $horas_trabajadas=0;
         $horas_adicionales=0;
+        $cantidad_atrasos=0;
 
         $employee = Employee::find($id);
 
@@ -140,7 +141,7 @@ class ReportController extends Controller
                                     $current_time =  Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
                                     $reglamentary_time = Carbon::parse($date.' '. $type_hour->entry);
                                     $minutos_atraso += $current_time->diffInMinutes($reglamentary_time);
-
+                                    $cantidad_atrasos++;
                                 }
                                 array_push($attendances,$attendance_entry);
                             }else
@@ -260,6 +261,7 @@ class ReportController extends Controller
                                     $current_time =  Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
                                     $reglamentary_time = Carbon::parse($date.' '. $type_hour->entry);
                                     $minutos_atraso += $current_time->diffInMinutes($reglamentary_time);
+                                    $cantidad_atrasos++;
                                 }
                                 array_push($attendances,$attendance_entry);
                             }else
@@ -349,7 +351,7 @@ class ReportController extends Controller
         $persona = $employee->getFullName();
         $gerencia = $employee->management?$employee->management->name:'';
         $unidad = $employee->unity?$employee->unity->name:'';
-        $view = \View::make('report.attendance_kardex',compact('title','date','persona','unidad','gerencia','minutos_atraso','omisiones','sanction','omision_sanction','discount','dias_haber','discount_day','sanction_atraso','sanction_omision'));
+        $view = \View::make('report.attendance_kardex',compact('title','date','persona','unidad','gerencia','minutos_atraso','omisiones','sanction','omision_sanction','discount','dias_haber','discount_day','sanction_atraso','sanction_omision','cantidad_atrasos'));
     	$html_content = $view->render();
     	$pdf = App::make('snappy.pdf.wrapper');
     	$pdf->loadHTML($html_content);
