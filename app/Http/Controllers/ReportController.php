@@ -11,6 +11,7 @@ use App\AttendanceEmployee;
 use Carbon\Carbon;
 use App\Biometric;
 use App\Holyday;
+use App\Sanction;
 use Util;
 use Log;
 
@@ -57,8 +58,11 @@ class ReportController extends Controller
     public function attendance_employee($id)
     {
 
-        $min_atraso=0;
+        $minutos_atraso=0;
+        $omisiones=0;
         $dias_haber=0;
+        $horas_trabajadas=0;
+        $horas_adicionales=0;
 
         $employee = Employee::find($id);
 
@@ -67,21 +71,20 @@ class ReportController extends Controller
 
         if($before_date->month -1 ==0 ) //en caso de de cobro de enero
         {
-
             $before_date->month = 12;
             $before_date->year = $before_date->year-1;
         }else
         {
             $before_date->month = $before_date->month-1;
         }
+
         $before_date->day=21;
 
         $days=cal_days_in_month(CAL_GREGORIAN,$before_date->month , $before_date->year);
         $day=$days;
         $month = $before_date->month;
         $year = $before_date->year;
-        // Log::info();
-        // $employee = Employee::find(23);
+
         $attendances = [];
 
         for ($d=21; $d <= $days ; $d++)
@@ -115,7 +118,7 @@ class ReportController extends Controller
                             if($attendance_entry)
                             {
 
-                                $array_start_time = explode(':',$type_hour->start_of_entry);
+                                $array_start_time = explode(':',$type_hour->entry);
                                 $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
                                 $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
                                 $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
@@ -133,13 +136,27 @@ class ReportController extends Controller
                                 }else
                                 {
                                     $attendance_entry->state = 'warning';
+                                    //contabilizar minutos de atraso
+                                    $current_time =  Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
+                                    $reglamentary_time = Carbon::parse($date.' '. $type_hour->entry);
+                                    $minutos_atraso += $current_time->diffInMinutes($reglamentary_time);
+
                                 }
                                 array_push($attendances,$attendance_entry);
                             }else
                             {
 
-                                $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
-
+                                $attendance_entry = array('date'=> $date,'time'=> 'Sin Marcado','state'=>'error');
+                                $omisiones++;
+                                //only enabled for testing
+                                // $attendance_employee =new AttendanceEmployee;
+                                // $attendance_employee->employee_id = $employee->id;
+                                // $attendance_employee->biometric_id = 1;
+                                // $attendance_employee->biometric_code = $employee->biometric_code;
+                                // $attendance_employee->date = $date;
+                                // $attendance_employee->time = $type_hour->entry;
+                                // $attendance_employee->delayed = '00:00:00';
+                                // $attendance_employee->save();
                                 array_push($attendances,$attendance_entry);
                             }
 
@@ -163,6 +180,16 @@ class ReportController extends Controller
                             }else
                             {
                                 $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+                                $omisiones++;
+                                //only enabled for testing
+                                // $attendance_employee =new AttendanceEmployee;
+                                // $attendance_employee->employee_id = $employee->id;
+                                // $attendance_employee->biometric_id = 1;
+                                // $attendance_employee->biometric_code = $employee->biometric_code;
+                                // $attendance_employee->date = $date;
+                                // $attendance_employee->time = $type_hour->output;
+                                // $attendance_employee->delayed = '00:00:00';
+                                // $attendance_employee->save();
                                 array_push($attendances,$attendance_entry);
                             }
                         }
@@ -212,7 +239,7 @@ class ReportController extends Controller
                             if($attendance_entry)
                             {
 
-                                $array_start_time = explode(':',$type_hour->start_of_entry);
+                                $array_start_time = explode(':',$type_hour->entry);
                                 $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
                                 $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
                                 $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
@@ -230,13 +257,24 @@ class ReportController extends Controller
                                 }else
                                 {
                                     $attendance_entry->state = 'warning';
+                                    $current_time =  Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
+                                    $reglamentary_time = Carbon::parse($date.' '. $type_hour->entry);
+                                    $minutos_atraso += $current_time->diffInMinutes($reglamentary_time);
                                 }
                                 array_push($attendances,$attendance_entry);
                             }else
                             {
 
                                 $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
-
+                                // $attendance_employee =new AttendanceEmployee;
+                                // $attendance_employee->employee_id = $employee->id;
+                                // $attendance_employee->biometric_id = 1;
+                                // $attendance_employee->biometric_code = $employee->biometric_code;
+                                // $attendance_employee->date = $date;
+                                // $attendance_employee->time = $type_hour->entry;
+                                // $attendance_employee->delayed = '00:00:00';
+                                // $attendance_employee->save();
+                                $omisiones++;
                                 array_push($attendances,$attendance_entry);
                             }
 
@@ -255,11 +293,21 @@ class ReportController extends Controller
                                 }else
                                 {
                                     $attendance_output->state = 'warning';
+
                                 }
                                 array_push($attendances,$attendance_output);
                             }else
                             {
                                 $attendance_entry = array('date'=>$date,'time'=> 'Sin Marcado','state'=>'error');
+                                $omisiones++;
+                                // $attendance_employee =new AttendanceEmployee;
+                                // $attendance_employee->employee_id = $employee->id;
+                                // $attendance_employee->biometric_id = 1;
+                                // $attendance_employee->biometric_code = $employee->biometric_code;
+                                // $attendance_employee->date = $date;
+                                // $attendance_employee->time = $type_hour->output;
+                                // $attendance_employee->delayed = '00:00:00';
+                                // $attendance_employee->save();
                                 array_push($attendances,$attendance_entry);
                             }
                         }
@@ -270,7 +318,43 @@ class ReportController extends Controller
             }
 
         }
-        return response()->json(compact('attendances'));
+
+        $sanction_atraso = 0;
+        $sanction = Sanction::where('from','<=',$minutos_atraso)
+                            ->where('to','>=',$minutos_atraso)
+                            ->where('type','leve')
+                            ->first();
+        if($sanction)
+        {
+            $dias_haber += $sanction->days;
+            $sanction_atraso += $sanction->days;
+        }
+
+        $omision_sanction = Sanction::where('from','<=',$omisiones)
+                            ->where('to','>=',$omisiones)
+                            ->where('type','omision')
+                            ->first();
+        $sanction_omision = 0;
+        if($omision_sanction)
+        {
+            $dias_haber += $omision_sanction->days;
+            $sanction_omision += $omision_sanction->days;
+        }
+
+        $discount_day = (float) $employee->salary/30;
+        $discount = $discount_day*$dias_haber;
+
+        $date = Carbon::now();
+        $title = 'Tarjeta de Asistencia';
+        $persona = $employee->getFullName();
+        $gerencia = $employee->management?$employee->management->name:'';
+        $unidad = $employee->unity?$employee->unity->name:'';
+        $view = \View::make('report.attendance_kardex',compact('title','date','persona','unidad','gerencia','minutos_atraso','omisiones','sanction','omision_sanction','discount','dias_haber','discount_day','sanction_atraso','sanction_omision'));
+    	$html_content = $view->render();
+    	$pdf = App::make('snappy.pdf.wrapper');
+    	$pdf->loadHTML($html_content);
+    	return $pdf->inline();
+        // return response()->json(compact('minutos_atraso','omisiones','sanction','omision_sanction','discount','dias_haber'));
     }
 
     public function print_demo()

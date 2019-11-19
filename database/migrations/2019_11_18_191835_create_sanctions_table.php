@@ -17,8 +17,8 @@ class CreateSanctionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');// leve omision
-            $table->integer('from_minutes')->nullable();
-            $table->integer('to_minutes')->nullable();
+            $table->integer('from')->nullable();
+            $table->integer('to')->nullable();
             $table->decimal('days', 8, 2);
             $table->timestamps();
         });

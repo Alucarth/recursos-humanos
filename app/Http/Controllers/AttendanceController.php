@@ -62,7 +62,7 @@ class AttendanceController extends Controller
                             if($attendance_entry)
                             {
 
-                                $array_start_time = explode(':',$type_hour->start_of_entry);
+                                $array_start_time = explode(':',$type_hour->entry);
                                 $array_tolerance_time = explode(':',$type_hour->tolerance_entry);
                                 $minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
                                 $hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
@@ -73,13 +73,14 @@ class AttendanceController extends Controller
                                 }
 
                                 $time =  Carbon::create(0,0,0,$hours,$minutes)->toTimeString();
-                                // Log::info($time);
+                                Log::info($time);
                                 if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
                                 {
                                     $attendance_entry->state = 'success';
                                 }else
                                 {
                                     $attendance_entry->state = 'warning';
+                                    //crear registros temporales
                                 }
                                 array_push($attendances,$attendance_entry);
                             }else
