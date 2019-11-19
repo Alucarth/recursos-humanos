@@ -39,12 +39,45 @@
                     <v-icon @click="edit_assing(props.row)">
                         add_alarm
                     </v-icon>
+                    <v-icon @click="show_kardex(props.row)">
+                        insert_drive_file
+                    </v-icon>
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>
         <edit-employee :dialog="dialog" :employee="employee" @close="close"  @employee="update"></edit-employee>
         <assign-edit :dialog="dialog_assign" :employee="employee" @close="close_assign" @employee="update_assign">  </assign-edit>
 
+        <v-dialog
+        v-model="dialog_report"
+        width="1000"
+        >
+        <v-card>
+            <!-- <v-card-title
+            class="headline grey lighten-2"
+            primary-title
+            >
+            Reporte
+            </v-card-title> -->
+
+            <v-card-text>
+                <iframe id='ireport' :src="'/api/attendance_employee/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+            <div class="flex-grow-1"></div>
+            <v-btn
+                color="primary"
+                text
+                @click="dialog_report = false"
+            >
+               Cerrar
+            </v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
     </v-card>
 </template>
 <script>
@@ -166,6 +199,7 @@ export default {
         employee: {},
         dialog: false,
         dialog_assign:false,
+        dialog_report:false,
 
     }),
     computed: {
@@ -327,6 +361,11 @@ export default {
 
         close() {
             this.dialog = false;
+        },
+        show_kardex(employee)
+        {
+            this.employee = employee;
+            this.dialog_report = true;
         }
 
     },
