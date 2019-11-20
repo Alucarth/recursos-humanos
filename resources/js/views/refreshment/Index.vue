@@ -328,7 +328,6 @@
     }
 
     table, th, td {
-        border: 1px solid gray;
     font-size: 10px;
     }
     .nav-tabs .nav-link.active{
