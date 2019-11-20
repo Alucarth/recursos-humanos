@@ -64,6 +64,7 @@ class ReportController extends Controller
         $horas_trabajadas=0;
         $horas_adicionales=0;
         $cantidad_atrasos=0;
+        $cantidad_faltas=0;
 
         $employee = Employee::find($id);
 
@@ -173,6 +174,15 @@ class ReportController extends Controller
                                 if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
                                 {
                                     $attendance_output->state = 'success';
+                                    //horas adcionales
+                                    $marcado =  Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                    $marcado_horario =  Carbon::parse($date.' '.$type_hour->output);
+                                    $minutos_adicionales = $marcado->diffInMinutes($marcado_horario);
+                                    $horas_adicionales += $minutos_adicionales;
+                                    //$horas_adicionales->addMinutes($minutos_adicionales);
+                                    // Log::info($minutos_adicionales);
+                                    // Log::info($marcado->toTimeString().' '.$marcado_horario->toTimeString().' '.$horas_adicionales->toTimeString());
+
                                 }else
                                 {
                                     $attendance_output->state = 'warning';
@@ -192,6 +202,16 @@ class ReportController extends Controller
                                 // $attendance_employee->delayed = '00:00:00';
                                 // $attendance_employee->save();
                                 array_push($attendances,$attendance_entry);
+                            }
+                             //contabilizando horas de trabajo
+                            if($attendance_entry && $attendance_output)
+                            {
+                                $entrada = Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
+                                $salida = Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                $minutos_trabajados = $salida->diffInMinutes($entrada);
+                                $horas_trabajadas += $minutos_trabajados;
+
+                                //$horas_trabajadas->addMinutes($minutos_trabajados );
                             }
                         }
                     }
@@ -292,6 +312,15 @@ class ReportController extends Controller
                                 if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
                                 {
                                     $attendance_output->state = 'success';
+                                    //horas adicionales
+                                    $marcado =  Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                    $marcado_horario =  Carbon::parse($date.' '.$type_hour->output);
+                                    $minutos_adicionales = $marcado->diffInMinutes($marcado_horario);
+                                    $horas_adicionales += $minutos_adicionales;
+                                    // $horas_adicionales->addMinutes($minutos_adicionales);
+                                    // Log::info($minutos_adicionales);
+                                    // Log::info($marcado->toTimeString().' '.$marcado_horario->toTimeString().' '.$horas_adicionales->toTimeString());
+
                                 }else
                                 {
                                     $attendance_output->state = 'warning';
@@ -312,6 +341,16 @@ class ReportController extends Controller
                                 // $attendance_employee->save();
                                 array_push($attendances,$attendance_entry);
                             }
+                             //contabilizando horas de trabajo
+                             if($attendance_entry && $attendance_output)
+                             {
+                                 $entrada = Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
+                                 $salida = Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                 $minutos_trabajados = $salida->diffInMinutes($entrada);
+                                 $horas_trabajadas += $minutos_trabajados;
+
+                                 //$horas_trabajadas->addMinutes($minutos_trabajados );
+                             }
                         }
                     }
 
@@ -351,7 +390,29 @@ class ReportController extends Controller
         $persona = $employee->getFullName();
         $gerencia = $employee->management?$employee->management->name:'';
         $unidad = $employee->unity?$employee->unity->name:'';
-        $view = \View::make('report.attendance_kardex',compact('title','date','persona','unidad','gerencia','minutos_atraso','omisiones','sanction','omision_sanction','discount','dias_haber','discount_day','sanction_atraso','sanction_omision','cantidad_atrasos'));
+        $horas_adicionales= (float)$horas_adicionales/60;
+        $horas_trabajadas = (float)$horas_trabajadas/60;
+        $horas_adicionales = Util::formatMoney($horas_adicionales);
+        $horas_trabajadas = Util::formatMoney($horas_trabajadas);
+        $view = \View::make('report.attendance_kardex',
+                            compact('title',
+                                    'date',
+                                    'persona',
+                                    'employee',
+                                    'unidad',
+                                    'gerencia',
+                                    'minutos_atraso',
+                                    'omisiones',
+                                    'sanction',
+                                    'omision_sanction',
+                                    'discount',
+                                    'dias_haber',
+                                    'discount_day',
+                                    'sanction_atraso',
+                                    'sanction_omision',
+                                    'cantidad_atrasos',
+                                    'horas_adicionales',
+                                    'horas_trabajadas'));
     	$html_content = $view->render();
     	$pdf = App::make('snappy.pdf.wrapper');
     	$pdf->loadHTML($html_content);

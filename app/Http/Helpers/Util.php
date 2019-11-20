@@ -66,6 +66,20 @@ class Util
         // $next_val = str_replace('.', '', $input);
     }
 
+    public static function timeString($hour)
+    {
+        if($hour)
+        {
+            $time = explode('.',$hour);
+            $h = $time[0];
+            $m = ((float)$time[1]/100) *60;
+            return $h." horas y ".explode('.',$m)[0]." minutos.";
+        }else
+        {
+            return '0 horas';
+        }
+    }
+
     public static function validDay($date,$type_hour)
     {
 
