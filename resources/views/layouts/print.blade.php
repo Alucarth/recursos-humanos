@@ -25,11 +25,11 @@
                     </span>
                 </th>
                 <th class="w-20 no-padding  align-center">
-                    @if(isset($type_report))
+                        @if(isset($type_report))
                         @if($type_report == 'FICHA TECNICA')
                             <img src="{{ public_path('images/sin_foto.jpg') }}" style="width: 148px;">
-                        @else
-
+                        @endif
+                        @endif
                         <table class="table-code align-top no-padding no-margins">
                             <tbody>
                                 <tr>
@@ -50,8 +50,8 @@
                                 @endif
                             </tbody>
                         </table>
-                        @endif
-                    @endif
+
+
 
                 </th>
             </tr>
