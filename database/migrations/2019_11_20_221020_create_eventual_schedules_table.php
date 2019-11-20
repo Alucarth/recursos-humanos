@@ -15,7 +15,7 @@ class CreateEventualSchedulesTable extends Migration
     {
         Schema::create('eventual_schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            // $table->string('name');
             $table->bigInteger('type_hour_id')->unsigned();
             $table->foreign('type_hour_id')->references('id')->on('type_hours');
             $table->bigInteger('employee_id')->unsigned();
