@@ -65,7 +65,8 @@ class ReportController extends Controller
         $horas_adicionales=0;
         $cantidad_atrasos=0;
         $cantidad_faltas=0;
-
+        $entry= null;
+        $output =null;
         $employee = Employee::find($id);
 
         $date = Carbon::now();
@@ -117,6 +118,7 @@ class ReportController extends Controller
                                                     ->where('time','<=',$type_hour->end_of_entry)
                                                     ->where('employee_id',$employee->id)
                                                     ->first();
+                            $entry = $attendance_entry;
                             if($attendance_entry)
                             {
 
@@ -168,6 +170,7 @@ class ReportController extends Controller
                                                     ->where('time','<=',$type_hour->end_of_output)
                                                     ->where('employee_id',$employee->id)
                                                     ->first();
+                            $output= $attendance_output;
                             if($attendance_output)
                             {
 
@@ -204,10 +207,10 @@ class ReportController extends Controller
                                 array_push($attendances,$attendance_entry);
                             }
                              //contabilizando horas de trabajo
-                            if($attendance_entry && $attendance_output)
+                            if($entry && $output)
                             {
-                                $entrada = Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
-                                $salida = Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                $entrada = Carbon::parse($entry->date.' '.$entry->time);
+                                $salida = Carbon::parse($output->date.' '.$output->time);
                                 $minutos_trabajados = $salida->diffInMinutes($entrada);
                                 $horas_trabajadas += $minutos_trabajados;
 
@@ -227,6 +230,8 @@ class ReportController extends Controller
         $days=cal_days_in_month(CAL_GREGORIAN,$date->month , $date->year);
         $month = $date->month;
         $year = $date->year;
+        $entry= null;
+        $output =null;
         for ($d=1; $d <= $days ; $d++)
         {
             //buscar marcados solo para los horarios del dia XD
@@ -257,6 +262,8 @@ class ReportController extends Controller
                                                     ->where('time','<=',$type_hour->end_of_entry)
                                                     ->where('employee_id',$employee->id)
                                                     ->first();
+                            $entry = $attendance_entry;
+                            Log::info($attendance_entry);
                             if($attendance_entry)
                             {
 
@@ -306,6 +313,7 @@ class ReportController extends Controller
                                                     ->where('time','<=',$type_hour->end_of_output)
                                                     ->where('employee_id',$employee->id)
                                                     ->first();
+                            $output = $attendance_output;
                             if($attendance_output)
                             {
 
@@ -342,14 +350,12 @@ class ReportController extends Controller
                                 array_push($attendances,$attendance_entry);
                             }
                              //contabilizando horas de trabajo
-                             if($attendance_entry && $attendance_output)
+                             if($entry && $output)
                              {
-                                 $entrada = Carbon::parse($attendance_entry->date.' '.$attendance_entry->time);
-                                 $salida = Carbon::parse($attendance_output->date.' '.$attendance_output->time);
+                                 $entrada = Carbon::parse($entry->date.' '.$entry->time);
+                                 $salida = Carbon::parse($output->date.' '.$output->time);
                                  $minutos_trabajados = $salida->diffInMinutes($entrada);
                                  $horas_trabajadas += $minutos_trabajados;
-
-                                 //$horas_trabajadas->addMinutes($minutos_trabajados );
                              }
                         }
                     }
