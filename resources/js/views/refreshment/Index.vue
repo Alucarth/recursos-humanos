@@ -304,42 +304,6 @@
     </v-container>
 
 </template>
-    <style type="text/css" media="screen">
-    /*.media
-    {
-        margin: 20px 0;
-        padding:30px;
-    }
-    .dp
-    {
-        border:10px solid #eee;
-        transition: all 0.2s ease-in-out;
-    }
-    .dp:hover
-    {
-        border:2px solid #eee;
-        transform:rotate(360deg);
-        -ms-transform:rotate(360deg);
-        -webkit-transform:rotate(360deg);
-    }
-
-    table {
-        border-collapse: collapse;
-    }
-
-    table, th, td {
-    font-size: 10px;
-    }
-    .nav-tabs .nav-link.active{
-        background-color:#1D2939;
-        border-color:#1D2939;
-        color:#fff;
-    }
-    .ds-btn li{ list-style:none; float:left; padding:10px; }
-    .ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
-    .ds-btn li a span small{width:100%; display:inline-block; text-align:left;}*/
-
-</style>
 <script>
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 import { ModelSelect } from 'vue-search-select';
