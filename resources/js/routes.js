@@ -21,6 +21,7 @@ import RequestArchive from './views/request_archived/Index';
 import TypeHour from './views/type_hour/Index';
 import MyHourType from './views/employee/ShowTypeHours';
 import Holyday from './views/holyday/Index';
+import EventualShould from './views/eventual_should/Assign';
 // import Refreshment from './views/refreshment/Index';
 
 export const routes= [
@@ -265,6 +266,18 @@ export const routes= [
         name: '/holyday',
         components: {
             default: Holyday,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/eventual_should',
+        name: '/eventual_should',
+        components: {
+            default: EventualShould,
             toolbar: Toolbar,
             nav: Nav
         },
