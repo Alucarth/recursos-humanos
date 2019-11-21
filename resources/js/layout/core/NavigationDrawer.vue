@@ -124,6 +124,7 @@ export default {
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
             { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
             { icon: 'event', text: 'Dias Festivos', link: '/holyday' },
+            { icon: 'date_range', text: 'Horarios Eventuales', link: '/eventual_should' },
         ],
         parameters: [
             { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
