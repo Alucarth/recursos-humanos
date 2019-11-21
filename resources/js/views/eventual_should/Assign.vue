@@ -5,9 +5,14 @@
         <v-spacer></v-spacer>
 
         <v-btn @click="create();" color="primary" dark class="mb-2">Asignar</v-btn>
+        {{JSON.stringify(items)}}
         </v-card-title>
         <v-card-text>
+
              <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
+                 <!-- <template slot="selected-rows-info" slot-scope="props">
+                    Total Numero de Empleados Seleccionados : {{props.selectedItemsCount}}
+                </template> -->
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -22,7 +27,7 @@
                     <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
                     </div>
                 </template>
-                <template slot="option" slot-scope="props">
+                <!-- <template slot="option" slot-scope="props">
 
                     <v-icon @click="disabled(props.row)" v-if="props.row.user_edit==true" >
                         check_box
@@ -42,7 +47,7 @@
                     <v-icon @click="show_kardex(props.row)">
                         insert_drive_file
                     </v-icon>
-                </template>
+                </template> -->
             </vue-bootstrap4-table>
         </v-card-text>
  </v-card>
@@ -54,6 +59,9 @@ export default
     data:()=>({
         employees:[],
         type_hours:[],
+        managements:[],
+        items:[],
+
         columns: [
             // {
             //     label: "Item",
@@ -109,32 +117,38 @@ export default
                 },
                 sort: true,
             },
-            {
-                label: "Gerencia",
-                name: "management.name",
-                filter: {
-                    type: "simple",
-                    placeholder: "Gerencia"
-                },
-                sort: true,
-            },
-            {
-                label: "Cargo",
-                name: "position.name",
-                filter: {
-                    type: "simple",
-                    placeholder: "Ingrese Cargo"
-                },
-                sort: true,
-            },
-            {
-                label: "Opciones",
-                name: "option",
-                sort: false,
-            }],
+            // {
+            //     label: "Gerencia",
+            //     name: "management.name",
+            //     filter: {
+            //         type: "select",
+            //         placeholder: "Gerencia",
+            //         mode: "multi",
+            //         options: [],
+            //     },
+            //     sort: true,
+            // },
+            // {
+            //     label: "Cargo",
+            //     name: "position.name",
+            //     filter: {
+            //         type: "simple",
+            //         placeholder: "Ingrese Cargo"
+            //     },
+            //     sort: true,
+            // },
+            // {
+            //     label: "Opciones",
+            //     name: "option",
+            //     sort: false,
+            // }
+        ],
         config: {
             checkbox_rows: false,
-            rows_selectable: false,
+            highlight_row_hover: true,
+            rows_selectable: true,
+            multi_column_sort: false,
+            // selected_rows_info:  true,
             pagination: true,
             card_mode: false,
             show_refresh_button:  false,
@@ -152,22 +166,66 @@ export default
         console.log('cargando componente')
         this.getTypeHours();
         this.search();
+        this.getManagements()
+        // this.columns[5].filter.options = [
+        //           {
+        //             "name" : "Irwin",
+        //             "value" : "Irwin"
+        //           },
+        //           {
+        //             "name" : "Don",
+        //             "value" : "Don"
+        //           },
+        //           {
+        //             "name" : "Lolita Paris",
+        //             "value" : "Lolita"
+        //           }
+        //         ];
+        // console.log(this.columns[5].filter.options);
     },
     methods:{
         getTypeHours()
         {
-            axios.get(`type_hour`)
+            axios.get(`api/auth/type_hour`)
                  .then(response=>{
                      console.log(response.data);
                  });
         },
         search(){
-            axios.get('api/auth/employee')
+            axios.get(`api/auth/employee`)
                  .then((response)=>{
                     this.employees = response.data;
                     console.log(response.data);
                 });
         },
+        getManagements()
+        {
+            axios.get(`api/auth/management`)
+                 .then((response)=>{
+                        this.managements = response.data;
+                        let m =[];
+                        this.managements.forEach(item=>{
+                            m.push({name:item.name,value:item.name})
+                        });
+                        this.columns[5].filter.options =m;
+                        console.log(m);
+                 })
+        },
+        selected_items(selected_items)
+        {
+            // console.log('ingresando')
+            console.log(selected_items)
+        }
+    },
+    computed:{
+        management_list()
+        {
+            let managements = [];
+            this.managements.forEach( item => {
+                managements.push({name:item.name,value:item.name})
+            });
+            return managements;
+        }
     },
     components: {
         VueBootstrap4Table,
