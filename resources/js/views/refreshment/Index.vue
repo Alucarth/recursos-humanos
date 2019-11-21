@@ -176,7 +176,7 @@
                         LISTADO DE REFRIGERIOS MES DE {{ fecha_nombre }}
                     </v-card-title>
                     <v-card-text>
-                         <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
+                         <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" :classes="classes" style="font-size: 10px;">
                             <template slot="sort-asc-icon">
                                 <i class="fa fa-sort-asc"></i>
                             </template>
@@ -302,11 +302,11 @@
         </div>
 
     </v-container>
+
 </template>
-<style type="text/css" media="screen">
-    .media
+    <style type="text/css" media="screen">
+    /*.media
     {
-        /*box-shadow:0px 0px 4px -2px #000;*/
         margin: 20px 0;
         padding:30px;
     }
@@ -321,14 +321,13 @@
         transform:rotate(360deg);
         -ms-transform:rotate(360deg);
         -webkit-transform:rotate(360deg);
-        /*-webkit-font-smoothing:antialiased;*/
     }
+
     table {
         border-collapse: collapse;
     }
 
     table, th, td {
-        border: 1px solid gray;
     font-size: 10px;
     }
     .nav-tabs .nav-link.active{
@@ -338,7 +337,7 @@
     }
     .ds-btn li{ list-style:none; float:left; padding:10px; }
     .ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
-    .ds-btn li a span small{width:100%; display:inline-block; text-align:left;}
+    .ds-btn li a span small{width:100%; display:inline-block; text-align:left;}*/
 
 </style>
 <script>
@@ -547,6 +546,9 @@ export default {
             },
             per_page_options:  [5,  10,  20,  30],
             server_mode:  false,
+        },
+        classes: {
+            tableWrapper: "outer-table-div-class wrapper-class-two ",
         },
         employees: [],
         employee: {},

@@ -22,7 +22,7 @@ import TypeHour from './views/type_hour/Index';
 import MyHourType from './views/employee/ShowTypeHours';
 import Holyday from './views/holyday/Index';
 import EventualShould from './views/eventual_should/Assign';
-// import Refreshment from './views/refreshment/Index';
+import Refreshment from './views/refreshment/Index';
 
 export const routes= [
     {
@@ -285,17 +285,29 @@ export const routes= [
             requiresAuth: true,
         }
     },
-    // {
-    //     path: '/refreshment',
-    //     name: '/refreshment',
-    //     components: {
-    //         default: Refreshment,
-    //         toolbar: Toolbar,
-    //         nav: Nav
-    //     },
-    //     meta: {
-    //         requiresAuth: true,
-    //     }
-    // },
+    {
+        path: '/refreshment',
+        name: '/refreshment',
+        components: {
+            default: Refreshment,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
 
+     {
+         path: '/refreshment',
+         name: '/refreshment',
+         components: {
+             default: Refreshment,
+             toolbar: Toolbar,
+             nav: Nav
+         },
+         meta: {
+             requiresAuth: true,
+         }
+     },
 ];
