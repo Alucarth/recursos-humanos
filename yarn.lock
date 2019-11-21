@@ -5621,10 +5621,10 @@ vm-browserify@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
 
-vue-bootstrap4-table@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/vue-bootstrap4-table/-/vue-bootstrap4-table-1.1.9.tgz#fd08803b47e831287956e0a6fb8b4706101cfbf3"
-  integrity sha512-dlLZftzXSUBEWwAFHmRbmp/KuwXr6cDPR5TMUyPg5kVjsq0cLK4h1hsVne0cvvaQtaerbAl9xCHW/77wQIwtwg==
+vue-bootstrap4-table@1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/vue-bootstrap4-table/-/vue-bootstrap4-table-1.1.11.tgz#5aa0d540dd7931d6c72cf26e63da9b067c0caf1f"
+  integrity sha512-eHXGBioJXrW2qcVi8q4PBWuwg3fgBSxuZPIaSbQXvvNxyGaMceEHUqAReLSOsbAuCZsqv0uO8kvrIjWRHRknDw==
   dependencies:
     lodash "^4.17.11"
 
@@ -5642,10 +5642,20 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-loading-overlay@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/vue-loading-overlay/-/vue-loading-overlay-3.2.0.tgz#7896f195e26a8d915219139a096367c9ad2c3c61"
+  integrity sha512-QBHa+vwcQ3k3oKp4pucP7RHWHSQvgVWFlDFqSaXLu+kCuEv1PZCoerAo1T04enF5y9yMFCqh7L9ChrWHy7HYvA==
+
 vue-router@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.7.tgz#b36ca107b4acb8ff5bc4ff824584059c23fcb87b"
   integrity sha512-utJ+QR3YlIC/6x6xq17UMXeAfxEvXA0VKD3PiSio7hBOZNusA1jXcbxZxVEfJunLp48oonjTepY8ORoIlRx/EQ==
+
+vue-search-select@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/vue-search-select/-/vue-search-select-2.9.3.tgz#39ee37da95179b7fdd8e1cb7636e5c0aaee39be2"
+  integrity sha512-JQBTSKKX3nAoeeEaSqg2iQDtR1YBs0qZ08os/QDOqFocGPSvAffNb4VajSnlFWJlKQDJcev3iQuBLcWM2pxr0Q==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
