@@ -7,6 +7,7 @@
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
+
              <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>

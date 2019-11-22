@@ -51,7 +51,9 @@ Route::group([
 	Route::resource('kinship', 'KinshipController');
 	Route::resource('health_box', 'HealthBoxController');
 	Route::resource('biometric', 'BiometricController');
-	Route::resource('attendance', 'AttendanceController');
+    Route::resource('attendance', 'AttendanceController');
+    Route::resource('eventual_schedule', 'EventualScheduleController');
+
 	Route::post('sync_biometric', 'BiometricController@sync');
 	Route::get('info_biometric/{biometric_id}', 'BiometricController@getInfo');
 	Route::get('employee_info', 'EmployeeController@info');
@@ -108,5 +110,6 @@ Route::group([
     Route::get('archives','EmployeeRequestController@index_archived');
     Route::get('user_check','EmployeeController@check');
 
+    Route::get('employees_management/{management_id}','ManagementController@employees');
 
 });

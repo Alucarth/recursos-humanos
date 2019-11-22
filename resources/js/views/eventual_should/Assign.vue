@@ -4,12 +4,31 @@
             <h3>Asignacion de Horario Eventual</h3>
         <v-spacer></v-spacer>
 
-        <v-btn @click="create();" color="primary" dark class="mb-2">Asignar</v-btn>
-        {{JSON.stringify(items)}}
+        <!-- <v-btn @click="create();" color="primary" dark class="mb-2">Asignar</v-btn> -->
+        <!-- {{JSON.stringify(items)}} -->
         </v-card-title>
         <v-card-text>
 
-             <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
+        <v-layout justify-space-between row fill-height>
+
+        <v-flex xs8 style="padding-left: 5px">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-building"></i>  {{management?management.name:'Seleccione una Gerencia'}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" v-for="(item,index) in managements" @click="selectManagement(item)" :key="index">{{item.name}}</a>
+                </div>
+            </div>
+            <!-- <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-map-marker"></i> {{location?location.name:'Seleccione Ubicacion'}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" v-for="(item,index) in locations" @click="selectLocation(item)" :key="index">{{item.name}}</a>
+                </div>
+            </div> -->
+            <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
                  <!-- <template slot="selected-rows-info" slot-scope="props">
                     Total Numero de Empleados Seleccionados : {{props.selectedItemsCount}}
                 </template> -->
@@ -22,33 +41,89 @@
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
                 </template>
-                <template slot="active" slot-scope="props">
-                   <div class="text-xs-center">
-                    <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
-                    </div>
-                </template>
-                <!-- <template slot="option" slot-scope="props">
 
-                    <v-icon @click="disabled(props.row)" v-if="props.row.user_edit==true" >
-                        check_box
+                <template slot="option" slot-scope="props">
+                    <v-icon @click="addItem(props.row)" >
+                        forward
                     </v-icon>
-                    <v-icon @click="enabled(props.row)" v-if="props.row.user_edit==false" >
-                        crop_square
-                    </v-icon>
-                    <v-icon @click="edit(props.row)" >
-                        edit
-                    </v-icon>
-                    <v-icon @click="destroy(props.row)" >
-                        delete
-                    </v-icon>
-                    <v-icon @click="edit_assing(props.row)">
-                        add_alarm
-                    </v-icon>
-                    <v-icon @click="show_kardex(props.row)">
-                        insert_drive_file
-                    </v-icon>
-                </template> -->
+                </template>
             </vue-bootstrap4-table>
+        </v-flex>
+        <v-flex xs4 style="padding-left: 5px">
+            <v-card>
+                <v-layout>
+
+                    <v-flex xs12 sm4 md4 >
+                            <v-menu
+                            ref="menu"
+                            v-model="menu"
+                            :close-on-content-click="false"
+                            :nudge-right="40"
+                            lazy
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            max-width="290px"
+                            min-width="290px"
+                            >
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                v-model="date"
+                                label="Fecha"
+                                hint="YYYY-MM-DD"
+                                persistent-hint
+                                prepend-icon="event"
+                                v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="date" no-title @input="menu = false"></v-date-picker>
+                            </v-menu>
+
+                    </v-flex>
+                    <v-flex xs12 sm8 md8>
+                            <v-select
+                            :items="type_hours"
+                            v-model="type_hour_id"
+                            item-text="name"
+                            item-value="id"
+                            prepend-icon="access_time"
+                            ></v-select>
+                            <!-- {{type_hour}} -->
+                    </v-flex>
+
+                </v-layout>
+                <v-flex xs12 sm12 md12>
+                        <v-btn color="primary" small @click="store()"> Asignar Horario</v-btn>
+                </v-flex>
+                <v-list >
+                    <v-subheader inset>Funcionario Seleccionados: {{items.length}}</v-subheader>
+
+                    <v-list-tile
+                        v-for="(item,index ) in items"
+                        :key="index"
+                        avatar
+                    >
+                        <v-list-tile-avatar>
+                        <v-icon color='blue' >person</v-icon>
+                        </v-list-tile-avatar>
+
+                        <v-list-tile-content>
+                        <v-list-tile-title>{{ item.first_name }}</v-list-tile-title>
+                        <v-list-tile-sub-title class="caption   "> {{ item.management.name }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+
+                        <v-list-tile-action>
+                        <v-btn icon ripple @click="removeItem(index)">
+                            <v-icon color="red">delete</v-icon>
+                        </v-btn>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list>
+            </v-card>
+        </v-flex>
+        </v-layout>
+
+
         </v-card-text>
  </v-card>
 </template>
@@ -60,18 +135,15 @@ export default
         employees:[],
         type_hours:[],
         managements:[],
+        locations:[],
+        location:null,
+        management:null,
+        type_hour_id:{},
         items:[],
-
+        date:null,
+        menu:false,
         columns: [
-            // {
-            //     label: "Item",
-            //     name: "item",
-            //     filter: {
-            //         type: "simple",
-            //         placeholder: "Ingrese item"
-            //     },
-            //     sort: true,
-            // },
+
             {
                 label: "C.I.",
                 name: "identity_card",
@@ -117,31 +189,11 @@ export default
                 },
                 sort: true,
             },
-            // {
-            //     label: "Gerencia",
-            //     name: "management.name",
-            //     filter: {
-            //         type: "select",
-            //         placeholder: "Gerencia",
-            //         mode: "multi",
-            //         options: [],
-            //     },
-            //     sort: true,
-            // },
-            // {
-            //     label: "Cargo",
-            //     name: "position.name",
-            //     filter: {
-            //         type: "simple",
-            //         placeholder: "Ingrese Cargo"
-            //     },
-            //     sort: true,
-            // },
-            // {
-            //     label: "Opciones",
-            //     name: "option",
-            //     sort: false,
-            // }
+            {
+                label: "",
+                name: "option",
+                sort: false,
+            }
         ],
         config: {
             checkbox_rows: false,
@@ -166,7 +218,8 @@ export default
         console.log('cargando componente')
         this.getTypeHours();
         this.search();
-        this.getManagements()
+        this.getManagements();
+        this.getLocation();
         // this.columns[5].filter.options = [
         //           {
         //             "name" : "Irwin",
@@ -189,6 +242,7 @@ export default
             axios.get(`api/auth/type_hour`)
                  .then(response=>{
                      console.log(response.data);
+                     this.type_hours = response.data.type_hours;
                  });
         },
         search(){
@@ -198,34 +252,97 @@ export default
                     console.log(response.data);
                 });
         },
+        getLocation(){
+            axios.get(`api/auth/location`)
+                 .then(response=>{
+                     this.locations = response.data.locations;
+                 });
+        },
         getManagements()
         {
             axios.get(`api/auth/management`)
                  .then((response)=>{
                         this.managements = response.data;
-                        let m =[];
-                        this.managements.forEach(item=>{
-                            m.push({name:item.name,value:item.name})
-                        });
-                        this.columns[5].filter.options =m;
-                        console.log(m);
+                        // let m =[];
+                        // this.managements.forEach(item=>{
+                        //     m.push({name:item.name,value:item.name})
+                        // });
+                        // this.columns[5].filter.options =m;
+                        // console.log(m);
                  })
         },
         selected_items(selected_items)
         {
             // console.log('ingresando')
             console.log(selected_items)
+        },
+        selectManagement(management)
+        {
+            this.management = management;
+            axios.get(`api/auth/employees_management/${this.management.id}`)
+                 .then(response=>{
+                     this.employees = response.data.employees;
+                 });
+        },
+        selectLocation(location)
+        {
+            this.location = location;
+        },
+        addItem(item)
+        {
+            this.items.push(item)
+            console.log(this.items)
+        },
+        removeItem(index)
+        {
+            this.items.splice(index,1);
+        },
+        store()
+        {
+            // console.log(this.type_hour_id);
+
+            Swal.fire({
+                title: `Asignar Horario a los ${this.items.length} Funcionarios `,
+                text: "Una ver realizado el proceso no se podra revertir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Asignar!',
+                cancelButtonText: 'No'
+                }).then((result) => {
+                if (result.value) {
+                     let params={
+                                date:this.date,
+                                type_hour_id: this.type_hour_id,
+                                employees: this.items
+                                };
+                    axios.post('api/auth/eventual_schedule',params)
+                        .then(response=>{
+                            console.log(response.data);
+                             iziToast.success({
+                                title: 'Se asigno horario a los empleados',
+                                message: 'a los empleados',
+                            });
+                            this.$router.push('/attendance')
+
+                        });
+                }
+            })
+
+
         }
+
     },
     computed:{
-        management_list()
-        {
-            let managements = [];
-            this.managements.forEach( item => {
-                managements.push({name:item.name,value:item.name})
-            });
-            return managements;
-        }
+        // management_list()
+        // {
+        //     let managements = [];
+        //     this.managements.forEach( item => {
+        //         managements.push({name:item.name,value:item.name})
+        //     });
+        //     return managements;
+        // }
     },
     components: {
         VueBootstrap4Table,
