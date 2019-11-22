@@ -21,6 +21,7 @@ Route::get('print_demo', 'ReportController@print_demo');
 Route::get('ficha_personal/{id}', 'ReportController@ficha_personal');
 Route::get('employee_request_print/{id}', 'ReportController@boleta');
 Route::get('attendance_employee/{employee_id}','ReportController@attendance_employee');
+Route::get('attendance_employee_date/{employee_id}/{from_date}/{to_date}','ReportController@attendance_employee_date');
 //** Revisar  */
 Route::get('ReportMonth/{fecha}/{id_user}/{planta}', 'ReportController@ReportMonth');
 Route::get('ReportYear/{fecha}/{id_user}/{planta}', 'ReportController@ReportYear');
