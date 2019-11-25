@@ -7,7 +7,9 @@
  */
 
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Log;
+use App\Holyday;
+use App\AttendanceEmployee;
 class Util
 {
     public static function removeSpaces($text)
@@ -118,5 +120,108 @@ class Util
         }
 
         return $valid;
+    }
+
+    public static function  getAttendance($employee,$date)
+    {
+        $attendances = [];
+        foreach($employee->type_hours as $type_hour)
+        {
+
+            // $date = Carbon::create($date)->toDateString();
+            if(self::validDay($date,$type_hour))
+            {
+
+                $holyday = Holyday::where('date',$date)->first();
+                if($holyday)  //si existe la fecha festiva
+                {
+                    //se omite el marcado al ser feriado  XD
+                    //en este caso cuenta todo el dia
+                    $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=>$holyday->name,'state'=>'primary');
+                }else{
+                    // en caso de no encontrar fecha festiva
+                    $attendance_entry = AttendanceEmployee::where('date',$date)
+                                            // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
+                                            ->where('time','>=',$type_hour->start_of_entry)
+                                            ->where('time','<=',$type_hour->end_of_entry)
+                                            ->where('employee_id',$employee->id)
+                                            ->orderBy('time','ASC')
+                                            ->first();
+                    // Log::info(json_encode($attendance_entry));
+                    if($attendance_entry)
+                    {
+
+                        $tolerance = Carbon::parse($date.' '.$type_hour->tolerance_entry);
+                        $tolerance->addSecond(59);
+                        $entry_tolerance = Carbon::parse($date.' '.$type_hour->entry);
+                        $entry_tolerance->addHour($tolerance->hour);
+                        $entry_tolerance->addMinute($tolerance->minute);
+                        $entry_tolerance->addSecond($tolerance->second);
+                        $time =  $entry_tolerance->toTimeString();
+                        // Log::info('Entry Tolerance :'.$time);
+                        // Log::info($attendance_entry->time.' >= '.$type_hour->start_of_entry);
+                        // Log::info($attendance_entry->time.' <= '.$time);
+                        if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
+                        {
+                            $attendance_entry->state = 'success';
+                            $attendance_entry->title = 'Normal';
+                            $attendance_entry->delay = 0;
+                        }else
+                        {
+                            $attendance_entry->state = 'warning';
+                            $attendance_entry->title = 'Retraso';
+                            $entry = Carbon::parse($date.' '.$attendance_entry->time);
+                            $type_hour_entry= Carbon::parse($date.' '.$type_hour->entry);
+                            $attendance_entry->delay =  $type_hour_entry->diffInMinutes($entry);
+                            //crear registros temporales
+                        }
+                        $attendance_entry->entry = $type_hour->entry;
+
+                        array_push($attendances,$attendance_entry);
+                    }else
+                    {
+
+                        $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error','entry');
+                        array_push($attendances,$attendance_entry);
+                    }
+
+                    $attendance_output = AttendanceEmployee::where('date',$date)
+                                            // ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
+                                            ->where('time','>=',$type_hour->start_of_output)
+                                            ->where('time','<=',$type_hour->end_of_output)
+                                            ->where('employee_id',$employee->id)
+                                            // ->orderBy('time','ASC')
+                                            ->first();
+                    if($attendance_output)
+                    {
+
+                        if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
+                        {
+                            $attendance_output->state = 'success';
+                            $attendance_output->title = 'Normal';
+                        }else
+                        {
+                            $attendance_output->state = 'warning';
+                            $attendance_output->title = 'Retraso';
+                        }
+                        array_push($attendances,$attendance_output);
+                    }else
+                    {
+                        $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error');
+                        array_push($attendances,$attendance_entry);
+                    }
+                }
+            }
+
+        }
+        return $attendances;
+    }
+
+    public static function array_merge_array($array_income, $array_to_merge)
+    {
+        foreach($array_to_merge as $item)
+        {
+            array_push($array_income,$array_to_merge);
+        }
     }
 }

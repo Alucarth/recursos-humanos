@@ -87,128 +87,14 @@ class ReportController extends Controller {
             //verificando cantidad de dias numericos
             Log::info($from_date->toDateString());
             $from_date->addDay(1);
+
+            Log::info('Imprimiendo resultado');
+            foreach(Util::getAttendance($employee,$from_date->toDateString()) as $attendance)
+            {
+                array_push($attendances,$attendance);
+            }
+            // Log::info(json_encode(  ));
         }
-
-        // for ($d = $day; $d <= $days; $d++)
-        // {
-        //     if ($d <= $day)
-        //     {
-
-		// 		foreach ($employee->type_hours as $type_hour) {
-
-		// 			$date = Carbon::create($year, $month, $d)->toDateString();
-		// 			if (Util::validDay($date, $type_hour)) {
-
-		// 				$holyday = Holyday::where('date', $date)->first();
-		// 				if ($holyday) //si existe la fecha festiva
-		// 				{
-		// 					//se omite el marcado al ser feriado  XD
-		// 					$attendance_entry = array('date' => $date, 'time' => $holyday->name, 'state' => 'primary');
-		// 					array_push($attendances, $attendance_entry);
-		// 					array_push($attendances, $attendance_entry);
-
-		// 				} else {
-		// 					// en caso de no encontrar fecha festiva
-		// 					$attendance_entry = AttendanceEmployee::where('date', $date)
-		// 					// ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
-		// 						->where('time', '>=', $type_hour->start_of_entry)
-		// 						->where('time', '<=', $type_hour->end_of_entry)
-		// 						->where('employee_id', $employee->id)
-		// 						->first();
-		// 					$entry = $attendance_entry;
-		// 					if ($attendance_entry) {
-
-		// 						$array_start_time = explode(':', $type_hour->entry);
-		// 						$array_tolerance_time = explode(':', $type_hour->tolerance_entry);
-		// 						$minutes = (int) $array_start_time[1] + (int) $array_tolerance_time[1];
-		// 						$hours = (int) $array_start_time[0] + (int) $array_tolerance_time[0];
-		// 						if ($minutes >= 60) {
-		// 							$minutes -= 60;
-		// 							$hours++;
-		// 						}
-
-		// 						$time = Carbon::create(0, 0, 0, $hours, $minutes)->toTimeString();
-		// 						// Log::info($time);
-		// 						if ($attendance_entry->time >= $type_hour->start_of_entry && $attendance_entry->time <= $time) {
-		// 							$attendance_entry->state = 'success';
-		// 						} else {
-		// 							$attendance_entry->state = 'warning';
-		// 							//contabilizar minutos de atraso
-		// 							$current_time = Carbon::parse($attendance_entry->date . ' ' . $attendance_entry->time);
-		// 							$reglamentary_time = Carbon::parse($date . ' ' . $type_hour->entry);
-		// 							$minutos_atraso += $current_time->diffInMinutes($reglamentary_time);
-		// 							$cantidad_atrasos++;
-		// 						}
-		// 						array_push($attendances, $attendance_entry);
-		// 					} else {
-
-		// 						$attendance_entry = array('date' => $date, 'time' => 'Sin Marcado', 'state' => 'error');
-		// 						$omisiones++;
-		// 						//only enabled for testing
-		// 						// $attendance_employee =new AttendanceEmployee;
-		// 						// $attendance_employee->employee_id = $employee->id;
-		// 						// $attendance_employee->biometric_id = 1;
-		// 						// $attendance_employee->biometric_code = $employee->biometric_code;
-		// 						// $attendance_employee->date = $date;
-		// 						// $attendance_employee->time = $type_hour->entry;
-		// 						// $attendance_employee->delayed = '00:00:00';
-		// 						// $attendance_employee->save();
-		// 						array_push($attendances, $attendance_entry);
-		// 					}
-
-		// 					$attendance_output = AttendanceEmployee::where('date', $date)
-		// 					// ->whereBetween('time',[$type_hour->start_of_output, $type_hour->end_of_output])
-		// 						->where('time', '>=', $type_hour->start_of_output)
-		// 						->where('time', '<=', $type_hour->end_of_output)
-		// 						->where('employee_id', $employee->id)
-		// 						->first();
-		// 					$output = $attendance_output;
-		// 					if ($attendance_output) {
-
-		// 						if ($attendance_output->time >= $type_hour->output && $attendance_output->time <= $type_hour->end_of_output) {
-		// 							$attendance_output->state = 'success';
-		// 							//horas adcionales
-		// 							$marcado = Carbon::parse($attendance_output->date . ' ' . $attendance_output->time);
-		// 							$marcado_horario = Carbon::parse($date . ' ' . $type_hour->output);
-		// 							$minutos_adicionales = $marcado->diffInMinutes($marcado_horario);
-		// 							$horas_adicionales += $minutos_adicionales;
-		// 							//$horas_adicionales->addMinutes($minutos_adicionales);
-		// 							// Log::info($minutos_adicionales);
-		// 							// Log::info($marcado->toTimeString().' '.$marcado_horario->toTimeString().' '.$horas_adicionales->toTimeString());
-
-		// 						} else {
-		// 							$attendance_output->state = 'warning';
-		// 						}
-		// 						array_push($attendances, $attendance_output);
-		// 					} else {
-		// 						$attendance_entry = array('date' => $date, 'time' => 'Sin Marcado', 'state' => 'error');
-		// 						$omisiones++;
-		// 						//only enabled for testing
-		// 						// $attendance_employee =new AttendanceEmployee;
-		// 						// $attendance_employee->employee_id = $employee->id;
-		// 						// $attendance_employee->biometric_id = 1;
-		// 						// $attendance_employee->biometric_code = $employee->biometric_code;
-		// 						// $attendance_employee->date = $date;
-		// 						// $attendance_employee->time = $type_hour->output;
-		// 						// $attendance_employee->delayed = '00:00:00';
-		// 						// $attendance_employee->save();
-		// 						array_push($attendances, $attendance_entry);
-		// 					}
-		// 					//contabilizando horas de trabajo
-		// 					if ($entry && $output) {
-		// 						$entrada = Carbon::parse($entry->date . ' ' . $entry->time);
-		// 						$salida = Carbon::parse($output->date . ' ' . $output->time);
-		// 						$minutos_trabajados = $salida->diffInMinutes($entrada);
-		// 						$horas_trabajadas += $minutos_trabajados;
-
-		// 						//$horas_trabajadas->addMinutes($minutos_trabajados );
-		// 					}
-		// 				}
-		// 			}
-
-		// 		}
-		// 	}
-		// }
 
         return compact('from_date','to_date','employee','attendances');
     }
@@ -560,7 +446,8 @@ class ReportController extends Controller {
 		$pdf = App::make('snappy.pdf.wrapper');
 		$pdf->loadHTML($html_content);
 		return $pdf->inline();
-	}
+    }
+    //revisar esto XD
 	public function ReportMonth($fecha_entrada, $user_id, $planta) {
 
 		ini_set('max_execution_time', '300'); //300 seconds = 5 minutes
