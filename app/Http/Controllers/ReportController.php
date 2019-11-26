@@ -66,9 +66,19 @@ class ReportController extends Controller {
 		$entry = null;
         $output = null;
 
+
+
         $employee=Employee::find($employee_id);
         $from_date = Carbon::parse($from_date);
         $to_date = Carbon::parse($to_date);
+
+
+        $title = 'Tarjeta de Asistencia';
+		$date = date('d-m-Y');
+
+		$persona = $employee->getFullName();
+		//return $persona;
+		$cargo = $employee->position->name ?? '';
 
         $days = cal_days_in_month(CAL_GREGORIAN, $from_date->month, $from_date->year);
 		$day = $from_date->day;
@@ -88,15 +98,20 @@ class ReportController extends Controller {
             Log::info($from_date->toDateString());
             $from_date->addDay(1);
 
-            Log::info('Imprimiendo resultado');
             foreach(Util::getAttendance($employee,$from_date->toDateString()) as $attendance)
             {
                 array_push($attendances,$attendance);
             }
-            // Log::info(json_encode(  ));
+
         }
 
-        return compact('from_date','to_date','employee','attendances');
+        $view = \View::make('report.attendance_kardex_detail', compact('title', 'date', 'persona', 'cargo','attendances'));
+		$html_content = $view->render();
+		$pdf = App::make('snappy.pdf.wrapper');
+		$pdf->loadHTML($html_content);
+        return $pdf->inline();
+
+        // return compact('from_date','to_date','employee','attendances');
     }
 
 	public function attendance_employee($id) {

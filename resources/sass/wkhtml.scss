@@ -10,6 +10,10 @@ $color_shuttle_gray_approx: #5d6975;
 $white: #fff;
 $color_shark_approx: #22292f;
 $color_geyser_approx: #dae1e7;
+$success: #0000;
+$danger: #ff0000;
+$primary: #00ff;
+
 
 //fonts
 $font_0: 'Helvetica';
@@ -658,6 +662,13 @@ tr {
 	right: auto;
 	bottom: auto;
 	left: auto;
+}
+
+.bg-success {
+	background-color: $success;
+}
+.bg-primary {
+	background-color: $primary;
 }
 .bg-grey-darker {
 	background-color: $color_shuttle_gray_approx;

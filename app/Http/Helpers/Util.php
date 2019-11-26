@@ -133,12 +133,40 @@ class Util
             {
 
                 $holyday = Holyday::where('date',$date)->first();
+                $attendance = json_decode(json_encode(array('date'=>$date,
+                                'entry'=> $type_hour->entry,
+                                'attendance_entry' => '00:00:00',
+                                'output'=> $type_hour->output,
+                                'attendance_output' => '00:00:00',
+                                'title_entry'=> '',
+                                'title_output'=> '',
+                                'delay'=> 0,
+                                'hours_worked'=>0,
+                                'surplus'=>0,
+                                'state_entry'=>'secondary',
+                                'state_output'=>'secondary')));
+                //dd( $attendance->date);
                 if($holyday)  //si existe la fecha festiva
                 {
                     //se omite el marcado al ser feriado  XD
                     //en este caso cuenta todo el dia
-                    $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=>$holyday->name,'state'=>'primary');
+                    $attendance = (object) array('date'=>$date,
+                                        'entry'=> $type_hour->entry,
+                                        'attendance_entry' => '00:00:00',
+                                        'output'=> $type_hour->output,
+                                        'attendance_output' => '00:00:00',
+                                        'title_entry'=>$holyday->name,
+                                        'title_output'=>$holyday->name,
+                                        'delay'=> 0,
+                                        'hours_worked'=>0,
+                                        'surplus'=>0,
+                                        'state_entry'=>'secondary',
+                                        'state_output'=>'secondary');
+                    array_push($attendances,$attendance);
+                    // $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=>$holyday->name,'state'=>'primary');
                 }else{
+                    //seteando tipo de hora entrada
+                   // $attendance->entry =
                     // en caso de no encontrar fecha festiva
                     $attendance_entry = AttendanceEmployee::where('date',$date)
                                             // ->whereBetween('time',[$type_hour->start_of_entry, $type_hour->end_of_entry])
@@ -150,7 +178,7 @@ class Util
                     // Log::info(json_encode($attendance_entry));
                     if($attendance_entry)
                     {
-
+                        $attendance->attendance_entry= $attendance_entry->time;
                         $tolerance = Carbon::parse($date.' '.$type_hour->tolerance_entry);
                         $tolerance->addSecond(59);
                         $entry_tolerance = Carbon::parse($date.' '.$type_hour->entry);
@@ -163,26 +191,25 @@ class Util
                         // Log::info($attendance_entry->time.' <= '.$time);
                         if($attendance_entry->time >=$type_hour->start_of_entry && $attendance_entry->time <= $time)
                         {
-                            $attendance_entry->state = 'success';
-                            $attendance_entry->title = 'Normal';
-                            $attendance_entry->delay = 0;
+                            $attendance->state_entry = 'success';
+                            $attendance->title_entry = 'Normal';
+                            $attendance->delay = 0;
                         }else
                         {
-                            $attendance_entry->state = 'warning';
-                            $attendance_entry->title = 'Retraso';
+                            $attendance->state_entry = 'warning';
+                            $attendance->title_entry = 'Retraso';
                             $entry = Carbon::parse($date.' '.$attendance_entry->time);
                             $type_hour_entry= Carbon::parse($date.' '.$type_hour->entry);
-                            $attendance_entry->delay =  $type_hour_entry->diffInMinutes($entry);
+                            $attendance->delay =  $type_hour_entry->diffInMinutes($entry);
                             //crear registros temporales
                         }
-                        $attendance_entry->entry = $type_hour->entry;
-
-                        array_push($attendances,$attendance_entry);
+                        //  $attendance_entry->entry = $type_hour->entry;
+                        // array_push($attendances,$attendance);
                     }else
                     {
-
-                        $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error','entry');
-                        array_push($attendances,$attendance_entry);
+                        $attendance->title_entry='Sin Marcado';
+                        //$attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error','entry');
+                       // array_push($attendances,$attendance_entry);
                     }
 
                     $attendance_output = AttendanceEmployee::where('date',$date)
@@ -190,26 +217,44 @@ class Util
                                             ->where('time','>=',$type_hour->start_of_output)
                                             ->where('time','<=',$type_hour->end_of_output)
                                             ->where('employee_id',$employee->id)
-                                            // ->orderBy('time','ASC')
+                                            ->orderBy('time','ASC')
                                             ->first();
                     if($attendance_output)
                     {
-
+                        $attendance->attendance_output= $attendance_output->time;
                         if($attendance_output->time >=$type_hour->output && $attendance_output->time <= $type_hour->end_of_output)
                         {
-                            $attendance_output->state = 'success';
-                            $attendance_output->title = 'Normal';
+                            $attendance->state_output = 'success';
+                            $attendance->title_output = 'Normal';
                         }else
                         {
-                            $attendance_output->state = 'warning';
-                            $attendance_output->title = 'Retraso';
+                            $attendance->state_output = 'warning';
+                            $attendance->title_output = 'Retraso';
                         }
-                        array_push($attendances,$attendance_output);
+                        // array_push($attendances,$attendance_output);
                     }else
                     {
-                        $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error');
-                        array_push($attendances,$attendance_entry);
+                        $attendance->title_output = 'Sin Marcado';
+                        // $attendance_entry = array('date'=>$date,'time'=> '00:00:00','title'=> 'Sin Marcado','state'=>'error');
+                        // array_push($attendances,$attendance_entry);
                     }
+
+                    //colocar exedente y horas trabajadas //
+                    if($attendance->attendance_entry !='00:00:00' && $attendance->attendance_output != '00:00:00' )
+                    {
+                        //
+                        $entry = Carbon::parse($date.' '.$attendance->attendance_entry);
+                        $output = Carbon::parse($date.' '.$attendance->attendance_output);
+                        $minutes_worked =  $output->diffInMinutes($entry);
+                        $hours_worked = Carbon::create(0,0,0,0,0,0);
+                        $hours_worked->addMinutes($minutes_worked);
+                        $attendance->hours_worked = $hours_worked->toTimeString();
+
+                        $entry_hour = Carbon::parse($date.' '.$attendance->entry);
+                        $attendance->surplus = $output->diffInMinutes($entry_hour);
+                    }
+
+                    array_push($attendances,$attendance);
                 }
             }
 
@@ -223,5 +268,41 @@ class Util
         {
             array_push($array_income,$array_to_merge);
         }
+    }
+
+    public static function getDayString($day)
+    {
+        $string_day= '';
+        switch ($day) {
+            case '1':
+                # code...
+                $string_day = 'Lunes';
+                break;
+            case '2':
+                # code...
+                $string_day = 'Martes';
+                break;
+            case '3':
+                # code...
+                $string_day = 'Miercoles';
+                break;
+            case '4':
+                # code...
+                $string_day = 'Jueves';
+                break;
+            case '5':
+                # code...
+                $string_day = 'Viernes';
+                break;
+            case '6':
+                # code...
+                $string_day = 'Sabado';
+                break;
+            case '7':
+                # code...
+                $string_day = 'Domingo';
+                break;
+        }
+        return $string_day;
     }
 }
