@@ -10,7 +10,17 @@
         <v-card-text>
 
         <v-layout justify-space-between row fill-height>
-         <v-flex xs12 sm4 md4 >
+            <v-flex xs5 sm5 md5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-building"></i>  {{management?management.name:'Seleccione una Gerencia'}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" v-for="(item,index) in managements" @click="selectManagement(item)" :key="index">{{item.name}}</a>
+                    </div>
+                </div>
+            </v-flex>
+         <v-flex xs3 sm3 md3 >
                 <v-menu
                 ref="menu"
                 v-model="menu"
@@ -36,7 +46,7 @@
                 <v-date-picker v-model="date" no-title @input="menu = false"></v-date-picker>
                 </v-menu>
         </v-flex>
-         <v-flex xs12 sm4 md4 >
+         <v-flex xs3 sm3 md3 >
                 <v-menu
                 ref="menu1"
                 v-model="menu1"
@@ -61,6 +71,16 @@
                 </template>
                 <v-date-picker v-model="to_date" no-title @input="menu1 = false"></v-date-picker>
                 </v-menu>
+        </v-flex>
+        <v-flex xs1 sm1 md1>
+            <!-- <v-btn icon> <i class="fa fa-file-excel-o text-success"></i> <i class="fa fa-download text-success"></i></v-btn> -->
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                <v-btn icon> <v-icon color='green'>cloud_download</v-icon> </v-btn>
+                </template>
+                <span>Descargar Planilla</span>
+            </v-tooltip>
+
         </v-flex>
         <v-flex xs12 md12 sm12 style="padding-left: 5px">
             <!-- <div class="btn-group">
@@ -87,7 +107,7 @@
                 </template>
 
                 <template slot="option" slot-scope="props">
-                    <v-icon @click="addItem(props.row)" >
+                    <v-icon @click="showAttendance(props.row)" >
                         picture_as_pdf
                     </v-icon>
                 </template>
@@ -98,6 +118,27 @@
 
 
         </v-card-text>
+         <v-dialog
+            v-model="dialog_printer"
+            max-width="800"
+        >
+        <v-card>
+            <v-toolbar dark color="rrhh-primary">
+            <v-btn icon dark @click="dialog_printer = false">
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Tarjeta de Asistencia</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+                <v-btn dark flat @click="dialog_printer = false">Salir</v-btn>
+            </v-toolbar-items>
+            </v-toolbar>
+                <iframe :src="getUrl" frameborder="0" style="height:600px;width:100%;" ></iframe>
+            <!-- <v-card-text>
+            </v-card-text> -->
+        </v-card>
+        </v-dialog>
+
  </v-card>
 </template>
 <script>
@@ -117,6 +158,8 @@ export default
         to_date:null,
         menu:false,
         menu1:false,
+        dialog_printer:false,
+        employee:{},
         columns: [
 
             {
@@ -263,6 +306,11 @@ export default
         {
             this.location = location;
         },
+        showAttendance(employee)
+        {
+            this.employee = employee;
+            this.dialog_printer = true;
+        },
         addItem(item)
         {
             this.items.push(item)
@@ -318,6 +366,15 @@ export default
         //     });
         //     return managements;
         // }
+        getUrl()
+        {
+            let url=''
+            if(this.employee.id)
+            {
+                url= `/api/attendance_employee_date/${this.employee.id}/${this.date}/${this.to_date}`;
+            }
+            return url;
+        }
     },
     components: {
         VueBootstrap4Table,

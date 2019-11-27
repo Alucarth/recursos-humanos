@@ -312,7 +312,7 @@ export default
                 cancelButtonText: 'No'
                 }).then((result) => {
                 if (result.value) {
-                     let params={
+                    let params={
                                 date:this.date,
                                 type_hour_id: this.type_hour_id,
                                 employees: this.items

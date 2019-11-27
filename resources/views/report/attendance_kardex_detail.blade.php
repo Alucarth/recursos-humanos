@@ -1,6 +1,8 @@
 @extends('layouts.print')
 
+
 @section('content')
+
 
 <table class="table-info align-top no-padding no-margins border">
     <tr>
@@ -17,7 +19,7 @@
 
 <br>
 {{-- <h4>Sanciones Economicas</h4> --}}
-<table class="table-info align-top no-padding no-margins border">
+<table class="table-info table-striped align-top no-padding no-margins ">
     <thead>
         <th class="text-center bg-grey-darker text-xs text-white">Fecha</th>
         <th class="text-center bg-grey-darker text-xs text-white">Dia</th>
@@ -35,15 +37,15 @@
         @foreach ($attendances as $attendance)
             <tr>
                 <td class="text-xxs uppercase"> {{$attendance->date}} </td>
-                <td class="text-xxs uppercase"> {{ Util::getDayString(Carbon\Carbon::parse($attendance->date)->dayOfWeek)}} </td>
-                <td class="text-xxs uppercase"> {{$attendance->entry}} </td>
-                <td class="text-xxs uppercase"> {{$attendance->output}} </td>
-                <td class="text-xxs uppercase"> {{$attendance->attendance_entry}} </td>
-                <td class="text-xxs uppercase"> {{$attendance->attendance_output}} </td>
+                <td class="text-xxs uppercase"> {{ Util::getDayString($attendance->date)}} </td>
+                <td class="text-xxs uppercase text-center"> {{$attendance->entry}} </td>
+                <td class="text-xxs uppercase text-center"> {{$attendance->output}} </td>
+                <td class="text-xxs uppercase text-center"> {{$attendance->attendance_entry}} </td>
+                <td class="text-xxs uppercase text-center"> {{$attendance->attendance_output}} </td>
                 <td class="text-xxs uppercase text-center"> {{$attendance->delay}} </td>
-                <td class="text-xxs uppercase text-center"> {{$attendance->hours_worked}} </td>
+                <td class="text-xxs uppercase text-center"> {{$attendance->hours_worked}}</td>
                 <td class="text-xxs uppercase text-center"> {{$attendance->surplus}} </td>
-                <td class="text-xxs uppercase bg-{{$attendance->state_output}}"> {{$attendance->title_entry}}</td>
+                <td class="text-xxs uppercase bg-{{$attendance->state_entry}}"> {{$attendance->title_entry}}</td>
                 <td class="text-xxs uppercase bg-{{$attendance->state_output}}"> {{$attendance->title_output}}</td>
             </tr>
         @endforeach
