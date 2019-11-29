@@ -23,6 +23,7 @@ import MyHourType from './views/employee/ShowTypeHours';
 import Holyday from './views/holyday/Index';
 import EventualShould from './views/eventual_should/Assign';
 import Refreshment from './views/refreshment/Index';
+import ReportAttendance from './views/attendance/Report';
 
 export const routes= [
     {
@@ -297,17 +298,29 @@ export const routes= [
             requiresAuth: true,
         }
     },
+    {
+        path: '/refreshment',
+        name: '/refreshment',
+        components: {
+            default: Refreshment,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/report_attendance',
+        name: '/report_attendance',
+        components: {
+            default: ReportAttendance,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
 
-     {
-         path: '/refreshment',
-         name: '/refreshment',
-         components: {
-             default: Refreshment,
-             toolbar: Toolbar,
-             nav: Nav
-         },
-         meta: {
-             requiresAuth: true,
-         }
-     },
 ];

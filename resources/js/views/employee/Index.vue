@@ -7,6 +7,7 @@
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
+
              <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
@@ -39,9 +40,9 @@
                     <v-icon @click="edit_assing(props.row)">
                         add_alarm
                     </v-icon>
-                    <v-icon @click="show_kardex(props.row)">
+                    <!-- <v-icon @click="show_kardex(props.row)">
                         insert_drive_file
-                    </v-icon>
+                    </v-icon> -->
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>

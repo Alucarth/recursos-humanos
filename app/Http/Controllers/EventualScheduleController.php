@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Management;
+use App\EventualSchedule;
 use App\Employee;
-
-class ManagementController extends Controller
+use App\TypeHour;
+class EventualScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class ManagementController extends Controller
     public function index()
     {
         //
-        $magements = Management::all();
-        return response()->json($magements);
+
     }
 
     /**
@@ -30,12 +29,6 @@ class ManagementController extends Controller
         //
     }
 
-    public function employees($management_id)
-    {
-        $employees = Employee::with('management')->where('management_id',$management_id)->get();
-        return response()->json(compact('employees'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,17 +38,20 @@ class ManagementController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->has('id')){
-            $management = Management::find($request->id);
-        }else{
+        foreach ($request->employees as $array)
+        {
+            $employee = (object) $array;
+            // return $employee->id;
+            $eventual_schudel= new EventualSchedule;
+            $eventual_schudel->date = $request->date;
+            $eventual_schudel->type_hour_id = $request->type_hour_id;
+            $eventual_schudel->employee_id = $employee->id;
+            $eventual_schudel->save();
 
-            $management = new Management;
+            # code...
         }
-        $management->name = $request->name;
-        // $management->description = $request->description;
-        $management->save();
 
-        return $management;
+        return $request->all();
     }
 
     /**
@@ -78,8 +74,6 @@ class ManagementController extends Controller
     public function edit($id)
     {
         //
-        $management = Management::find($id);
-        return response()->json(compact('management'));
     }
 
     /**
@@ -103,9 +97,5 @@ class ManagementController extends Controller
     public function destroy($id)
     {
         //
-        $management = Management::find($id);
-        $name = $management->name;
-        $management->delete();
-        return response()->json(compact('name'));
     }
 }

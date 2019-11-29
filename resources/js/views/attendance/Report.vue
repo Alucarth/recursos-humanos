@@ -1,7 +1,7 @@
 <template>
  <v-card>
         <v-card-title>
-            <h3>Asignacion de Horario Eventual</h3>
+            <h3>Reporte de Asistencias</h3>
         <v-spacer></v-spacer>
 
         <!-- <v-btn @click="create();" color="primary" dark class="mb-2">Asignar</v-btn> -->
@@ -10,24 +10,90 @@
         <v-card-text>
 
         <v-layout justify-space-between row fill-height>
+            <v-flex xs5 sm5 md5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-building"></i>  {{management?management.name:'Seleccione una Gerencia'}}
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" v-for="(item,index) in managements" @click="selectManagement(item)" :key="index">{{item.name}}</a>
+                    </div>
+                </div>
+            </v-flex>
+         <v-flex xs3 sm3 md3 >
+                <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                max-width="290px"
+                min-width="290px"
+                >
+                <template v-slot:activator="{ on }">
+                    <v-text-field
+                    v-model="date"
+                    label="De Fecha"
+                    hint="YYYY-MM-DD"
+                    persistent-hint
+                    prepend-icon="event"
+                    v-on="on"
+                    ></v-text-field>
+                </template>
+                <v-date-picker v-model="date" no-title @input="menu = false"></v-date-picker>
+                </v-menu>
+        </v-flex>
+         <v-flex xs3 sm3 md3 >
+                <v-menu
+                ref="menu1"
+                v-model="menu1"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                max-width="290px"
+                min-width="290px"
+                >
+                <template v-slot:activator="{ on }">
+                    <v-text-field
+                    v-model="to_date"
+                    label="Hasta Fecha"
+                    hint="YYYY-MM-DD"
+                    persistent-hint
+                    prepend-icon="event"
+                    v-on="on"
+                    ></v-text-field>
+                </template>
+                <v-date-picker v-model="to_date" no-title @input="menu1 = false"></v-date-picker>
+                </v-menu>
+        </v-flex>
+        <v-flex xs1 sm1 md1>
+            <!-- <v-btn icon> <i class="fa fa-file-excel-o text-success"></i> <i class="fa fa-download text-success"></i></v-btn> -->
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                <a :href="`/api/payroll/${management.id}/${date}/${to_date}`">
+                     <v-icon color='green'>cloud_download</v-icon>
+                </a>
+                </template>
+                <span>Descargar Planilla</span>
+            </v-tooltip>
 
-        <v-flex xs8 style="padding-left: 5px">
-            <div class="btn-group">
+        </v-flex>
+        <v-flex xs12 md12 sm12 style="padding-left: 5px">
+            <!-- <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-building"></i>  {{management?management.name:'Seleccione una Gerencia'}}
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" v-for="(item,index) in managements" @click="selectManagement(item)" :key="index">{{item.name}}</a>
                 </div>
-            </div>
-            <!-- <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-map-marker"></i> {{location?location.name:'Seleccione Ubicacion'}}
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" v-for="(item,index) in locations" @click="selectLocation(item)" :key="index">{{item.name}}</a>
-                </div>
             </div> -->
+
             <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
                  <!-- <template slot="selected-rows-info" slot-scope="props">
                     Total Numero de Empleados Seleccionados : {{props.selectedItemsCount}}
@@ -43,88 +109,41 @@
                 </template>
 
                 <template slot="option" slot-scope="props">
-                    <v-icon @click="addItem(props.row)" >
-                        forward
+                    <v-icon @click="showAttendance(props.row,false)" >
+                        history
+                    </v-icon>
+                    <v-icon @click="showAttendance(props.row,true)" >
+                        assignment_ind
                     </v-icon>
                 </template>
             </vue-bootstrap4-table>
         </v-flex>
-        <v-flex xs4 style="padding-left: 5px">
-            <v-card>
-                <v-layout>
 
-                    <v-flex xs12 sm4 md4 >
-                            <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            lazy
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            max-width="290px"
-                            min-width="290px"
-                            >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                v-model="date"
-                                label="Fecha"
-                                hint="YYYY-MM-DD"
-                                persistent-hint
-                                prepend-icon="event"
-                                v-on="on"
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker v-model="date" no-title @input="menu = false"></v-date-picker>
-                            </v-menu>
-
-                    </v-flex>
-                    <v-flex xs12 sm8 md8>
-                            <v-select
-                            :items="type_hours"
-                            v-model="type_hour_id"
-                            item-text="name"
-                            item-value="id"
-                            prepend-icon="access_time"
-                            ></v-select>
-                            <!-- {{type_hour}} -->
-                    </v-flex>
-
-                </v-layout>
-                <v-flex xs12 sm12 md12>
-                        <v-btn color="primary" small @click="store()"> Asignar Horario</v-btn>
-                </v-flex>
-                <v-list >
-                    <v-subheader inset>Funcionario Seleccionados: {{items.length}}</v-subheader>
-
-                    <v-list-tile
-                        v-for="(item,index ) in items"
-                        :key="index"
-                        avatar
-                    >
-                        <v-list-tile-avatar>
-                        <v-icon color='blue' >person</v-icon>
-                        </v-list-tile-avatar>
-
-                        <v-list-tile-content>
-                        <v-list-tile-title>{{ item.first_name }}</v-list-tile-title>
-                        <v-list-tile-sub-title class="caption   "> {{ item.management.name }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-
-                        <v-list-tile-action>
-                        <v-btn icon ripple @click="removeItem(index)">
-                            <v-icon color="red">delete</v-icon>
-                        </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list>
-            </v-card>
-        </v-flex>
         </v-layout>
 
 
         </v-card-text>
+         <v-dialog
+            v-model="dialog_printer"
+            max-width="800"
+        >
+        <v-card>
+            <v-toolbar dark color="rrhh-primary">
+            <v-btn icon dark @click="dialog_printer = false">
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Tarjeta de Asistencia</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+                <v-btn dark flat @click="dialog_printer = false">Salir</v-btn>
+            </v-toolbar-items>
+            </v-toolbar>
+                <iframe :src="getUrl" frameborder="0" style="height:600px;width:100%;" ></iframe>
+            <!-- <v-card-text>
+            </v-card-text> -->
+        </v-card>
+        </v-dialog>
+
  </v-card>
 </template>
 <script>
@@ -141,7 +160,12 @@ export default
         type_hour_id:{},
         items:[],
         date:null,
+        to_date:null,
         menu:false,
+        menu1:false,
+        dialog_printer:false,
+        employee:{},
+        sw:false,
         columns: [
 
             {
@@ -288,6 +312,12 @@ export default
         {
             this.location = location;
         },
+        showAttendance(employee,sw)
+        {
+            this.employee = employee;
+            this.sw = sw;
+            this.dialog_printer = true;
+        },
         addItem(item)
         {
             this.items.push(item)
@@ -312,7 +342,7 @@ export default
                 cancelButtonText: 'No'
                 }).then((result) => {
                 if (result.value) {
-                    let params={
+                     let params={
                                 date:this.date,
                                 type_hour_id: this.type_hour_id,
                                 employees: this.items
@@ -343,6 +373,20 @@ export default
         //     });
         //     return managements;
         // }
+        getUrl()
+        {
+            let url=''
+            if(this.employee.id)
+            {
+                if(this.sw)
+                {
+                    url= `/api/attendance_employee/${this.employee.id}/${this.date}/${this.to_date}`; //cambiar por la boleta de pago XD
+                }else{
+                    url= `/api/attendance_employee_date/${this.employee.id}/${this.date}/${this.to_date}`;
+                }
+            }
+            return url;
+        }
     },
     components: {
         VueBootstrap4Table,

@@ -10,6 +10,11 @@ $color_shuttle_gray_approx: #5d6975;
 $white: #fff;
 $color_shark_approx: #22292f;
 $color_geyser_approx: #dae1e7;
+$success: #b5e7a0;
+$danger:  #eca1a6;
+$primary: #BBDEFB;
+$warning: #f4e1d2;
+
 
 //fonts
 $font_0: 'Helvetica';
@@ -658,6 +663,19 @@ tr {
 	right: auto;
 	bottom: auto;
 	left: auto;
+}
+
+.bg-success {
+	background-color: $success;
+}
+.bg-primary {
+	background-color: $primary;
+}
+.bg-danger {
+	background-color: $danger;
+}
+.bg-warning {
+	background-color: $warning;
 }
 .bg-grey-darker {
 	background-color: $color_shuttle_gray_approx;

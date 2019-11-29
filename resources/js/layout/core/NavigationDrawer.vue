@@ -122,6 +122,7 @@ export default {
             { icon: 'local_dining', text: 'Refrigerios', link: '/refreshment' },
             { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
+            { icon: 'description', text: 'Reporte de Asistencias', link: '/report_attendance' },
             { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
             { icon: 'event', text: 'Dias Festivos', link: '/holyday' },
             { icon: 'date_range', text: 'Horarios Eventuales', link: '/eventual_should' },

@@ -20,7 +20,10 @@
 Route::get('print_demo', 'ReportController@print_demo');
 Route::get('ficha_personal/{id}', 'ReportController@ficha_personal');
 Route::get('employee_request_print/{id}', 'ReportController@boleta');
-Route::get('attendance_employee/{employee_id}','ReportController@attendance_employee');
+Route::get('attendance_employee/{employee_id}/{from_date}/{to_date}','ReportController@attendance_employee');
+Route::get('attendance_employee_date/{employee_id}/{from_date}/{to_date}','ReportController@attendance_employee_date');
+Route::get('payroll/{management_id}/{from_date}/{to_date}','ReportExcelController@payroll');
+
 //** Revisar  */
 Route::get('ReportMonth/{fecha}/{id_user}/{planta}', 'ReportController@ReportMonth');
 Route::get('ReportYear/{fecha}/{id_user}/{planta}', 'ReportController@ReportYear');
@@ -51,7 +54,9 @@ Route::group([
 	Route::resource('kinship', 'KinshipController');
 	Route::resource('health_box', 'HealthBoxController');
 	Route::resource('biometric', 'BiometricController');
-	Route::resource('attendance', 'AttendanceController');
+    Route::resource('attendance', 'AttendanceController');
+    Route::resource('eventual_schedule', 'EventualScheduleController');
+
 	Route::post('sync_biometric', 'BiometricController@sync');
 	Route::get('info_biometric/{biometric_id}', 'BiometricController@getInfo');
 	Route::get('employee_info', 'EmployeeController@info');
@@ -108,5 +113,6 @@ Route::group([
     Route::get('archives','EmployeeRequestController@index_archived');
     Route::get('user_check','EmployeeController@check');
 
+    Route::get('employees_management/{management_id}','ManagementController@employees');
 
 });
