@@ -68,6 +68,23 @@
               <v-list-tile-title v-text="item.text"></v-list-tile-title>
             </v-list-tile>
         </v-list-group>
+        <v-list-group prepend-icon="cached" v-if="isAdmin">
+            <template v-slot:activator>
+                <v-list-tile>
+                    <v-list-tile-title>Sincronizacion</v-list-tile-title>
+                </v-list-tile>
+            </template>
+            <v-list-tile
+              v-for="(item, i) in syncronized"
+              :key="i"
+              :to="item.link"
+            >
+              <v-list-tile-action>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title v-text="item.text"></v-list-tile-title>
+            </v-list-tile>
+        </v-list-group>
         <v-list-group prepend-icon="mail" v-if="isAdmin">
             <template v-slot:activator>
                 <v-list-tile>
@@ -120,7 +137,7 @@ export default {
             { icon: 'people', text: 'Funcionarios' , link: '/employee' },
             // { icon: 'assignment', text: 'Solicitudes', link: '/buyout' },
             { icon: 'local_dining', text: 'Refrigerios', link: '/refreshment' },
-            { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
+            // { icon: 'chrome_reader_mode', text: 'Planillas', link: '/import_purchases' },
             // { icon: 'move_to_inbox', text: 'Mis Boletas', link: '/employee' },
             { icon: 'description', text: 'Reporte de Asistencias', link: '/report_attendance' },
             { icon: 'av_timer', text: 'Horarios', link: '/type_hour' },
@@ -128,7 +145,7 @@ export default {
             { icon: 'date_range', text: 'Horarios Eventuales', link: '/eventual_should' },
         ],
         parameters: [
-            { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
+            // { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
             { icon: 'work', text: 'Cargos' , link: '/position' },
             { icon: 'location_on', text: 'Ciudades' , link: '/city' },
             { icon: 'public', text: 'Paises' , link: '/country' },
@@ -142,6 +159,11 @@ export default {
         employee_requests:[
             { icon: 'inbox', text: 'Recibidos' , link: '/employee_request' },
             { icon: 'archive', text: 'Archivados' , link: '/request_archive' },
+        ],
+        syncronized: [
+
+              { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
+
         ]
 
     }),
