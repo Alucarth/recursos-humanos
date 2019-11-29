@@ -1,7 +1,7 @@
 <template>
 <v-dialog v-model="dialog" max-width="700px">
             <v-card>
-            <v-card-title>
+            <v-card-title class="rrhh-primary">
                 <span class="headline">{{ title }}</span>
             </v-card-title>
 
@@ -22,7 +22,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="sendClose()">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click="sendClose()">Cancelar</v-btn>
 
                 <v-btn color="blue darken-1" flat @click="sendManagement()">Guardar</v-btn>
             </v-card-actions>

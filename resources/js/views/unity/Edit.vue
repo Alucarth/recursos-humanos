@@ -1,7 +1,7 @@
 <template>
 <v-dialog v-model="dialog" max-width="700px">
             <v-card>
-            <v-card-title>
+            <v-card-title class="rrhh-primary">
                 <span class="headline">{{ title }}</span>
             </v-card-title>
 
