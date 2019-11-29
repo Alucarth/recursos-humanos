@@ -1,12 +1,12 @@
 <template>
  <v-card>
         <v-card-title>
-            <h3>Mis Asistencias</h3>
+            <h3>Mis Asistencias XD</h3>
         <v-spacer></v-spacer>
         <!-- <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn> -->
         </v-card-title>
         <v-card-text>
-            <FullCalendar defaultView="dayGridMonth" :header="{left: 'dayGridMonth'}" :plugins="calendarPlugins"  locale='es' :events="attendances" />
+            <FullCalendar defaultView="dayGridMonth" :plugins="calendarPlugins"  locale='es' :events="attendances" />
         </v-card-text>
         <!-- <edit-biometric :dialog="dialog" :biometric="biometric" @close="close"  @biometric="update"></edit-biometric>
         <sync-biometric :dialog="dialog_sync" :biometric="biometric" @close="close_sync" ></sync-biometric> -->
@@ -16,6 +16,7 @@
 <script>
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import esLocale from '@fullcalendar/core/locales/ar.js';
 export default {
     data:()=>({
         calendarPlugins: [ dayGridPlugin ],

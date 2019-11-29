@@ -104,7 +104,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="sendClose()">Cancel</v-btn>
+                <v-btn color="blue darken-1" flat @click="sendClose()">Cancelar</v-btn>
 
                 <v-btn color="blue darken-1" flat @click="sendFamily()">Guardar</v-btn>
             </v-card-actions>
