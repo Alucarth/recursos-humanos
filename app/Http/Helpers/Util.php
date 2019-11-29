@@ -400,6 +400,18 @@ class Util
                             $entry_hour = Carbon::parse($date.' '.$attendance->entry);
                             $attendance->surplus = $output->diffInMinutes($entry_hour);
                         }
+                        //omision
+                        if($attendance->attendance_entry !='00:00:00' || $attendance->attendance_output != '00:00:00')
+                        {
+                            if($attendance->attendance_entry == '00:00:00')
+                            {
+                                $attendance->title_entry = 'Omision';
+                            }
+                            if($attendance->attendance_output == '00:00:00')
+                            {
+                                $attendance->title_output = 'Omision';
+                            }
+                        }
 
                         array_push($attendances,$attendance);
                     }

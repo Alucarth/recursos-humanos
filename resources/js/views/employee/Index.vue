@@ -40,9 +40,9 @@
                     <v-icon @click="edit_assing(props.row)">
                         add_alarm
                     </v-icon>
-                    <v-icon @click="show_kardex(props.row)">
+                    <!-- <v-icon @click="show_kardex(props.row)">
                         insert_drive_file
-                    </v-icon>
+                    </v-icon> -->
                 </template>
             </vue-bootstrap4-table>
         </v-card-text>

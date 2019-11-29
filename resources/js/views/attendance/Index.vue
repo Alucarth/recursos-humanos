@@ -27,7 +27,8 @@ export default {
         // console.log(moment);
         this.getAttendances();
     },
-    methods:{
+    methods:
+    {
         getAttendances()
         {
             axios.get('/api/auth/attendance')
@@ -36,29 +37,32 @@ export default {
 
                         let days=[];
                         response.data.attendances.forEach(attendance => {
-                            let event = {title:attendance.time, date: `${attendance.date}`,backgroundColor: this.getColor(attendance), textColor: attendance.state=='success'?'#FFFFFF':'#000000'  }
+                            let event = {   title:attendance.title_entry,
+                                            date: `${attendance.date} ${attendance.attendance_entry!='00:00:00'?attendance.attendance_entry:attendance.entry}`,
+                                            backgroundColor: this.getColor(attendance.state_entry),
+                                            textColor: attendance.state_entry=='success'?'#FFFFFF':'#000000'  }
                             this.attendances.push(event);
-                            // days.push(attendance.date.toString().split('-')[2]);
+                                event = {   title:attendance.title_output,
+                                            date: `${attendance.date} ${attendance.attendance_output!='00:00:00'?attendance.attendance_output:attendance.output}`,
+                                            backgroundColor: this.getColor(attendance.state_output),
+                                            textColor: attendance.state_output=='success'?'#FFFFFF':'#000000'  }
+                            this.attendances.push(event);
                         });
-                        // let day = moment().day();
-                        // for (let i = 0; i < array.day; i++)
-                        // {
 
-                        // }
                  });
         },
 
-        getColor(attendance)
+        getColor(state)
         {
             let color = '#FFFFFF'
-            switch (attendance.state) {
+            switch (state) {
                 case 'success':
                     color='#4CAF50';
                     break;
                 case 'warning':
                     color='#FFEA00';
                     break;
-                case 'error':
+                case 'danger':
                     color='#FF8A80';
                     break;
             }

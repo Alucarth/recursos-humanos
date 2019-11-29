@@ -76,7 +76,9 @@
             <!-- <v-btn icon> <i class="fa fa-file-excel-o text-success"></i> <i class="fa fa-download text-success"></i></v-btn> -->
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                <v-btn icon> <v-icon color='green'>cloud_download</v-icon> </v-btn>
+                <a :href="`/api/payroll/${management.id}/${date}/${to_date}`">
+                     <v-icon color='green'>cloud_download</v-icon>
+                </a>
                 </template>
                 <span>Descargar Planilla</span>
             </v-tooltip>
@@ -107,8 +109,11 @@
                 </template>
 
                 <template slot="option" slot-scope="props">
-                    <v-icon @click="showAttendance(props.row)" >
-                        picture_as_pdf
+                    <v-icon @click="showAttendance(props.row,false)" >
+                        history
+                    </v-icon>
+                    <v-icon @click="showAttendance(props.row,true)" >
+                        assignment_ind
                     </v-icon>
                 </template>
             </vue-bootstrap4-table>
@@ -160,6 +165,7 @@ export default
         menu1:false,
         dialog_printer:false,
         employee:{},
+        sw:false,
         columns: [
 
             {
@@ -306,9 +312,10 @@ export default
         {
             this.location = location;
         },
-        showAttendance(employee)
+        showAttendance(employee,sw)
         {
             this.employee = employee;
+            this.sw = sw;
             this.dialog_printer = true;
         },
         addItem(item)
@@ -371,7 +378,12 @@ export default
             let url=''
             if(this.employee.id)
             {
-                url= `/api/attendance_employee_date/${this.employee.id}/${this.date}/${this.to_date}`;
+                if(this.sw)
+                {
+                    url= `/api/attendance_employee/${this.employee.id}/${this.date}/${this.to_date}`; //cambiar por la boleta de pago XD
+                }else{
+                    url= `/api/attendance_employee_date/${this.employee.id}/${this.date}/${this.to_date}`;
+                }
             }
             return url;
         }
