@@ -114,5 +114,6 @@ Route::group([
     Route::get('user_check','EmployeeController@check');
 
     Route::get('employees_management/{management_id}','ManagementController@employees');
+    Route::get('dashboard','EmployeeController@dashboard');
 
 });

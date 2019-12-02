@@ -19,9 +19,9 @@
                     <v-flex xs7>
                     <v-card-title primary-title>
                         <div>
-                        <div class="headline">Halycon Days</div>
-                        <div>Ellie Goulding</div>
-                        <div>(2013)</div>
+                        <div class="headline">{{fullname}}</div>
+                        <div>{{employee.position?employee.position.name:''}}</div>
+                        <div>{{employee.management?employee.management.name:''}}</div>
                         </div>
                     </v-card-title>
                     </v-flex>
@@ -35,13 +35,9 @@
                 </v-layout>
                 <v-divider light></v-divider>
                 <v-card-actions class="pa-3">
-                    Rate this album
+                    Vacaciones {{vacation.year}} : {{vacation.days}} dias
                     <v-spacer></v-spacer>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
+
                 </v-card-actions>
                 </v-card>
             </v-flex>
@@ -53,6 +49,27 @@
 </template>
 <script>
 export default {
+    data:()=>({
+        fullname:'',
+        employee:{},
+        vacation:{},
+    }),
+    mounted(){
+        console.log('load dashboard component');
+        this.getDashboard();
+    },
+    methods:{
+        getDashboard()
+        {
+            axios.get(`api/auth/dashboard`)
+                 .then(response=>{
+                     console.log(response.data);
+                     this.fullname = response.data.fullname;
+                     this.employee = response.data.employee;
+                     this.vacation = response.data.vacation;
+                 });
+        }
+    }
 
 }
 </script>

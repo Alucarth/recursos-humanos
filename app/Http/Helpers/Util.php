@@ -12,6 +12,7 @@ use App\Holyday;
 use App\AttendanceEmployee;
 use App\EventualSchedule;
 use App\EmployeeRequest;
+use App\Vacation;
 class Util
 {
     public static function removeSpaces($text)
@@ -467,5 +468,37 @@ class Util
         }
         // Log::info('dia: '.$day.' '.$string_day);
         return $string_day;
+    }
+
+    public static function  checkVacations($employee)
+    {
+        $entry_date = Carbon::parse($employee->entry_date);
+        $today = Carbon::now();
+        $date_entry = $entry_date->year;
+        $date_today = $today->year;
+        $diff = $date_entry - $date_today;
+
+        if($diff > 0)
+        {
+            while($date_entry <= $date_today)
+            {
+                $vacation = Vacation::where('employee_id',$employee->id)->where('year',$date_entry)->first();
+                if(!$vacation)
+                {
+                    $vacation = new Vacation;
+                    $vacation->employee_id = $employee->id;
+                    $vacation->year= $date_entry;
+                    $vacation->days= 15; //  segun reglamento XD
+                    $vacation->save();
+                }
+                $date_entry++;
+            }
+        }else{
+            $vacation = new Vacation;
+            $vacation->employee_id = $employee->id;
+            $vacation->year= $date_entry;
+            $vacation->days= 15; //  segun reglamento XD
+            $vacation->save();
+        }
     }
 }

@@ -12,6 +12,10 @@ use App\Package;
 use App\WorkExperience;
 use Auth;
 use Log;
+use Carbon\Carbon;
+use App\Vacation;
+use Util;
+
 class EmployeeController extends Controller
 {
     /**
@@ -30,6 +34,17 @@ class EmployeeController extends Controller
     {
         $employee = Employee::with('position','management','families','academic_trainings','courses','languages','packages','country','contribution','health_box','works')->find(Auth::user()->employee->id);
         return response()->json(compact('employee'));
+    }
+
+    public function dashboard()
+    {
+        $employee = Employee::with('position','management')->find(Auth::user()->employee->id) ;
+        $fullname = $employee->getFullName();
+
+        //cheking enabled vacatixons
+        Util::checkVacations($employee);
+        $vacation = Vacation::where('employee_id',$employee->id)->where('year',Carbon::now()->year)->first();
+        return response()->json(compact('employee','fullname','vacation'));
     }
     /**
      * Show the form for creating a new resource.

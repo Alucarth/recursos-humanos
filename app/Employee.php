@@ -64,6 +64,10 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\TypeHour','employee_type_hours','employee_id','type_hour_id');
     }
+    public function vacations()
+    {
+        return $this->hasMany('App\Vacation');
+    }
     public function getFullName()
     {
         $first_name = $this->first_name??'';
