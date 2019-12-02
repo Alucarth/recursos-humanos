@@ -20,8 +20,9 @@
                     <v-card-title primary-title>
                         <div>
                         <div class="headline">{{fullname}}</div>
-                        <div>{{employee.position?employee.position.name:''}}</div>
-                        <div>{{employee.management?employee.management.name:''}}</div>
+                        <div><v-icon color="secondary">work</v-icon>{{employee.position?employee.position.name:''}}</div>
+                        <div><v-icon color="secondary">home_work</v-icon>{{employee.management?employee.management.name:''}}</div>
+                        <div class="primary--text"> <v-icon color="primary">location_on</v-icon> {{employee.location?employee.location.name:''}}</div>
                         </div>
                     </v-card-title>
                     </v-flex>

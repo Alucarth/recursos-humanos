@@ -38,7 +38,7 @@ class EmployeeController extends Controller
 
     public function dashboard()
     {
-        $employee = Employee::with('position','management')->find(Auth::user()->employee->id) ;
+        $employee = Employee::with('position','management','location')->find(Auth::user()->employee->id) ;
         $fullname = $employee->getFullName();
 
         //cheking enabled vacatixons

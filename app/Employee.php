@@ -68,11 +68,16 @@ class Employee extends Model
     {
         return $this->hasMany('App\Vacation');
     }
+    public function location()
+    {
+        return $this->belongsTo('App\Location');
+    }
     public function getFullName()
     {
         $first_name = $this->first_name??'';
+        $second_name = $this->second_name??'';
         $last_name = $this->last_name??'';
         $mother_last_name = $this->mother_last_name??'';
-        return $first_name .' '.$last_name.' '.$mother_last_name;
+        return $first_name .' '.$second_name .' '.$last_name.' '.$mother_last_name;
     }
 }
