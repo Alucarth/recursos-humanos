@@ -44,7 +44,58 @@ class EmployeeController extends Controller
         //cheking enabled vacatixons
         Util::checkVacations($employee);
         $vacation = Vacation::where('employee_id',$employee->id)->where('year',Carbon::now()->year)->first();
-        return response()->json(compact('employee','fullname','vacation'));
+        $today = Carbon::now();
+        $days = cal_days_in_month(CAL_GREGORIAN, $today->month, $today->year);
+        $before = Carbon::now();
+        if($days<=21)
+        {
+            //descontando un mes segun reglamento
+            $before->subMonth(1);
+
+        }
+        $before->day = 21; //seteando en 21 segun reglamento
+
+        // $diference_day=$to_date->diffInDays($from_date);
+        // if($diference_day<0)
+        // {
+        //     return 'no se pudo validar las fechas para el calculo favor de verificar';
+        // }
+        $to_date = $before;
+        $from_date = $today;
+        $omisiones = 0;
+        $minutos_atraso= 0;
+        $faltas = 0;
+        while($to_date->diffInDays($from_date)>0)
+        {
+            //verificando cantidad de dias numericos
+            //Log::info($from_date->toDateString());
+            $from_date->addDay(1);
+
+          // array_push($attendances,$attendance);
+            foreach(Util::getAttendance($employee,$from_date->toDateString()) as $attendance)
+            {
+                if($attendance->title_entry == 'Omision')
+                {
+                    $omisiones +=1;
+                }
+                if($attendance->title_entry == 'Sin Marcado')
+                {
+                    $faltas +=1;
+                }
+                if($attendance->delay)
+                {
+                    $minutos_atraso +=$attendance->delay;
+                }
+
+
+            }
+
+
+        }
+
+
+
+        return response()->json(compact('employee','fullname','vacation','omisiones','faltas','atrasos'));
     }
     /**
      * Show the form for creating a new resource.

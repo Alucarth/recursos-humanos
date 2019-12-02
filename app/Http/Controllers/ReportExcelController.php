@@ -16,9 +16,16 @@ class ReportExcelController extends Controller
     {
 
         // return 'hello';
-        $management = Management::find($management_id);
-        // return $management;
-        $employees = Employee::where('management_id',$management->id)->get();
+        if($management_id == 0)
+        {
+            $employees = Employee::all();
+
+        }else{
+
+            $management = Management::find($management_id);
+            // return $management;
+            $employees = Employee::where('management_id',$management->id)->get();
+        }
 
         foreach ($employees as $employee) {
 
@@ -88,7 +95,7 @@ class ReportExcelController extends Controller
 
         // return $employees;
         // $employees=[];
-        Excel::create('Planilla Empleados', function($excel)  use ($employees,$f_date,$t_date,$management) {
+        Excel::create('Planilla Empleados', function($excel)  use ($employees,$f_date,$t_date) {
 		    $excel->sheet('planilla empleados', function($sheet)  use ($employees,$f_date,$t_date){
 		      $sheet->loadView('reportExcel.payroll',compact('employees','f_date','t_date'));
 		    });

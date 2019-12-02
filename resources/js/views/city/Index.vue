@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title>
-            <h3>Cargos</h3>
+            <h3>Ciudades</h3>
         <v-spacer></v-spacer>
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>

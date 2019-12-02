@@ -287,6 +287,8 @@ export default
             axios.get(`api/auth/management`)
                  .then((response)=>{
                         this.managements = response.data;
+                          this.managements.push({id:0,name:"Todos"});
+
                         // let m =[];
                         // this.managements.forEach(item=>{
                         //     m.push({name:item.name,value:item.name})
@@ -306,6 +308,7 @@ export default
             axios.get(`api/auth/employees_management/${this.management.id}`)
                  .then(response=>{
                      this.employees = response.data.employees;
+
                  });
         },
         selectLocation(location)

@@ -32,7 +32,12 @@ class ManagementController extends Controller
 
     public function employees($management_id)
     {
-        $employees = Employee::with('management')->where('management_id',$management_id)->get();
+        if($management_id==0)
+        {
+            $employees = Employee::with('management')->get();
+        }else{
+            $employees = Employee::with('management')->where('management_id',$management_id)->get();
+        }
         return response()->json(compact('employees'));
     }
 

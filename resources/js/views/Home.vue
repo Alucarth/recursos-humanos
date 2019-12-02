@@ -27,17 +27,63 @@
                     </v-flex>
                     <v-flex xs5>
                     <v-img
-                        src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+                        src="https://avataaars.io/?avatarStyle=Circle&topType=Hat&accessoriesType=Kurt&facialHairType=BeardMagestic&facialHairColor=Black&clotheType=BlazerShirt&eyeType=Default&eyebrowType=AngryNatural&mouthType=Serious&skinColor=Pale"
                         height="125px"
                         contain
                     ></v-img>
                     </v-flex>
                 </v-layout>
                 <v-divider light></v-divider>
-                <v-card-actions class="pa-3">
-                    Vacaciones {{vacation.year}} : {{vacation.days}} dias
-                    <v-spacer></v-spacer>
 
+                <v-card-actions class="pa-3">
+                    <v-layout row>
+                    <v-flex xs3 md3 sm3>
+                        <v-card color="success" hover="true" >
+                            <v-card-title>
+                                Vacaciones {{vacation.year}}
+                            </v-card-title>
+                            <v-card-text>
+                                <v-icon>date_range</v-icon>
+                                {{vacation.days}} dias
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                    <v-flex xs3 md3 sm3>
+                        <v-card color="secondary" hover="true" dark>
+                            <v-card-title>
+                                Omisiones
+                            </v-card-title>
+                            <v-card-text>
+                                <v-icon>calendar_today</v-icon>
+                                {{omisiones}}
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                    <v-flex xs3 md3 sm3>
+                        <v-card color="warning" hover="true">
+                            <v-card-title>
+                                Minutos Atrasos
+                            </v-card-title>
+                            <v-card-text>
+                                <v-icon>snooze</v-icon>
+                                {{atrasos||0}}
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                    <v-flex xs3 md3 sm3>
+
+                        <v-card color="error" hover="true">
+                            <v-card-title>
+                                Faltas
+                            </v-card-title>
+                            <v-card-text>
+                                <v-icon>work_off</v-icon>
+                                {{faltas}}
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                    <!-- <v-spacer></v-spacer> -->
+                    </v-layout>
                 </v-card-actions>
                 </v-card>
             </v-flex>
@@ -53,6 +99,9 @@ export default {
         fullname:'',
         employee:{},
         vacation:{},
+        faltas:0,
+        omisiones:0,
+        atrasos:0,
     }),
     mounted(){
         console.log('load dashboard component');
@@ -67,6 +116,9 @@ export default {
                      this.fullname = response.data.fullname;
                      this.employee = response.data.employee;
                      this.vacation = response.data.vacation;
+                     this.omisiones = response.data.omisiones;
+                     this.atrasos = response.data.atrasos;
+                     this.faltas = response.data.faltas;
                  });
         }
     }
