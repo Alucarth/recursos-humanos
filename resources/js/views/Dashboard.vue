@@ -8,7 +8,7 @@
                 </div>
 
                 </v-card-title>
-                <canvas id="especies" ></canvas>
+
                 </v-card>
         </v-flex>
 
