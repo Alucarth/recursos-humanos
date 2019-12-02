@@ -16,7 +16,11 @@
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
                 </template>
-
+                <template slot="pagination-info" slot-scope="props">
+                    De {{props.currentPageRowsLength}}
+                    a {{props.filteredRowsLength}}
+                    ({{props.originalRowsLength}} Total Registros)
+                </template>
                 <template slot="option" slot-scope="props">
 
                     <v-icon @click="edit(props.row)">

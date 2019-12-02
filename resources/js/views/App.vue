@@ -1,5 +1,6 @@
 <template>
   <div>
+      <link rel="stylesheet" type="text/css" href="css/table.css">
     <template v-if="!$route.meta.allowAnonymous">
       <v-app id="inspire">
         <div class="app-container">

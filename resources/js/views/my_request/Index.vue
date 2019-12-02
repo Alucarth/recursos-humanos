@@ -6,7 +6,7 @@
         <v-btn @click="create()" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
-             <vue-bootstrap4-table :rows="employee_requests" :columns="columns" :config="config" >
+             <vue-bootstrap4-table :rows="employee_requests" :columns="columns" :config="config" :classes="classes">
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -15,6 +15,11 @@
                 </template>
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
+                </template>
+                <template slot="pagination-info" slot-scope="props">
+                    De {{props.currentPageRowsLength}}
+                    a {{props.filteredRowsLength}}
+                    ({{props.originalRowsLength}} Total Registros)
                 </template>
                 <template slot="approves" slot-scope="props">
                     <v-progress-linear color="green" height="18"
@@ -83,6 +88,7 @@
 import VueBootstrap4Table from 'vue-bootstrap4-table';
 import EditRequest from './Edit.vue';
 import ShowRequest from './Show.vue';
+
 export default {
     data:()=>({
         employee_requests:[],
@@ -166,6 +172,13 @@ export default {
             per_page_options:  [5,  10,  20,  30],
             server_mode:  false,
         },
+        classes:{
+                tableWrapper: "outer-table-div-class wrapper-class-two",
+                table : {
+                    "table-striped" : true,
+                },
+                thead: "rrhh-primary"
+            }
 
 
     }),

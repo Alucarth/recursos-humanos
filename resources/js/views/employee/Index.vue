@@ -23,6 +23,11 @@
                     <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
                     </div>
                 </template>
+                <template slot="pagination-info" slot-scope="props">
+                    De {{props.currentPageRowsLength}}
+                    a {{props.filteredRowsLength}}
+                    ({{props.originalRowsLength}} Total Registros)
+                </template>
                 <template slot="option" slot-scope="props">
 
                     <v-icon @click="disabled(props.row)" v-if="props.row.user_edit==true" >

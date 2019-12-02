@@ -16,6 +16,11 @@
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
                 </template>
+                <template slot="pagination-info" slot-scope="props">
+                    De {{props.currentPageRowsLength}}
+                    a {{props.filteredRowsLength}}
+                    ({{props.originalRowsLength}} Total Registros)
+                </template>
                 <!-- <template slot="active" slot-scope="props">
                    <div class="text-xs-center">
                     <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>

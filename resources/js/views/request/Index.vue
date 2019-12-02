@@ -16,6 +16,11 @@
                 <template slot="no-sort-icon">
                     <i class="fa fa-sort"></i>
                 </template>
+                <template slot="pagination-info" slot-scope="props">
+                    De {{props.currentPageRowsLength}}
+                    a {{props.filteredRowsLength}}
+                    ({{props.originalRowsLength}} Total Registros)
+                </template>
                 <template slot="approves" slot-scope="props">
                     <v-progress-linear color="green" height="18"
                         :value="Math.ceil(porcentajeApprove(props.row.approves))"
