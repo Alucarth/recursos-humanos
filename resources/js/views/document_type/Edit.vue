@@ -7,7 +7,7 @@
 
             <v-card-text v-if="item">
                 <v-container grid-list-md>
-                 <v-layout wrap>
+                <v-layout wrap>
                     <v-flex xs6 sm6 md12>
                         <v-text-field label="Nombre" hint="Ingrese Nombre" required v-model="item.name"></v-text-field>
                     </v-flex>
@@ -48,8 +48,8 @@ export default
     },
     computed:{
         item(){
-           let item = this.document_type
-           return item
+            let item = this.document_type
+            return item
         },
         parent_dialog(){
 			return this.dialog
