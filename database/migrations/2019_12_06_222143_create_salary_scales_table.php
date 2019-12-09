@@ -16,10 +16,12 @@ class CreateSalaryScalesTable extends Migration
         Schema::create('salary_scales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('category');
+            $table->bigInteger('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('class');
             $table->string('level');
             $table->integer('number');
+            $table->decimal('salary',13,2);
             $table->decimal('cost',13,2);
             $table->decimal('colateral',13,2);
             $table->decimal('total',13,2);

@@ -155,6 +155,8 @@ export default {
             { icon: 'account_balance', text: 'Gerencias' , link: '/management' },
             { icon: 'account_box', text: 'Unidades' , link: '/unity' },
             { icon: 'account_balance_wallet', text: 'Tipos de Afp' , link: '/contribution' },
+            { icon: 'card_travel', text: 'Categorias' , link: '/category' },
+            { icon: 'work', text: 'Escala Salarial' , link: '/salary_scale' },
         ],
         employee_requests:[
             { icon: 'inbox', text: 'Recibidos' , link: '/employee_request' },
@@ -162,7 +164,7 @@ export default {
         ],
         syncronized: [
 
-              { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
+            { icon: 'devices', text: 'Biometricos' , link: '/biometric' },
 
         ]
 

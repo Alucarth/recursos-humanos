@@ -116,4 +116,7 @@ Route::group([
     Route::get('employees_management/{management_id}','ManagementController@employees');
     Route::get('dashboard','EmployeeController@dashboard');
 
+    Route::resource('category','CategoryController');
+    Route::resource('salary','SalaryScaleController');
+
 });

@@ -24,7 +24,8 @@ import Holyday from './views/holyday/Index';
 import EventualShould from './views/eventual_should/Assign';
 import Refreshment from './views/refreshment/Index';
 import ReportAttendance from './views/attendance/Report';
-
+import Category from './views/category/Index';
+import SalaryScale from './views/salary_scale/Index';
 export const routes= [
     {
         path: '/',
@@ -315,6 +316,30 @@ export const routes= [
         name: '/report_attendance',
         components: {
             default: ReportAttendance,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/category',
+        name: '/category',
+        components: {
+            default: Category,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/salary_scale',
+        name: '/salary_scale',
+        components: {
+            default: SalaryScale,
             toolbar: Toolbar,
             nav: Nav
         },
