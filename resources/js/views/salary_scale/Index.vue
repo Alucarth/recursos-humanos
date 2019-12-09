@@ -31,7 +31,7 @@
                                 edit
                             </v-icon>
                         </template>
-                        <span>Editar Categoria </span>
+                        <span>Editar Escala Salarial </span>
                         </v-tooltip>
                         <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
@@ -39,7 +39,7 @@
                                 delete
                             </v-icon>
                         </template>
-                        <span>Eliminar Categoria </span>
+                        <span>Eliminar Escala Salarial </span>
                         </v-tooltip>
 
                     </v-layout>
@@ -78,6 +78,42 @@ export default {
                 filter: {
                     type: "simple",
                     placeholder: "Ingrese Nombre"
+                },
+                sort: true,
+            },
+            {
+                label: "Categoria",
+                name: "category.name",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Categoria"
+                },
+                sort: true,
+            },
+            {
+                label: "Clase",
+                name: "class",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Clase"
+                },
+                sort: true,
+            },
+            {
+                label: "Nivel",
+                name: "level",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Nivel"
+                },
+                sort: true,
+            },
+            {
+                label: "Sueldo",
+                name: "salary",
+                filter: {
+                    type: "simple",
+                    placeholder: "Ingrese Sueldo"
                 },
                 sort: true,
             },

@@ -15,7 +15,7 @@ class PositionController extends Controller
     public function index()
     {
         //
-        $positions = Position::all();
+        $positions = Position::with('salary_scale')->get();
         return response()->json($positions);
     }
 
@@ -57,6 +57,8 @@ class PositionController extends Controller
         {
             $position->managament_id = null;
         }
+        $position->salary_scale_id = $request->salary_scale['id'];
+
         $position->save();
 
         return $position;
@@ -82,7 +84,7 @@ class PositionController extends Controller
     public function edit($id)
     {
         //
-        $position = Position::find($id);
+        $position = Position::with('salary_scale')->find($id);
         return response()->json($position);
     }
 

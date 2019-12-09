@@ -14,7 +14,7 @@ class SalaryScaleController extends Controller
     public function index()
     {
         //
-        $salaries = SalaryScale::all();
+        $salaries = SalaryScale::with('category')->get();
         return response()->json(compact('salaries'));
     }
 
@@ -77,6 +77,8 @@ class SalaryScaleController extends Controller
     public function edit($id)
     {
         //
+        $salary = SalaryScale::with('category')->find($id);
+        return response()->json(compact('salary'));
     }
 
     /**

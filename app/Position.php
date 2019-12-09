@@ -15,4 +15,9 @@ class Position extends Model
     public function unity(){
         return $this->belongsTo('App\Unity','unit_id');
     }
+
+    public function salary_scale()
+    {
+        return $this->belongsTo('App\SalaryScale');
+    }
 }

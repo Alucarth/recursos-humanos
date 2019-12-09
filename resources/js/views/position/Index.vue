@@ -6,7 +6,7 @@
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
-             <vue-bootstrap4-table :rows="positions" :columns="columns" :config="config" >
+            <vue-bootstrap4-table :rows="positions" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -17,7 +17,7 @@
                     <i class="fa fa-sort"></i>
                 </template>
                 <!-- <template slot="active" slot-scope="props">
-                   <div class="text-xs-center">
+                <div class="text-xs-center">
                     <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
                     </div>
                 </template> -->
@@ -96,7 +96,7 @@ export default {
     methods:{
         search(){
             axios.get('/api/auth/position')
-                 .then((response)=>{
+                .then((response)=>{
                     // this.employees = response.data;
                     this.positions = response.data;
                     // console.log(response.data);
@@ -122,7 +122,7 @@ export default {
         update (item) {
             console.log(item);
             axios.post('/api/auth/position', item)
-                  .then(response => {
+                .then(response => {
                         iziToast.success({
                             title: '',
                             message: 'Registro Satisfactorio',

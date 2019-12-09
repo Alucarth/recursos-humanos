@@ -13,6 +13,11 @@
                             </v-text-field>
                         </v-flex>
                         <v-flex xs12 sm12 md12>
+                            <v-combobox label="Escala Salarial" v-model="item.salary_scale" item-text="name"
+                                :items="salaries">
+                            </v-combobox>
+                        </v-flex>
+                        <v-flex xs12 sm12 md12>
                             <v-select label="Tipo de Dependencia" v-model="item.type_dependency"
                                 :items="type_dependencies">
                             </v-select>
@@ -51,11 +56,13 @@ export default
     data:()=>({
         unities:[],
         managements:[],
+        salaries:[],
         type_dependencies:['Gerencia Ejecutiva','Gerencia','Unidad'],
     }),
     mounted(){
         this.getUnities();
         this.getManagements();
+        this.getSalaries();
     },
     methods:{
         sendPosition() {
@@ -82,11 +89,18 @@ export default
                 console.log(error);
             });
         },
+        getSalaries()
+        {
+            axios.get(`api/auth/salary`)
+                .then(response=>{
+                    this.salaries = response.data.salaries;
+                });
+        }
     },
     computed:{
         item(){
-           let item = this.position
-           return item
+            let item = this.position
+            return item
         },
         parent_dialog(){
 			return this.dialog
