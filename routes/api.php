@@ -118,5 +118,7 @@ Route::group([
 
     Route::resource('category','CategoryController');
     Route::resource('salary','SalaryScaleController');
+    Route::resource('user','UserController');
+    Route::get('roles','UserController@roles');
 
 });

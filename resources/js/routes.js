@@ -25,6 +25,7 @@ import EventualShould from './views/eventual_should/Assign';
 import Refreshment from './views/refreshment/Index';
 import ReportAttendance from './views/attendance/Report';
 import Category from './views/category/Index';
+import User from './views/user/Index';
 import SalaryScale from './views/salary_scale/Index';
 export const routes= [
     {
@@ -340,6 +341,18 @@ export const routes= [
         name: '/salary_scale',
         components: {
             default: SalaryScale,
+            toolbar: Toolbar,
+            nav: Nav
+        },
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/user',
+        name: '/user',
+        components: {
+            default: User,
             toolbar: Toolbar,
             nav: Nav
         },

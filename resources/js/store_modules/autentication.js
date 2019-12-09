@@ -82,7 +82,11 @@ export const autentication = {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         userLoged: state=> state.user,
-        isAdmin: state=> _.find(state.roles, (role)=> { return role.name == "Administrador"})
+        isAdmin: state=> _.find(state.roles, (role)=> { return role.name == "Administrador"}),
+        isRefreshment: state=> _.find(state.roles, (role)=> { return role.name == "Refrigerios"}),
+        isRRHH: state=> _.find(state.roles, (role)=> { return role.name == "Recursos Humanos"}),
+        // isOfficial: state=> _.find(state.roles, (role)=> { return role.name == "Funcionario"}),
+
     }
 
 };
