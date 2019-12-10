@@ -158,6 +158,7 @@ class EmployeeController extends Controller
         $employee->tutor = $request->tutor;
         $employee->retirement_date = $request->retirement_date;
         $employee->unit_id = $request->unit_id;
+        $employee->location_id = $request->location_id;
 
         if ($request->hasFile('curriculum_file')) {
             //

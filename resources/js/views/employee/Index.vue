@@ -223,10 +223,10 @@ export default {
         {
             console.log('habilitando');
             axios.post('api/auth/enabled_employee',{id:item.id,user_edit:true})
-                 .then(response=>{
-                     console.log(response.data);
-                     this.search();
-                 })
+                .then(response=>{
+                    console.log(response.data);
+                    this.search();
+                })
         },
         disabled(item)
         {
@@ -318,6 +318,7 @@ export default {
             formData.set('tutor',item.tutor || '');
             formData.set('retirement_date',item.retirement_date || '');
             formData.set('unit_id',item.unit_id || '');
+            formData.set('location_id',item.location_id || '');
             if(item.id)
             {
                 formData.set('id',item.id);

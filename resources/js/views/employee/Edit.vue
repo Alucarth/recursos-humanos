@@ -196,6 +196,17 @@
                     </v-flex>
                     <v-flex xs12 sm12 md6>
                         <v-select
+                        label="Ubicacion"
+                        v-model="item.location_id"
+                        :items="locations"
+                        item-text="name"
+                        item-value="id"
+                        hint=""
+                        persistent-hint>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm12 md6>
+                        <v-select
                         label="Gerencia"
                         v-model="item.management_id"
                         :items="managements"
@@ -347,7 +358,8 @@ export default
         menu_birth_date:false,
         modal: false,
         menu2: false,
-        imageData: ""
+        imageData: "",
+        locations:[],
 
     }),
     mounted(){
@@ -362,6 +374,7 @@ export default
         this.getManagements();
         this.getUnities();
         this.getContributions();
+        this.getLocations();
 
     },
     methods:{
@@ -416,6 +429,15 @@ export default
             axios.get('/api/auth/position')
             .then(response => {
                 this.positions = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        getLocations (){
+            axios.get('/api/auth/location')
+            .then(response => {
+                this.locations = response.data.locations;
             })
             .catch(error => {
                 console.log(error);
