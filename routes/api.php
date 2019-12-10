@@ -120,5 +120,5 @@ Route::group([
     Route::resource('salary','SalaryScaleController');
     Route::resource('user','UserController');
     Route::get('roles','UserController@roles');
-
+    Route::resource('academic_training','AcademicTrainingController');
 });

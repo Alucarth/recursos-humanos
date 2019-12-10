@@ -24,6 +24,7 @@ class CreateAcademicTrainingsTable extends Migration
             $table->string('grade')->nullable();
             $table->boolean('has_title')->default(false);
             $table->date('date')->nullable();
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }

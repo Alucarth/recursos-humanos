@@ -331,7 +331,7 @@ export default {
                                     'Content-Type': 'multipart/form-data'
                                     }
                         })
-                  .then(response => {
+                    .then(response => {
                         //this.$store.dispatch('template/showMessage',{message:'Se Actualizó la lista de productos',color:'success'});
                         iziToast.success({
                             title: 'OK',

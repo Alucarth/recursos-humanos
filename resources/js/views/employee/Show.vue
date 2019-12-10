@@ -2,7 +2,7 @@
 
     <v-card>
 
-       <v-tabs
+    <v-tabs
         v-model="tab"
         color="#AED6F1"
         light
@@ -10,7 +10,7 @@
         >
             <v-tab href="#tab-1">
                 <!-- <v-icon>people</v-icon> -->
-               1 <br> Datos Personales
+                1 <br> Datos Personales
             </v-tab>
             <v-tab href="#tab-2">
                 <!-- <v-icon>peoples</v-icon> -->
@@ -108,14 +108,14 @@
                             <td>{{family.cellphone}}</td>
                             <td>
                                 <!-- {{family.is_reference?'Si':'No'}} -->
-                                 <v-chip
+                                <v-chip
                                     class="ma-2"
                                     color="cyan"
                                     text-color="white"
                                     v-if='family.is_reference'
                                 >
 
-                                     {{family.is_reference?'Si':'No'}}
+                                    {{family.is_reference?'Si':'No'}}
                                 </v-chip>
                             </td>
                             <td>
@@ -177,6 +177,7 @@
                             <td>Grado</td>
                             <td>Título</td>
                             <td>Fecha de Emisión</td>
+                            <td>Documento</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -190,8 +191,13 @@
                             <td>{{academic.grade}}</td>
                             <td>{{academic.has_title?'Si':'No'}}</td>
                             <td>{{academic.date}}</td>
-                            <!-- <td> <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn> </td> -->
-                            <td> <v-btn v-if="employee.user_edit" icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn> </td>
+                            <td> <v-icon @click="showDialog(`${academic.file_path.toString().substring(6,academic.file_path.length)}`)" >insert_drive_file</v-icon> </td>
+                            <td>
+                                <v-layout justify-space-around>
+                                    <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn>
+                                    <v-btn v-if="employee.user_edit" icon  @click="delete_academic(index)"> <v-icon >delete</v-icon> </v-btn>
+                                </v-layout>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -307,7 +313,7 @@
                 </v-card-text>
                 </v-card>
             </v-tab-item>
-             <v-tab-item
+            <v-tab-item
                 value="tab-8"
             >
                 <size-edit :dialog="dialog_size" :employee="employee" @close="close_size"  @employee="update_zise"></size-edit>
@@ -332,11 +338,11 @@
                 <!-- <size-edit :dialog="dialog_size" :employee="employee" @close="close_size"  @employee="update_zise"></size-edit> -->
                 <work-edit :dialog="dialog_work" :work="work" @close="close_work"  @work="update_work"  ></work-edit>
                 <v-card flat>
-                     <v-card-title> Experiencia Laboral
+                    <v-card-title> Experiencia Laboral
                         <v-btn icon @click="create_work()" v-if="employee.user_edit"> <v-icon>add</v-icon> </v-btn>
                     </v-card-title>
                     <v-card-text>
-                         <table class="table">
+                        <table class="table">
                             <thead>
                                 <tr  class="rrhh-primary">
                                     <td>Gestión</td>
@@ -386,7 +392,7 @@
             </v-card-title> -->
 
             <v-card-text>
-                <iframe id='ireport' :src="'/api/ficha_personal/'+this.employee.id" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
+                <iframe id='ireport' :src="url" frameborder="0" allowtransparency="true" style="width:100%;height:500px"></iframe>
             </v-card-text>
 
             <v-divider></v-divider>
@@ -398,7 +404,7 @@
                 text
                 @click="dialog_report = false"
             >
-               Cerrar
+                Cerrar
             </v-btn>
             </v-card-actions>
         </v-card>
@@ -446,6 +452,7 @@ export default
         work:{},
         civil_statuses:[{id:'C',name:'Casado(a)'},{id:'S',name:'Soltero(a)'},{id:'V',name:'Viudo(a)'},{id:'D',name:'Divorciado(a)'},{id:'U',name:'Concubinato'}],
         countries: [],
+        url:''
 
     }),
     mounted()
@@ -475,6 +482,12 @@ export default
             // console.log(this.tab)
             // const tab = parseInt(this.tab)
             // this.tab = (tab < 2 ? tab + 1 : 0)
+        },
+        showDialog(url){
+            this.url = url;
+            console.log(this.url);
+            // document.getElementById('ireport').contentWindow.location.reload();
+            this.dialog_report = true;
         },
         edit_pd () {
             // this.editedIndex = this.employees.indexOf(item)
@@ -521,7 +534,7 @@ export default
 
             } else {
                 // this.desserts.push(this.editedItem)
-                  this.employee.families.push(item);
+                this.employee.families.push(item);
             }
 
             this.dialog_parentesco = false;
@@ -540,18 +553,54 @@ export default
         },
         edit_academic(item)
         {
-            this.academic = item;
-            this.dialog_academic = true;
+            axios.get(`api/auth/academic_training/${item.id}/edit`)
+                .then(response=>{
+                    this.academic = response.data.academic_training;
+                    this.dialog_academic = true;
+                });
+
         },
         create_academic()
         {
-            this.academic = {};
+            this.academic = {employee_id:this.employee.id};
             this.dialog_academic = true;
         },
-        update_academic(item){
-            console.log(item);
-            this.employee.academic_trainings.push(item);
-            this.dialog_academic = false;
+        update_academic(item)
+        {
+            let formData = new FormData();
+            if(item.id)
+            {
+                formData.set('id',item.id);
+            }
+            formData.set('employee_id',item.employee_id);
+            formData.set('date',item.date);
+            formData.set('document',item.document);
+            formData.set('employee_id',item.employee_id);
+            formData.set('grade',item.grade);
+            formData.set('has_title',item.has_title||false);
+            formData.set('instituion',item.instituion);
+            formData.set('name',item.name);
+            formData.set('state',item.state);
+            formData.append("file", item.curriculum_file || '');
+            // console.log(formData);
+            axios.post('api/auth/academic_training', formData,{
+                            headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                    }
+                        })
+                .then(response=>{
+                    // let index = this.employee.academic_trainings.indexOf(response.data.academic_training);
+                    let index = this.employee.academic_trainings.findIndex(x => x.id ===response.data.academic_training.id);
+                        console.log('Index XD',index);
+                    if(index>-1)
+                    {
+                        Object.assign(this.employee.academic_trainings[index], response.data.academic_training);
+                    }else{
+                        this.employee.academic_trainings.push(response.data.academic_training);
+                    }
+                    this.dialog_academic = false;
+                });
+
             //adicionar
         },
         close_academic(){
@@ -559,7 +608,22 @@ export default
         },
         delete_academic(index)
         {
-            this.employee.academic_trainings.splice(index, 1)
+            // let index = this.employee.academic_trainings.findIndex(x => x.id ===this.academic.id);
+            axios.delete(`/api/auth/academic_training/${this.employee.academic_trainings[index].id}`)
+            .then((response)=>{
+                this.employee.academic_trainings.splice(index, 1)
+
+                iziToast.success({
+                    title: 'Eliminacion Correcta',
+                    message: 'Se elimino '+response.data.name,
+                });
+            })
+            .catch( (error)=> {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Contactese con el Administrador de la Pagina: '+error,
+                });
+            });
         },
         create_course()
         {
@@ -646,14 +710,17 @@ export default
         },
         save_employee()
         {
+            // console.log(this.employee);
             axios.post('/api/auth/save_employee',this.employee)
-                 .then(response=>{
-                    //  console.log(response.data);
-                     this.employee = response.data.employee;
-                     document.getElementById('ireport').contentWindow.location.reload();
-                     this.dialog_report = true;
-                     console.log(this.employee);
-                 });
+                .then(response=>{
+                    this.employee = response.data.employee;
+                    this.url=`/api/ficha_personal/${this.employee.id}`
+                    document.getElementById('ireport').contentWindow.location.reload();
+                    this.dialog_report = true;
+
+                });
+            //save academic training
+
         },
         fullName(item){
             let first_name = item.first_name || '';
@@ -676,10 +743,10 @@ export default
             let name=''
             if(this.employee.civil_status)
             {
-               let obj = _.find(this.civil_statuses, (o)=> { return o.id ==this.employee.civil_status });
-               if(obj){
-                   name = obj.name
-               }
+                let obj = _.find(this.civil_statuses, (o)=> { return o.id ==this.employee.civil_status });
+                if(obj){
+                    name = obj.name
+                }
             }
             return name;
         },
@@ -687,15 +754,20 @@ export default
             let name=''
             if(this.employee.gender)
             {
-               if(this.employee.gender=='M')
-               {
-                   name = 'Masculino'
-               }else{
-                   name = 'Femenino'
-               }
+                if(this.employee.gender=='M')
+                {
+                    name = 'Masculino'
+                }else{
+                    name = 'Femenino'
+                }
             }
             return name;
+        },
+        getUrl()
+        {
+            return `/api/ficha_personal/${this.employee.id}`
         }
+
 
     },
     components: {

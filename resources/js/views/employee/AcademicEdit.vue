@@ -8,7 +8,7 @@
             <v-card-text v-if="item">
                 <v-container grid-list-md>
 
-                 <v-layout wrap>
+                <v-layout wrap>
 
                     <v-flex xs6 sm6 md3>
                         <v-text-field label="Formación Académica" hint="Ingrese Formación Académica" required v-model="item.name"></v-text-field>
@@ -56,7 +56,28 @@
                             ></v-date-picker>
                         </v-menu>
                     </v-flex>
+                    <v-flex xs6 sm6 md3>
+                        <v-chip
+                            class="ma-2"
 
+                            color="teal"
+                            text-color="white"
+
+                        >
+                        <v-avatar left>
+                            <v-icon @click="pickFile">file_upload</v-icon>
+                        </v-avatar>
+                        Documento
+                        </v-chip>
+                        <!-- <v-text-field label="Curriculum" @click='pickFile' v-model="curriculum_name" prepend-icon='attach_file'></v-text-field> -->
+                        <input
+                            type="file"
+                            style="display: none"
+                            ref="curriculum"
+                            accept="application/vnd.ms-excel"
+                            @change="onFilePicked"
+                        >
+                    </v-flex>
 
                 </v-layout>
                 </v-container>
@@ -122,11 +143,35 @@ export default
             this.item.date = date;
             this.$refs.menu_birth_date.save(date)
         },
+        pickFile () {
+            this.$refs.curriculum.click ()
+        },
+        onFilePicked (e) {
+            const files = e.target.files
+            console.log(files);
+			if(files[0] !== undefined) {
+				this.curriculum_name = files[0].name
+				if(this.curriculum_name.lastIndexOf('.') <= 0) {
+					return
+				}
+				const fr = new FileReader ()
+				fr.readAsDataURL(files[0])
+				fr.addEventListener('load', () => {
+					this.curriculum_url = fr.result
+                    this.curriculum_file = files[0] // this is an excel file that can be sent to server...
+                    this.item.curriculum_file = this.curriculum_file;
+				})
+			} else {
+				this.curriculum_name = ''
+				this.curriculum_file = ''
+				this.curriculum_url = ''
+			}
+        },
     },
     computed:{
         item(){
-           let item = this.academic
-           return item
+            let item = this.academic
+            return item
         },
         parent_dialog(){
 			return this.dialog
@@ -141,9 +186,9 @@ export default
         },
     },
     watch: {
-      menu_birth_date (val) {
-        val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-      },
+        menu_birth_date (val) {
+            val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+        },
     },
 
 }

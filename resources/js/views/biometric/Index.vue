@@ -6,7 +6,7 @@
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
         </v-card-title>
         <v-card-text>
-             <vue-bootstrap4-table :rows="biometrics" :columns="columns" :config="config" >
+            <vue-bootstrap4-table :rows="biometrics" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -203,7 +203,7 @@ export default {
                     message: 'Se elimino '+response.data.name,
                 });
             })
-            .catch(function (error) {
+            .catch( (error)=> {
                 iziToast.error({
                     title: 'Error',
                     message: 'Contactese con el Administrador de la Pagina: '+error,
