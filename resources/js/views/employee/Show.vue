@@ -191,7 +191,9 @@
                             <td>{{academic.grade}}</td>
                             <td>{{academic.has_title?'Si':'No'}}</td>
                             <td>{{academic.date}}</td>
-                            <td> <v-icon @click="showDialog(`${academic.file_path.toString().substring(6,academic.file_path.length)}`)" >insert_drive_file</v-icon> </td>
+                            <td>
+                                <v-icon v-if="academic.file_path"  @click="showDialog(`${academic.file_path.toString().substring(6,academic.file_path.length)}`)" >insert_drive_file</v-icon>
+                            </td>
                             <td>
                                 <v-layout justify-space-around>
                                     <v-btn v-if="employee.user_edit" icon  @click="edit_academic(academic)"> <v-icon >edit</v-icon> </v-btn>

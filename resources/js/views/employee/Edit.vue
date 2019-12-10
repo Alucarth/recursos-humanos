@@ -369,7 +369,7 @@ export default
             this.$refs.curriculum.click ()
         },
         pickImage(){
-             this.$refs.image.click ()
+            this.$refs.image.click ()
         },
         onFilePicked (e) {
             const files = e.target.files

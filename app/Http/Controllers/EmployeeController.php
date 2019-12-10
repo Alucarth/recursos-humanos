@@ -325,28 +325,28 @@ class EmployeeController extends Controller
             Log::info($item->first_name);
         }
 
-          //adicionar logica de borrado para cuando se tenga que hacer modificaciones a esto XD
-          $academics = AcademicTraining::where('employee_id',$employee->id)->get();
-          foreach($academics as $academic){
-              $academic->delete();
-          }
+        //adicionar logica de borrado para cuando se tenga que hacer modificaciones a esto XD
+        //   $academics = AcademicTraining::where('employee_id',$employee->id)->get();
+        //   foreach($academics as $academic){
+        //       $academic->delete();
+        //   }
 
-        //registrando formacion academica
-        foreach($request->academic_trainings as $a_academic)
-        {
-            $item = (object) $a_academic;
-            $academic = new AcademicTraining;
-            $academic->employee_id = $employee->id;
-            $academic->name = $item->name;
-            $academic->document = $item->document;
-            $academic->state = $item->state;
-            $academic->instituion = $item->instituion;
-            $academic->grade = $item->grade;
-            $academic->has_title = $item->has_title;
-            $academic->date = $item->date;
-            $academic->save();
-            // Log::info($item->first_name);
-        }
+        // //registrando formacion academica
+        // foreach($request->academic_trainings as $a_academic)
+        // {
+        //     $item = (object) $a_academic;
+        //     $academic = new AcademicTraining;
+        //     $academic->employee_id = $employee->id;
+        //     $academic->name = $item->name;
+        //     $academic->document = $item->document;
+        //     $academic->state = $item->state;
+        //     $academic->instituion = $item->instituion;
+        //     $academic->grade = $item->grade;
+        //     $academic->has_title = $item->has_title;
+        //     $academic->date = $item->date;
+        //     $academic->save();
+        //     // Log::info($item->first_name);
+        // }
 
         $courses = Course::where('employee_id',$employee->id)->get();
         foreach($courses as $course){
