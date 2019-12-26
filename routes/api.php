@@ -23,6 +23,7 @@ Route::get('employee_request_print/{id}', 'ReportController@boleta');
 Route::get('attendance_employee/{employee_id}/{from_date}/{to_date}','ReportController@attendance_employee');
 Route::get('attendance_employee_date/{employee_id}/{from_date}/{to_date}','ReportController@attendance_employee_date');
 Route::get('payroll/{management_id}/{from_date}/{to_date}','ReportExcelController@payroll');
+Route::get('roe','ReportExcelController@roe');
 
 //** Revisar  */
 Route::get('ReportMonth/{fecha}/{id_user}/{planta}', 'ReportController@ReportMonth');

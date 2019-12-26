@@ -12,6 +12,15 @@ use App\Sanction;
 class ReportExcelController extends Controller
 {
     //
+    public function roe()
+    {
+        Excel::create('Planilla Empleados', function($excel)   {
+		    $excel->sheet('planilla empleados', function($sheet)  {
+		      $sheet->loadView('reportExcel.roe');
+		    });
+		})->export('xls');
+
+    }
     public function payroll($management_id,$f_date,$t_date)
     {
 

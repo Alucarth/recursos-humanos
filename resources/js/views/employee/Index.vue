@@ -5,10 +5,11 @@
         <v-spacer></v-spacer>
 
         <v-btn @click="create();" color="primary" dark class="mb-2">Nuevo</v-btn>
+        <v-btn @click="download();" color="success" dark class="mb-2">Roe</v-btn>
         </v-card-title>
         <v-card-text>
 
-             <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
+            <vue-bootstrap4-table :rows="employees" :columns="columns" :config="config" >
                 <template slot="sort-asc-icon">
                     <i class="fa fa-sort-asc"></i>
                 </template>
@@ -19,7 +20,7 @@
                     <i class="fa fa-sort"></i>
                 </template>
                 <template slot="active" slot-scope="props">
-                   <div class="text-xs-center">
+                    <div class="text-xs-center">
                     <v-chip :color="props.row.active?'success':'danger'" :text-color="props.row.active?'white':'danger'" small>{{props.row.active?'Activo':'Inactivo'}}</v-chip>
                     </div>
                 </template>
@@ -93,7 +94,7 @@ import AssignEdit from './AssignEdit';
 export default {
     data:()=>({
 
-       columns: [
+        columns: [
             // {
             //     label: "Item",
             //     name: "item",
@@ -232,15 +233,15 @@ export default {
         {
             console.log('deshabilitado');
             axios.post('api/auth/enabled_employee',{id:item.id,user_edit:false})
-                 .then(response=>{
-                     console.log(response.data);
-                     this.search();
-                 })
+                .then(response=>{
+                    console.log(response.data);
+                    this.search();
+                })
         },
 
         search(){
             axios.get('api/auth/employee')
-                 .then((response)=>{
+                .then((response)=>{
                     this.employees = response.data;
                     console.log(response.data);
                 });
@@ -248,21 +249,21 @@ export default {
         edit_assing(item)
         {
             axios.get(`api/auth/employee/${item.id}`)
-                 .then(response=>{
+                .then(response=>{
                     this.employee= response.data.employee;
                     this.dialog_assign = true;
-                 });
+                });
         },
         update_assign(item)
         {
             axios.post(`api/auth/assign_type_hour`,item)
-                 .then(response=>{
-                      iziToast.success({
+                .then(response=>{
+                    iziToast.success({
                                 title: 'Se asigo horario a ',
                                 message: `${response.data.name}`,
                             })
                         this.dialog_assign = false;
-                 });
+                });
             // console.log(item)
         },
         close_assign()
@@ -373,7 +374,29 @@ export default {
         {
             this.employee = employee;
             this.dialog_report = true;
-        }
+        },
+        download: (event) => {
+            // `this` inside methods point to the Vue instance
+
+            //  self.dialog = true;
+            //let parameters = this.getParams();
+            //parameters.excel =true;
+            //console.log(parameters);
+            axios({
+                url: '/api/roe',
+                method: 'GET',
+              //  params: parameters,
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Roe'+moment().format()+'.xls');
+                document.body.appendChild(link);
+                link.click();
+                self.dialog = false;
+            });
+        },
 
     },
     components: {
