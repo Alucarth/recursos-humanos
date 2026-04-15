@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - mi_red
+    # network_mode: host
+    # depends_on:
+    #   - db
+
+  # db:
+  #   image: postgres:13
+  #   container_name: laravel_db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_DB: eba_db
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: 123456
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - laravel_network
+
+  # Opcional: Si necesitas un servicio de colas como Redis
+  # redis:
+  #   image: redis:alpine
+  #   container_name: laravel_redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - laravel_network
+
+# volumes:
+#   postgres_data:
+
+networks:
+  mi_red:
+    driver: bridge
